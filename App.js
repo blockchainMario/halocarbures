@@ -1,17 +1,109 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Platform, StatusBar, StyleSheet, View, Image, Text, Linking } from 'react-native';
+import { Card, Divider, ListItem } from 'react-native-elements';
+
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
+import { SimpleLineIcons } from '@expo/vector-icons';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import CarePlanScreen from './screens/CarePlanScreen';
+import CircleOfCareScreen from './screens/CircleOfCareScreen';
+import ResidentScreen from './screens/ResidentScreen';
+import NursingHomeScreen from './screens/NursingHomeScreen';
+import LeaseScreen from './screens/LeaseScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 
+import { NunitoExtraText } from './components/StyledText';
+import { NunitoText } from './components/StyledText';
+import { NunitoBoldText } from './components/StyledText';
+
+const Drawer = createDrawerNavigator();
+
 const Stack = createStackNavigator();
 
+const loggedIn = false;
+
+function closeAndReplace(navigation,screen) {
+  navigation.closeDrawer();
+  navigation.dispatch(StackActions.replace(screen))
+}
+
+function DrawerContent({navigation}) {
+  return (
+    <View style={styles.container2}>
+      <View style={{ flexDirection:"row", marginTop: 60 }}>
+        <Image
+          source={require('./assets/images/MarioPerron.jpg')}
+          style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
+        />
+        <NunitoBoldText style={{fontSize: 18, color:'white', marginLeft: 10, marginTop: 12}}>Mario Perron</NunitoBoldText>
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <ListItem 
+          title={"Mon profil"} 
+          chevron
+          onPress={() => navigation.navigate('Profile')}
+        />
+        <ListItem 
+          title={"Aide et soutien"} 
+          chevron
+          onPress={()=>{ Linking.openURL('https://hopem.didacte.com/')}}
+        />
+        <ListItem 
+          title={"Donnez votre avis"} 
+          chevron
+          onPress={()=>{ Linking.openURL('https://hopem.com/contact/')}}
+        />
+        <ListItem 
+          title={"Inscription"}
+          chevron
+          onPress={() => closeAndReplace(navigation,'Register')}
+        />
+        <ListItem 
+          title={"Déconnexion"}
+          chevron
+          onPress={() => closeAndReplace(navigation,'Login')}
+        />
+      </View>
+    </View>
+  );
+}
+
+function ActionBarIcon({navigation}) {
+  //alert(navigation);
+  return (
+    <View style={{flexDirection:"row"}}>
+      <View style={{flex:1}}>
+        <SimpleLineIcons
+          name='menu'
+          size={30}
+          style={{ marginTop: 3, marginLeft: 10, padding: 10 }}
+          color={'white'}
+          onPress={() => navigation.openDrawer()}
+          //onPress={() => this.props.navigation.navigate('MyDrawer')}
+        />
+      </View>
+      <View style={{flex:1}}>
+        <Image
+          source={require('./assets/images/gerard.jpg')}
+          style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} />
+      </View>
+    </View>
+  );
+}
+
 export default function App(props) {
+  const [isLoggedIn, setLoggedIn] = React.useState(true);
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
@@ -30,6 +122,9 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'nunito-extra': require('./assets/fonts/Nunito-ExtraLight.ttf'),
+          'nunito-light': require('./assets/fonts/Nunito-Light.ttf'),
+          'nunito-extra-bold': require('./assets/fonts/Nunito-SemiBold.ttf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -46,22 +141,238 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
+    //alert(isLoggedIn);
     return (
+      isLoggedIn ? (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+        <SafeAreaProvider>
+          <NavigationContainer ref={containerRef} initialState={initialNavigationState}>   
+          <Drawer.Navigator initialRouteName="Home"  drawerContent={(props) => <DrawerContent {...props}/>}>
+            <Drawer.Screen name="Home" component={MyStack} />
+          </Drawer.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
       </View>
+      ) : (
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+          <SafeAreaProvider>
+            <NavigationContainer ref={containerRef} initialState={initialNavigationState}>   
+              <Stack.Navigator>
+                <Stack.Screen name="Login" component={LoginScreen} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </View>
+      )
     );
   }
+}
+
+const MyStack = ({navigation}) => {
+  return (
+  <Stack.Navigator>
+    <Stack.Screen 
+      name="Root" 
+      component={BottomTabNavigator} 
+      options={{
+        title: 'My home',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        },
+        headerLeft : () => <ActionBarIcon navigation={navigation}/>
+      }}
+    />
+    <Stack.Screen name='CarePlan' component={CarePlanScreen} 
+      options={{
+        title: 'Plan de soins',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='CircleOfCare' component={CircleOfCareScreen}
+      options={{
+        title: 'Contacts',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='Resident' component={ResidentScreen}
+      options={{
+        title: 'Gérard Lavallée',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='NursingHome' component={NursingHomeScreen}
+      options={{
+        title: 'Hébergement',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='Lease' component={LeaseScreen}
+      options={{
+        title: 'Bail',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='Profile' component={ProfileScreen}
+      options={{
+        title: 'Mon profil',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='Login' component={LoginScreen}
+      options={{
+        title: 'Login',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+    <Stack.Screen name='Register' component={RegisterScreen}
+      options={{
+        title: 'Inscription',
+        headerStyle: {
+          backgroundColor: '#a483b8',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
+  </Stack.Navigator>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#e0dfdf',
   },
+  container2: {
+    flex: 1,
+    backgroundColor: '#a483b8',
+  },
+	topName: {
+		fontSize: 24,
+		color:'white',
+    marginTop:15,
+    marginLeft:10
+	},
 });
