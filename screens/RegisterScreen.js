@@ -10,6 +10,7 @@ import {
   Image,
   Alert
 } from 'react-native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
@@ -17,11 +18,15 @@ import { NunitoBoldText } from '../components/StyledText';
 
 export default class RegisterScreen extends Component {
 
-  onClickListener = (viewId) => {
-    Alert.alert("Alert", "Button pressed "+viewId);
+  onClickListener = (navigation, viewId) => {
+    //Alert.alert("Alert", "Button pressed "+viewId);
+    navigation.dispatch(StackActions.replace('Root'));
   }
 
   render() {
+    
+    const navigation = this.props.navigation;
+
     return (
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
@@ -67,7 +72,8 @@ export default class RegisterScreen extends Component {
                   borderWidth: 0,
                   backgroundColor: '#a483b8'
                 }}
-                onPress={() => this.onClickListener('login')}
+                //onPress={() => this.onClickListener('login')}
+                onPress={() => this.onClickListener(navigation)}
           >
             <NunitoBoldText style={styles.textStyle}>S'inscrire</NunitoBoldText>
           </TouchableHighlight>
