@@ -14,13 +14,16 @@ import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+const endPoint = 'https://xmy30ackkf.execute-api.us-east-2.amazonaws.com/api/';
+
 export default class NursingHomeScreen extends Component {
   state = {
     residence: null
   }
 
   componentDidMount() {
-    axios.get('http://18.191.91.177:8080/residence/0')
+    //axios.get('http://18.191.91.177:8080/residence/0')
+    axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
       .then(res => {
         const residence = res.data;
         this.setState({ residence: residence });
@@ -43,7 +46,12 @@ export default class NursingHomeScreen extends Component {
                     <View style={styles.bodyContent}>
                       <NunitoBoldText style={styles.name}>{this.state.residence.name}</NunitoBoldText>
                       <NunitoBoldText style={styles.info}>{this.state.residence.address}</NunitoBoldText>
-                      <NunitoText style={styles.description}>{this.state.residence.description}</NunitoText   >
+                      <NunitoText style={styles.description}>{this.state.residence.description}</NunitoText>
+                      <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
+                      <NunitoBoldText style={styles.info}>Réception +1 418 546-0914</NunitoBoldText>
+                      <NunitoBoldText style={styles.info}>Équipe de soins +1 418 546-4049</NunitoBoldText>
+                      <NunitoBoldText style={styles.info}>Comptabilité +1 418 546-6578</NunitoBoldText>
+                      <NunitoBoldText style={styles.info}>Direction +1 418 546-3367</NunitoBoldText>
                     </View>
                 </View>
             </View>

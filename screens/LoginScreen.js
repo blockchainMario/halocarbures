@@ -31,12 +31,12 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
         <Image style={styles.avatar} source={require('../assets/images/symo.png')}/>
-        <NunitoBoldText style={styles.promoterName}>SyMO-Famille</NunitoBoldText>
+        <NunitoBoldText style={styles.promoterName}>Proximité</NunitoBoldText>
         <View>
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
-              placeholderTextColor = "#a483b8"
+              placeholderTextColor = "#D8C7E2"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -47,7 +47,7 @@ export default class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#a483b8"
+              placeholderTextColor = "#D8C7E2"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -59,7 +59,7 @@ export default class LoginScreen extends Component {
                   margin: 10,
                   borderRadius: 10,
                   borderWidth: 0,
-                  backgroundColor: '#a483b8'
+                  backgroundColor: '#8B4B9D'
                 }}
                 //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}
@@ -103,18 +103,18 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     padding: 10,
-    borderColor: '#92d6df',
+    borderColor: '#B898C7',
     borderWidth: 1
 	},
   container: {
     flex: 1,
-    backgroundColor: '#e9e9e9',
+    backgroundColor: 'white',
     marginTop: 0,
     padding: 20,
   },
   container2: {
     flex: 1,
-    backgroundColor: '#e9e9e9',
+    backgroundColor: 'white',
     marginTop: 0,
   },
   avatar: {

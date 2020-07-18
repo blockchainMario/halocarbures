@@ -33,7 +33,7 @@ export default class NotesFeedScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View>
-            { this.state.comments.map(comment => <CommentCard date={comment.date} title={comment.title} comment={comment.comment} image={comment.image} />)}
+            { this.state.comments.map(comment => <CommentCard key={comment.id} date={comment.date} title={comment.title} comment={comment.comment} image={comment.image} />)}
           </View>
        </ScrollView>
       </View>

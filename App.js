@@ -122,9 +122,9 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-          'nunito-extra': require('./assets/fonts/Nunito-ExtraLight.ttf'),
-          'nunito-light': require('./assets/fonts/Nunito-Light.ttf'),
-          'nunito-extra-bold': require('./assets/fonts/Nunito-SemiBold.ttf'),
+          'nunito-extra': require('./assets/fonts/Brown-Light.ttf'),
+          'nunito-light': require('./assets/fonts/Brown-Light.ttf'),
+          'nunito-extra-bold': require('./assets/fonts/Brown-Bold.ttf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -179,7 +179,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'My home',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -200,7 +200,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Plan de soins',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -220,7 +220,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Contacts',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -240,7 +240,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Gérard Lavallée',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -260,7 +260,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Hébergement',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -280,7 +280,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Bail',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -300,7 +300,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Mon profil',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -320,7 +320,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Login',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -340,7 +340,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Inscription',
         headerStyle: {
-          backgroundColor: '#a483b8',
+          backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex: 1,
-    backgroundColor: '#a483b8',
+    backgroundColor: '#A071B1',
   },
 	topName: {
 		fontSize: 24,
