@@ -13,6 +13,7 @@ import axios from 'axios';
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default class ResidentScreen extends Component {
   state = {

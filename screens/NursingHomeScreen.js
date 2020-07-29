@@ -5,7 +5,8 @@ import {
   View,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableHighlight,
+  Alert
 } from 'react-native';
 
 import axios from 'axios';
@@ -22,8 +23,8 @@ export default class NursingHomeScreen extends Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.191.91.177:8080/residence/0')
-    axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
+    axios.get('http://18.191.91.177:8080/residence/0')
+    //axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
       .then(res => {
         const residence = res.data;
         this.setState({ residence: residence });
@@ -48,10 +49,19 @@ export default class NursingHomeScreen extends Component {
                       <NunitoBoldText style={styles.info}>{this.state.residence.address}</NunitoBoldText>
                       <NunitoText style={styles.description}>{this.state.residence.description}</NunitoText>
                       <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
-                      <NunitoBoldText style={styles.info}>Réception +1 418 546-0914</NunitoBoldText>
-                      <NunitoBoldText style={styles.info}>Équipe de soins +1 418 546-4049</NunitoBoldText>
-                      <NunitoBoldText style={styles.info}>Comptabilité +1 418 546-6578</NunitoBoldText>
-                      <NunitoBoldText style={styles.info}>Direction +1 418 546-3367</NunitoBoldText>
+                      
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la réception")}>
+                      <NunitoBoldText style={styles.info}>Réception</NunitoBoldText>
+                      </TouchableHighlight>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter l'équipe de soins")}>
+                      <NunitoBoldText style={styles.info}>Équipe de soins</NunitoBoldText>
+                      </TouchableHighlight>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la comptabilité")}>
+                      <NunitoBoldText style={styles.info}>Comptabilité</NunitoBoldText>
+                      </TouchableHighlight>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la direction")}>
+                      <NunitoBoldText style={styles.info}>Direction</NunitoBoldText>
+                      </TouchableHighlight>
                     </View>
                 </View>
             </View>

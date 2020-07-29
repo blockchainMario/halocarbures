@@ -11,6 +11,7 @@ import {
   Alert
 } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
@@ -30,13 +31,12 @@ export default class LoginScreen extends Component {
     return (
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
-        <Image style={styles.avatar} source={require('../assets/images/symo.png')}/>
-        <NunitoBoldText style={styles.promoterName}>Proximité</NunitoBoldText>
+        <Image style={styles.avatar} source={require('../assets/images/background.png')}/>
         <View>
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
-              placeholderTextColor = "#D8C7E2"
+              placeholderTextColor = "#8B4B9D"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -47,7 +47,7 @@ export default class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#D8C7E2"
+              placeholderTextColor = "#8B4B9D"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -59,7 +59,7 @@ export default class LoginScreen extends Component {
                   margin: 10,
                   borderRadius: 10,
                   borderWidth: 0,
-                  backgroundColor: '#8B4B9D'
+                  backgroundColor: '#a483b8'
                 }}
                 //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}
@@ -103,24 +103,26 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     padding: 10,
-    borderColor: '#B898C7',
+    borderColor: '#8B4B9D',
     borderWidth: 1
 	},
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#e9e9e9',
     marginTop: 0,
-    padding: 20,
+    padding: 0,
   },
   container2: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#e9e9e9',
     marginTop: 0,
   },
   avatar: {
     width: 180,
-    height: 113,
+    height: 150,
     alignSelf:'center',
+    marginTop: 30,
+    marginBottom: 30,
   },
 });
  

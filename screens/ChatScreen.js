@@ -36,25 +36,25 @@ export default function ChatScreen() {
           const odd = i % 2;
 
           return (
-			<Card containerStyle={odd ? styles.card0 : styles.card1}>
+			<Card key={i} containerStyle={odd ? styles.card0 : styles.card1}>
                 <Card containerStyle={odd ? styles.card2 : styles.card3}>
                     <View
                         // eslint-disable-next-line react/no-array-index-key
                         key={i}
                         style={[odd ? styles.even : styles.odd]}
                     >
-                        <Image
+                      <Image
                             style={[odd ? styles.avatarEven : styles.avatarOdd]}
                             source={
                             odd
                                 ? require('../assets/images/gerard.jpg')
                                 : require('../assets/images/veronique.jpg')
                             }
-                        />
-                        <View style={{flex:4}}>
+                      />
+                      <View style={{flex:4}}>
                             <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>8 mai 2020</NunitoBoldText>
                             <NunitoText style={styles.name}>{text}</NunitoText>
-                        </View>
+                      </View>
                     </View>
 			    </Card>
 			</Card>
@@ -94,27 +94,27 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   card0:{
-      backgroundColor:'#f8f8f8',
+      backgroundColor:'white',
       borderColor:'#f0f0f0',
       borderWidth:0,
       borderRadius:10
   },
   card1:{
-      backgroundColor:'#c5e5ec',
+      backgroundColor:'white',
       borderWidth:0,
       borderRadius:10
   },
   card2:{
-      backgroundColor:'#f8f8f8',
-      borderColor:'#f4f4f4',
+      backgroundColor:'white',
+      borderColor:'#f0f0f0',
       borderWidth:0,
       borderRadius:5,
       margin:-10,
       marginBottom: -11
   },
   card3:{
-      backgroundColor:'#c5e5ec',
-      borderColor:'#b1d7df',
+      backgroundColor:'white',
+      borderColor:'#f0f0f0',
       borderWidth:0,
       borderRadius:5,
       margin:-10,
@@ -125,6 +125,8 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 0,
+    flex: 1,
+    backgroundColor: '#e9e9e9',
   },
   even: {
     flexDirection: 'row',

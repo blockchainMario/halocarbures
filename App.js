@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Platform, StatusBar, StyleSheet, View, Image, Text, Linking } from 'react-native';
+import { Platform, StatusBar, ImageBackground, StyleSheet, View, Image, Text, Linking } from 'react-native';
 import { Card, Divider, ListItem } from 'react-native-elements';
 
 import { SplashScreen } from 'expo';
@@ -26,6 +26,7 @@ import useLinking from './navigation/useLinking';
 import { NunitoExtraText } from './components/StyledText';
 import { NunitoText } from './components/StyledText';
 import { NunitoBoldText } from './components/StyledText';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Drawer = createDrawerNavigator();
 
@@ -75,6 +76,11 @@ function DrawerContent({navigation}) {
           onPress={() => closeAndReplace(navigation,'Login')}
         />
       </View>
+      <ImageBackground
+          source={require('./assets/images/background.png')}
+          style={styles.image}
+      >
+      </ImageBackground>
     </View>
   );
 }
@@ -177,7 +183,7 @@ const MyStack = ({navigation}) => {
       name="Root" 
       component={BottomTabNavigator} 
       options={{
-        title: 'My home',
+        title: 'Infos',
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
@@ -363,11 +369,11 @@ const MyStack = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e0dfdf',
+    backgroundColor: '#A071B1',
   },
   container2: {
     flex: 1,
-    backgroundColor: '#A071B1',
+    backgroundColor: '#8B4B9D',
   },
 	topName: {
 		fontSize: 24,
@@ -375,4 +381,11 @@ const styles = StyleSheet.create({
     marginTop:15,
     marginLeft:10
 	},
+  image: {
+    flex: 1,
+    left: -50,
+    height: 275,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
 });

@@ -25,7 +25,7 @@ export default class ActivityCard extends Component {
 				
 				<View style={{flexDirection:'row', justifyContent:'space-between'}}>
 					<NunitoBoldText style={styles.occupation}>{this.props.occupation}</NunitoBoldText>
-					<NunitoBoldText style={styles.frequency}>{this.props.frequency}</NunitoBoldText>
+					<NunitoBoldText style={styles.frequency}>{this.props.next}</NunitoBoldText>
 				</View>
 			</Card>
 		);

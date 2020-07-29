@@ -20,7 +20,7 @@ const list1 = [
 
 const list2 = [
     {
-        title: 'Proches aidants',
+        title: 'Famille et proches aidants',
         icon: 'group',
         screen: 'CircleOfCare'
     },
