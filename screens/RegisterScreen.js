@@ -30,7 +30,10 @@ export default class RegisterScreen extends Component {
     return (
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
-        <Image style={styles.avatar} source={require('../assets/images/background.png')}/>
+        <View style={styles.container3}>
+          <Image style={styles.avatar} source={require('../assets/images/logoBlackongray.png')}/>
+          <NunitoText style={styles.title}>proximité</NunitoText>
+        </View>
         <View>
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}
@@ -102,6 +105,11 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
   },
+  title:{
+    marginTop: 30,
+    marginLeft: 10,
+    fontSize: 36,
+	},
   label:{
     marginLeft: 10,
 	},
@@ -123,9 +131,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#e9e9e9',
     marginTop: 0,
   },
+  container3: {
+    flexDirection: "row",
+    alignSelf:'center',
+    backgroundColor: '#e9e9e9',
+    marginTop: 0,
+  },
   avatar: {
-    width: 180,
-    height: 150,
+    width: 60,
+    height: 60,
     alignSelf:'center',
     marginTop: 30,
     marginBottom: 30,
