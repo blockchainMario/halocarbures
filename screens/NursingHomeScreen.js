@@ -15,7 +15,7 @@ import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
-const endPoint = 'https://xmy30ackkf.execute-api.us-east-2.amazonaws.com/api/';
+const endPoint = 'https://ex9ohi0wm7.execute-api.us-east-2.amazonaws.com/api';
 
 export default class NursingHomeScreen extends Component {
   state = {
@@ -23,7 +23,7 @@ export default class NursingHomeScreen extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://18.191.91.177:8080/residence/0')
+    axios.get(endPoint+"/residencies/3caf4244-d438-11ea-9a8d-31b94ee2b538")
     //axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
       .then(res => {
         const residence = res.data;
