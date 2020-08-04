@@ -15,7 +15,7 @@ import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
-const endPoint = 'https://ex9ohi0wm7.execute-api.us-east-2.amazonaws.com/api';
+import GLOBALS from '../constants/Globals'
 
 export default class NursingHomeScreen extends Component {
   state = {
@@ -23,7 +23,7 @@ export default class NursingHomeScreen extends Component {
   }
 
   componentDidMount() {
-    axios.get(endPoint+"/residencies/3caf4244-d438-11ea-9a8d-31b94ee2b538")
+    axios.get(GLOBALS.ENDPOINT+"/residencies/3caf4244-d438-11ea-9a8d-31b94ee2b538")
     //axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
       .then(res => {
         const residence = res.data;
@@ -42,7 +42,14 @@ export default class NursingHomeScreen extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
             <View style={styles.container}>
-                <Image style={styles.avatar} source={{uri : this.state.residence.image}}/>
+                <Image style={styles.avatar} 
+                  source={{
+                    uri: GLOBALS.ENDPOINT+'/images/residencies/3caf4244-d438-11ea-9a8d-31b94ee2b538/profile',
+                    headers: {
+                      Accept: 'image/jpeg'
+                    }
+                  }}
+                />
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
                       <NunitoBoldText style={styles.name}>{this.state.residence.name}</NunitoBoldText>

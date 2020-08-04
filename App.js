@@ -58,12 +58,12 @@ function DrawerContent({navigation}) {
         <ListItem 
           title={"Aide et soutien"} 
           chevron
-          onPress={()=>{ Linking.openURL('https://hopem.didacte.com/')}}
+          onPress={()=>{ Linking.openURL('https://support.medhelper.ca/hc/fr-ca')}}
         />
         <ListItem 
           title={"Donnez votre avis"} 
           chevron
-          onPress={()=>{ Linking.openURL('https://hopem.com/contact/')}}
+          onPress={()=>{ Linking.openURL('https://support.medhelper.ca/hc/fr-ca/requests/new')}}
         />
         <ListItem 
           title={"Inscription"}

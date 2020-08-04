@@ -10,6 +10,8 @@ import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
+import GLOBALS from '../constants/Globals'
+
 export default class NewsFeedScreen extends Component {
   state = {
     newsfeed: null
@@ -17,6 +19,7 @@ export default class NewsFeedScreen extends Component {
 
   componentDidMount() {
     axios.get('http://18.191.91.177:8080/newsfeed/0')
+    //axios.get(GLOBALS.ENDPOINT+"/newsfeeds/3caf4244-d438-11ea-9a8d-31b94ee2b538/68e6c454-d503-11ea-8bab-c31d6a0d7d7b")
       .then(res => {
         const newsfeed = res.data;
         this.setState({ newsfeed: newsfeed });
