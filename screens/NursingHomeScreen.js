@@ -23,7 +23,7 @@ export default class NursingHomeScreen extends Component {
   }
 
   componentDidMount() {
-    axios.get(GLOBALS.ENDPOINT+"/residencies/3caf4244-d438-11ea-9a8d-31b94ee2b538")
+    axios.get(GLOBALS.ENDPOINT+"/residencies/"+GLOBALS.RESIDENCYID)
     //axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
       .then(res => {
         const residence = res.data;
@@ -44,7 +44,7 @@ export default class NursingHomeScreen extends Component {
             <View style={styles.container}>
                 <Image style={styles.avatar} 
                   source={{
-                    uri: GLOBALS.ENDPOINT+'/images/residencies/3caf4244-d438-11ea-9a8d-31b94ee2b538/profile',
+                    uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile',
                     headers: {
                       Accept: 'image/jpeg'
                     }
@@ -53,21 +53,23 @@ export default class NursingHomeScreen extends Component {
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
                       <NunitoBoldText style={styles.name}>{this.state.residence.name}</NunitoBoldText>
-                      <NunitoBoldText style={styles.info}>{this.state.residence.address}</NunitoBoldText>
-                      <NunitoText style={styles.description}>{this.state.residence.description}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.residence.address}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.residence.city}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.residence.province}, {this.state.residence.country} {this.state.residence.postalCode}</NunitoText>
+                      
                       <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
                       
                       <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la réception")}>
-                      <NunitoBoldText style={styles.info}>Réception</NunitoBoldText>
+                      <NunitoText style={styles.info}>Réception</NunitoText>
                       </TouchableHighlight>
                       <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter l'équipe de soins")}>
-                      <NunitoBoldText style={styles.info}>Équipe de soins</NunitoBoldText>
+                      <NunitoText style={styles.info}>Équipe de soins</NunitoText>
                       </TouchableHighlight>
                       <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la comptabilité")}>
-                      <NunitoBoldText style={styles.info}>Comptabilité</NunitoBoldText>
+                      <NunitoText style={styles.info}>Comptabilité</NunitoText>
                       </TouchableHighlight>
                       <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la direction")}>
-                      <NunitoBoldText style={styles.info}>Direction</NunitoBoldText>
+                      <NunitoText style={styles.info}>Direction</NunitoText>
                       </TouchableHighlight>
                     </View>
                 </View>
@@ -104,19 +106,20 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:20
+    marginTop:0
   },
   name:{
     fontSize:24,
     color:"black",
   },
   body:{
-    marginTop:240,
+    marginTop:200,
   },
   bodyContent: {
     padding:10,
   },
   name:{
+    marginTop:10,
     fontSize:24,
     color: 'black',
   },

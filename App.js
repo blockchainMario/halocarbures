@@ -28,6 +28,8 @@ import { NunitoText } from './components/StyledText';
 import { NunitoBoldText } from './components/StyledText';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import GLOBALS from './constants/Globals'
+
 const Drawer = createDrawerNavigator();
 
 const Stack = createStackNavigator();
@@ -100,9 +102,15 @@ function ActionBarIcon({navigation}) {
         />
       </View>
       <View style={{flex:1}}>
-        <Image
-          source={require('./assets/images/gerard.jpg')}
-          style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} />
+        <Image style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
+          source={{
+            uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
+            headers: {
+              Accept: 'image/jpeg',
+              'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+            }
+          }}
+        />
       </View>
     </View>
   );

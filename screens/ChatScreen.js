@@ -16,6 +16,8 @@ import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+import GLOBALS from '../constants/Globals'
+
 const MESSAGES = [
     'Bonjour papa!',
     'Bonjour Véronique',
@@ -47,7 +49,11 @@ export default function ChatScreen() {
                             style={[odd ? styles.avatarEven : styles.avatarOdd]}
                             source={
                             odd
-                                ? require('../assets/images/gerard.jpg')
+                                ? {uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
+                                headers: {
+                                  Accept: 'image/jpeg',
+                                  'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+                                }}
                                 : require('../assets/images/veronique.jpg')
                             }
                       />

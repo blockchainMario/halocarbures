@@ -15,17 +15,28 @@ import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import GLOBALS from '../constants/Globals'
+
 export default class ResidentScreen extends Component {
   state = {
     resident: null
   }
 
   componentDidMount() {
-    axios.get('http://18.191.91.177:8080/resident/0')
+    //axios.get('http://18.191.91.177:8080/resident/0')
+    axios.get(GLOBALS.ENDPOINT+"/residents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
       .then(res => {
         const resident = res.data;
         this.setState({ resident: resident });
-        //alert(resident);
+        //alert(JSON.stringify(resident));
+      })
+      .catch((error) => {
+        alert(error)
       })
   }
 
@@ -39,7 +50,15 @@ export default class ResidentScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
-              <Image style={styles.avatar} source={{uri : this.state.resident.image}}/>
+              <Image style={styles.avatar} 
+                  source={{
+                    uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
+                    headers: {
+                      Accept: 'image/jpeg',
+                      'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+                    }
+                  }}
+                />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
                       <NunitoBoldText style={styles.name}>{this.state.resident.firstName} {this.state.resident.lastName}</NunitoBoldText>
@@ -48,15 +67,6 @@ export default class ResidentScreen extends Component {
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>Date d'admission : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.admissionDate.substr(0,10)}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>Adresse : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.address}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>Unité : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.unit}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>Numéro de téléphone : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.phoneNumber}</NunitoBoldText>
                       </View>
                 </View>
               </View>
@@ -87,12 +97,17 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 375,
-    height: 240,
+    width: 400,
+    height: 200,
+    borderWidth: 4,
+    borderColor: "white",
     marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:0
   },
   body:{
-    marginTop: -10,
+    marginTop: 210,
   },
   bodyContent: {
     padding:10,
