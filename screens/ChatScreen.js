@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Image,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import { useScrollToTop, useTheme } from '@react-navigation/native';
+import axios from 'axios';
 import Color from 'color';
 
 import { NunitoExtraText } from '../components/StyledText';
@@ -18,27 +19,46 @@ import { NunitoBoldText } from '../components/StyledText';
 
 import GLOBALS from '../constants/Globals'
 
-const MESSAGES = [
-    'Bonjour papa!',
-    'Bonjour Véronique',
-    'Comment vas-tu aujourd\'hui ?',
-    'Très bien',
-];
+//const { colors } = useTheme();
 
-export default function ChatScreen() {
+export default class ChatScreen extends Component {
+  state = {
+    messages: null
+  }
 
-  const { colors } = useTheme();
+  componentDidMount() {
+    //axios.get('http://18.191.91.177:8080/comments/0')
+    axios.get(GLOBALS.ENDPOINT+"/messages/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const messages = res.data;
+        this.setState({ messages: messages });
+        //alert(JSON.stringify(resident));
+      })
+      .catch((error) => {
+        alert("Erreur de connexion : "+error)
+      })
+  }
 
+  render() {
   return (
+    (this.state.messages == null) ? (
+      <View style={styles.container}>
+        <NunitoText style={styles.info}>Loading...</NunitoText>
+      </View>
+    ) : (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.content}
       >
-        {MESSAGES.map((text, i) => {
+        {this.state.messages.map((msg, i) => {
           const odd = i % 2;
-
           return (
-			<Card key={i} containerStyle={odd ? styles.card0 : styles.card1}>
+			        <Card key={i} containerStyle={odd ? styles.card0 : styles.card1}>
                 <Card containerStyle={odd ? styles.card2 : styles.card3}>
                     <View
                         // eslint-disable-next-line react/no-array-index-key
@@ -49,21 +69,21 @@ export default function ChatScreen() {
                             style={[odd ? styles.avatarEven : styles.avatarOdd]}
                             source={
                             odd
-                                ? {uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
+                                ? {uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
                                 headers: {
                                   Accept: 'image/jpeg',
                                   'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
                                 }}
-                                : require('../assets/images/veronique.jpg')
+                                : require('../assets/images/MarioPerron.jpg')
                             }
                       />
                       <View style={{flex:4}}>
                             <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>8 mai 2020</NunitoBoldText>
-                            <NunitoText style={styles.name}>{text}</NunitoText>
+                            <NunitoText style={styles.name}>{msg.message}</NunitoText>
                       </View>
                     </View>
-			    </Card>
-			</Card>
+			          </Card>
+			        </Card>
           );
         })}
         
@@ -71,14 +91,16 @@ export default function ChatScreen() {
       <TextInput
         style={[
           styles.input,
-          { backgroundColor: colors.card, color: colors.text },
+          { backgroundColor: '#fff', color: '#000' },
         ]}
-        placeholderTextColor={Color(colors.text).alpha(0.5).rgb().string()}
+        placeholderTextColor={Color('#000').alpha(0.5).rgb().string()}
         placeholder="Écrire un message"
         underlineColorAndroid="transparent"
       />
     </View>
+    )
   );
+  }
 }
 
 const styles = StyleSheet.create({

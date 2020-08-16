@@ -9,17 +9,28 @@ import CommentCard from '../components/CommentCard';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+import GLOBALS from '../constants/Globals'
+
 export default class NotesFeedScreen extends Component {
   state = {
     comments: null
   }
 
   componentDidMount() {
-    axios.get('http://18.191.91.177:8080/comments/0')
+    //axios.get('http://18.191.91.177:8080/comments/0')
+    axios.get(GLOBALS.ENDPOINT+"/comments/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
       .then(res => {
         const comments = res.data;
         this.setState({ comments: comments });
-        //alert(comments);
+        //alert(JSON.stringify(resident));
+      })
+      .catch((error) => {
+        alert("Erreur de connexion : "+error)
       })
   }
 
@@ -33,7 +44,7 @@ export default class NotesFeedScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View>
-            { this.state.comments.map(comment => <CommentCard key={comment.id} date={comment.date} title={comment.title} comment={comment.comment} image={comment.image} />)}
+            { this.state.comments.map(comment => <CommentCard key={comment.id} date={comment.date} title={comment.issuer} comment={comment.message} image={comment.image} />)}
           </View>
        </ScrollView>
       </View>

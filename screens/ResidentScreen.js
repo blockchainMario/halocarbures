@@ -19,7 +19,8 @@ import GLOBALS from '../constants/Globals'
 
 export default class ResidentScreen extends Component {
   state = {
-    resident: null
+    resident: null,
+    professional: null
   }
 
   componentDidMount() {
@@ -36,8 +37,22 @@ export default class ResidentScreen extends Component {
         //alert(JSON.stringify(resident));
       })
       .catch((error) => {
-        alert(error)
+        alert("Erreur de connexion : "+error)
       })
+    axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.PROFESSIONALID, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const professional = res.data;
+          this.setState({ professional: professional });
+          //alert(JSON.stringify(professional));
+        })
+        .catch((error) => {
+          alert("Erreur de connexion : "+error)
+        })
   }
 
   render() {
@@ -52,7 +67,7 @@ export default class ResidentScreen extends Component {
           <View style={styles.container}>
               <Image style={styles.avatar} 
                   source={{
-                    uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
+                    uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
                     headers: {
                       Accept: 'image/jpeg',
                       'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -66,8 +81,15 @@ export default class ResidentScreen extends Component {
                         <NunitoText style={styles.label}>Date de naissance : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.birthDate.substr(0,10)}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Date d'admission : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.admissionDate.substr(0,10)}</NunitoBoldText>
+                        <NunitoText style={styles.label}>Date d'admission : </NunitoText><NunitoBoldText style={styles.info}>{"..."}</NunitoBoldText>
                       </View>
+                      <NunitoBoldText style={styles.title}>Professionnels</NunitoBoldText>
+                      <View style={styles.line}>
+                        <NunitoBoldText style={styles.info}>{this.state.professional.firstName} {this.state.professional.lastName}</NunitoBoldText><NunitoText style={styles.label}> ({this.state.professional.jobTitle})</NunitoText>
+                      </View>
+                      <NunitoText style={styles.info}>{this.state.professional.address}, {this.state.professional.city}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.professional.province}, {this.state.professional.country} {this.state.professional.postalCode}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.professional.phone}</NunitoText>
                 </View>
               </View>
           </View>
@@ -115,6 +137,11 @@ const styles = StyleSheet.create({
   name:{
     fontSize:24,
     color: 'black',
+  },
+  title:{
+    fontSize:24,
+    color: 'black',
+    marginTop:20
   },
   line: {
     flexDirection:'row',

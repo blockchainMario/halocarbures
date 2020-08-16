@@ -33,7 +33,7 @@ const list2 = [
 
 const list3 = [
     {
-        title: 'Résidence Jardins du Haut Saint-Laurent',
+        title: 'Information sur la résidence',
         icon: 'hotel',
         screen: 'NursingHome'
     },

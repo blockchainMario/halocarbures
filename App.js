@@ -104,7 +104,7 @@ function ActionBarIcon({navigation}) {
       <View style={{flex:1}}>
         <Image style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
           source={{
-            uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
+            uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
             headers: {
               Accept: 'image/jpeg',
               'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

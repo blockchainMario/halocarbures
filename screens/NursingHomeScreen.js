@@ -30,6 +30,9 @@ export default class NursingHomeScreen extends Component {
         this.setState({ residence: residence });
         //alert(resident);
       })
+      .catch((error) => {
+        alert("Erreur de connexion : "+error)
+      })
   }
 
   render() {
