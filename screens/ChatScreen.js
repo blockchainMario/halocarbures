@@ -31,7 +31,7 @@ export default class ChatScreen extends Component {
     axios.get(GLOBALS.ENDPOINT+"/messages/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        'Authorization': 'Bearer '+global.token
       }
     })
       .then(res => {

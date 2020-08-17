@@ -25,10 +25,12 @@ export default class ResidentScreen extends Component {
 
   componentDidMount() {
     //axios.get('http://18.191.91.177:8080/resident/0')
+    alert("Bienvenue dans proximité");
+
     axios.get(GLOBALS.ENDPOINT+"/residents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        'Authorization': 'Bearer '+global.token
       }
     })
       .then(res => {
@@ -37,8 +39,9 @@ export default class ResidentScreen extends Component {
         //alert(JSON.stringify(resident));
       })
       .catch((error) => {
-        alert("Erreur de connexion : "+error)
+        alert("Erreur de connexion residents : "+error)
       })
+    /*
     axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.PROFESSIONALID, {
         headers: {
           'Accept': 'application/json',
@@ -53,6 +56,7 @@ export default class ResidentScreen extends Component {
         .catch((error) => {
           alert("Erreur de connexion : "+error)
         })
+    */
   }
 
   render() {
@@ -70,7 +74,7 @@ export default class ResidentScreen extends Component {
                     uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
                     headers: {
                       Accept: 'image/jpeg',
-                      'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+                      'Authorization': 'Bearer '+global.token
                     }
                   }}
                 />
@@ -83,13 +87,6 @@ export default class ResidentScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>Date d'admission : </NunitoText><NunitoBoldText style={styles.info}>{"..."}</NunitoBoldText>
                       </View>
-                      <NunitoBoldText style={styles.title}>Professionnels</NunitoBoldText>
-                      <View style={styles.line}>
-                        <NunitoBoldText style={styles.info}>{this.state.professional.firstName} {this.state.professional.lastName}</NunitoBoldText><NunitoText style={styles.label}> ({this.state.professional.jobTitle})</NunitoText>
-                      </View>
-                      <NunitoText style={styles.info}>{this.state.professional.address}, {this.state.professional.city}</NunitoText>
-                      <NunitoText style={styles.info}>{this.state.professional.province}, {this.state.professional.country} {this.state.professional.postalCode}</NunitoText>
-                      <NunitoText style={styles.info}>{this.state.professional.phone}</NunitoText>
                 </View>
               </View>
           </View>

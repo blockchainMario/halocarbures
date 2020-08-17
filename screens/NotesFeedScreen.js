@@ -21,7 +21,7 @@ export default class NotesFeedScreen extends Component {
     axios.get(GLOBALS.ENDPOINT+"/comments/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        'Authorization': 'Bearer '+global.token
       }
     })
       .then(res => {

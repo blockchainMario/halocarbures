@@ -22,7 +22,7 @@ export default class MemberList extends React.Component {
   render() {
     return (
         <View>
-            { this.state.members.map(member => <MemberCard key={member.name} name={member.name} image={member.image} />)}
+            { this.state.members.map(member => <MemberCard key={member.firstName} firstName={member.firstName} lastName={member.lastName} image={member.image} />)}
         </View>
     )
   }

@@ -5,6 +5,8 @@ import { Text, Card, Divider } from 'react-native-elements';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+import GLOBALS from '../constants/Globals'
+
 export default class NewsCard extends Component {
 
 	render() {
@@ -25,18 +27,27 @@ export default class NewsCard extends Component {
             <Card style={styles.card}>
                 <View style={styles.row}>
                     <Image
-                        style={styles.tinyLogo} 
-                        source={{uri : this.props.logo}}
+                        style={styles.tinyLogo}
+                        source={{
+                          uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile.jpg',
+                          headers: {
+                            Accept: 'image/jpeg'
+                          }
+                        }}
                     />
                     <NunitoBoldText style={styles.cardDate}>{this.props.date.substr(0,10)}</NunitoBoldText>
                 </View>
                 <NunitoBoldText style={styles.cardTitle}>{this.props.title}</NunitoBoldText>
                 <NunitoText style={styles.cardText}>{this.props.message}</NunitoText>
                 <Divider style={styles.division}/>
-                <Image 
-                    style={styles.photo} 
-                    source={{uri : this.props.image}}
-                />
+                <Image style={styles.photo} 
+                    source={{
+                      uri: GLOBALS.ENDPOINT+'/images/newsfeeds/'+GLOBALS.RESIDENCYID+"/"+this.props.id+"/"+this.props.image,
+                      headers: {
+                        Accept: 'image/jpeg'
+                      }
+                    }}
+                  />
             </Card>
         )
 	);

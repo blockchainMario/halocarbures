@@ -23,6 +23,8 @@ import LoginScreen from './screens/LoginScreen';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 
+import axios from 'axios';
+
 import { NunitoExtraText } from './components/StyledText';
 import { NunitoText } from './components/StyledText';
 import { NunitoBoldText } from './components/StyledText';
@@ -33,8 +35,6 @@ import GLOBALS from './constants/Globals'
 const Drawer = createDrawerNavigator();
 
 const Stack = createStackNavigator();
-
-const loggedIn = false;
 
 function closeAndReplace(navigation,screen) {
   navigation.closeDrawer();
@@ -107,7 +107,7 @@ function ActionBarIcon({navigation}) {
             uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
             headers: {
               Accept: 'image/jpeg',
-              'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+              'Authorization': 'Bearer '+global.token
             }
           }}
         />
@@ -120,6 +120,7 @@ export default function App(props) {
   const [isLoggedIn, setLoggedIn] = React.useState(true);
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
+  const [idToken, setIdToken] = React.useState("");
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
@@ -131,6 +132,14 @@ export default function App(props) {
 
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
+
+        axios.get('http://18.191.91.177:8080/token')
+        .then(res => {
+          const token = res.data;
+          setIdToken(token);
+          global.token = token;
+          //alert(token);
+        })
 
         // Load fonts
         await Font.loadAsync({

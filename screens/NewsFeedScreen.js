@@ -44,7 +44,7 @@ export default class NewsFeedScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View>
-            { this.state.newsfeed.map(newsfeed => <NewsCard key={newsfeed.date} date={newsfeed.date} logo={newsfeed.logo} title={newsfeed.title} message={newsfeed.message} image={newsfeed.image} />)}
+            { this.state.newsfeed.map(newsfeed => <NewsCard key={newsfeed.id} id={newsfeed.id} date={newsfeed.date} logo={newsfeed.logo} title={newsfeed.title} message={newsfeed.message} image={newsfeed.picture} />)}
           </View>
        </ScrollView>
       </View>

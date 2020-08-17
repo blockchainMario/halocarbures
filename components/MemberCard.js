@@ -22,7 +22,7 @@ export default class MemberCard extends Component {
                     <TouchableHighlight onPress={() => alert('Tap!')} underlayColor="white">
                         <View style={{flexDirection:"row"}}>
                             <View style={{flex:4}}>
-				                <NunitoText style={styles.name}>{this.props.name}</NunitoText>
+				                <NunitoText style={styles.name}>{this.props.firstName} {this.props.lastName}</NunitoText>
                             </View>
                             <View style={{flex:1}}>
                                 <Image

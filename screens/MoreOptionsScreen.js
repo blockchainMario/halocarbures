@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Button, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Card, Divider, ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -9,14 +9,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
+import axios from 'axios';
 
-const list1 = [
-    {
-      title: 'Profil de Gérard Lavallée',
-      icon: 'person',
-      screen: 'Resident'
-    },
-]
+import GLOBALS from '../constants/Globals'
 
 const list2 = [
     {
@@ -39,6 +34,10 @@ const list3 = [
     },
 ]
 
+function getDocs() {
+}
+
+/*
 const list4 = [
     {
         title: 'Bail',
@@ -51,12 +50,43 @@ const list4 = [
         document: 'http://18.191.91.177/SyMO/Annexe19.pdf'
     },
 ]
+*/
 
 const Stack = createStackNavigator()
 
-export default function MoreOptionsScreen({ navigation }) {
+export default class MoreOptionsScreen extends Component {
+  state = {
+    documents: null
+  }
 
+  componentDidMount() {
+    axios.get(GLOBALS.ENDPOINT+"/documents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+global.token
+      }
+    })
+    .then(res => {
+      const documents = res.data;
+      this.setState({ documents: documents })
+    })
+    .catch((error) => {
+      alert("Erreur de connexion : "+error)
+      return null;
+    })
+  }
+
+  render() {
+
+    const navigation = this.props.navigation;
+    
   return (
+        
+    (this.state.documents == null) ? (
+      <View>
+        <NunitoText style={styles.info}>Loading...</NunitoText>
+      </View>
+    ) : (
     <View style={styles.container}>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -97,25 +127,27 @@ export default function MoreOptionsScreen({ navigation }) {
 
         <NunitoText style={styles.subSection}>DOCUMENTS</NunitoText>
 
-        <View>
-        {
-            list4.map((item, i) => (
-            <ListItem
-                key={i}
-                title={item.title}
-                leftIcon={{ name: item.icon }}
-                bottomDivider
-                chevron
-                //onPress={() => navigation.navigate(item.screen)}
-                onPress={() => WebBrowser.openBrowserAsync(item.document)}
-            />
-            ))
-        }
-        </View>
+      <View>
+      {
+        this.state.documents.map((item, i) => (
+        <ListItem
+            key={i}
+            title={item.name}
+            leftIcon={{ name: 'assignment' }}
+            bottomDivider
+            chevron
+            //onPress={() => navigation.navigate(item.screen)}
+            onPress={() => WebBrowser.openBrowserAsync(item.file)}
+        />
+        ))
+      }
+      </View>
 
       </ScrollView>
     </View>
+    )
   );
+}
 }
 
 MoreOptionsScreen.navigationOptions = {
@@ -130,6 +162,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
+  },
+  info:{
+    fontSize:16,
+    color: "black",
+    marginTop:10
   },
   subSection: {
     marginTop: 20,
