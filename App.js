@@ -133,7 +133,7 @@ export default function App(props) {
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
 
-        axios.get('http://18.191.91.177:8080/token')
+        await axios.get('http://18.191.91.177:8080/token')
         .then(res => {
           const token = res.data;
           setIdToken(token);

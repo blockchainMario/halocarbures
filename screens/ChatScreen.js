@@ -23,7 +23,8 @@ import GLOBALS from '../constants/Globals'
 
 export default class ChatScreen extends Component {
   state = {
-    messages: null
+    messages: null,
+    typing: null
   }
 
   componentDidMount() {
@@ -56,7 +57,7 @@ export default class ChatScreen extends Component {
         contentContainerStyle={styles.content}
       >
         {this.state.messages.map((msg, i) => {
-          const odd = i % 2;
+          const odd = 0;
           return (
 			        <Card key={i} containerStyle={odd ? styles.card0 : styles.card1}>
                 <Card containerStyle={odd ? styles.card2 : styles.card3}>
@@ -72,13 +73,13 @@ export default class ChatScreen extends Component {
                                 ? {uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
                                 headers: {
                                   Accept: 'image/jpeg',
-                                  'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+                                  'Authorization': 'Bearer '+global.token
                                 }}
                                 : require('../assets/images/MarioPerron.jpg')
                             }
                       />
                       <View style={{flex:4}}>
-                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>8 mai 2020</NunitoBoldText>
+                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toLocaleString()}</NunitoBoldText>
                             <NunitoText style={styles.name}>{msg.message}</NunitoText>
                       </View>
                     </View>
@@ -96,6 +97,7 @@ export default class ChatScreen extends Component {
         placeholderTextColor={Color('#000').alpha(0.5).rgb().string()}
         placeholder="Écrire un message"
         underlineColorAndroid="transparent"
+        onChangeText={(typing) => this.setState({typing})}
       />
     </View>
     )

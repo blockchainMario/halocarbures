@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ScrollView,
+  TextInput,
   Image,
   TouchableHighlight,
   Alert
@@ -19,7 +20,8 @@ import GLOBALS from '../constants/Globals'
 
 export default class NursingHomeScreen extends Component {
   state = {
-    residence: null
+    residence: null,
+    message: null
   }
 
   componentDidMount() {
@@ -61,17 +63,23 @@ export default class NursingHomeScreen extends Component {
                       <NunitoText style={styles.info}>{this.state.residence.province}, {this.state.residence.country} {this.state.residence.postalCode}</NunitoText>
                       
                       <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
+                      <TextInput style={styles.field}
+                        placeholder="Écrire votre message ici..."
+                        placeholderTextColor = "#A071B1"
+                        underlineColorAndroid='transparent'
+                        onChangeText={(message) => this.setState({message})}
+                      />
                       
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la réception")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à la réception")}>
                       <NunitoText style={styles.info}>Réception</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter l'équipe de soins")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à l'équipe de soins")}>
                       <NunitoText style={styles.info}>Équipe de soins</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la comptabilité")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à la comptabilité")}>
                       <NunitoText style={styles.info}>Comptabilité</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Contacter la direction")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à la direction")}>
                       <NunitoText style={styles.info}>Direction</NunitoText>
                       </TouchableHighlight>
                     </View>
@@ -134,6 +142,13 @@ const styles = StyleSheet.create({
     color: "black",
     marginTop:10
   },
+	field:{
+    margin: 10,
+    height: 40,
+    padding: 10,
+    borderColor: '#8B4B9D',
+    borderWidth: 1
+	},
   info:{
     fontSize:16,
     color: "black",
