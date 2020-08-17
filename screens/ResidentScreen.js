@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 import axios from 'axios';
-
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
@@ -54,7 +53,7 @@ export default class ResidentScreen extends Component {
           //alert(JSON.stringify(professional));
         })
         .catch((error) => {
-          alert("Erreur de connexion : "+error)
+          alert("Erreur de connexion professionals : "+error)
         })
     
   }

@@ -71,8 +71,8 @@ export default class MoreOptionsScreen extends Component {
       this.setState({ documents: documents })
     })
     .catch((error) => {
-      alert("Erreur de connexion : "+error)
-      return null;
+      this.setState({ documents: [ ] });
+      //alert("Erreur de connexion documents : "+error)
     })
   }
 

@@ -30,7 +30,8 @@ export default class NotesFeedScreen extends Component {
         //alert(JSON.stringify(resident));
       })
       .catch((error) => {
-        alert("Erreur de connexion : "+error)
+        this.setState({ comments: [ ] });
+        //alert("Erreur de connexion comments : "+error)
       })
   }
 

@@ -26,14 +26,15 @@ export default class ActivityList extends React.Component {
         //alert(JSON.stringify(activities));
       })
       .catch((error) => {
-        alert("Erreur de connexion : "+error)
+        this.setState({ activities: [ ] });
+        //alert("Erreur de connexion activities : "+error)
       })
   }
 
   render() {
     return (
         <View>
-            { this.state.activities.map(activity => <ActivityCard key={activity.activityName} occupation={activity.occupation} activityName={activity.activityName} next={activity.next} />)}
+            { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation} activityName={activity.activityName} next={activity.frequency} />)}
         </View>
     )
   }

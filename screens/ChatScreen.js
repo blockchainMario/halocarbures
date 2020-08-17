@@ -38,10 +38,11 @@ export default class ChatScreen extends Component {
       .then(res => {
         const messages = res.data;
         this.setState({ messages: messages });
-        //alert(JSON.stringify(resident));
+        //alert(JSON.stringify(messages));
       })
       .catch((error) => {
-        alert("Erreur de connexion : "+error)
+        this.setState({ messages: [ ] });
+        //alert("Erreur de connexion messages : "+error);
       })
   }
 

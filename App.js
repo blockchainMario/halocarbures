@@ -133,7 +133,7 @@ export default function App(props) {
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
 
-        await axios.get('http://18.191.91.177:8080/token')
+        await axios.get('http://18.191.91.177:8080/login')
         .then(res => {
           const token = res.data;
           setIdToken(token);
@@ -182,9 +182,9 @@ export default function App(props) {
           {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
           <SafeAreaProvider>
             <NavigationContainer ref={containerRef} initialState={initialNavigationState}>   
-              <Stack.Navigator>
-                <Stack.Screen name="Login" component={LoginScreen} />
-              </Stack.Navigator>
+              <Drawer.Navigator initialRouteName="Home"  drawerContent={(props) => <DrawerContent {...props}/>}>
+                <Drawer.Screen name="Home" component={MyStack} />
+              </Drawer.Navigator>
             </NavigationContainer>
           </SafeAreaProvider>
         </View>

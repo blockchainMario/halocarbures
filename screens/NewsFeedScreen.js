@@ -30,7 +30,8 @@ export default class NewsFeedScreen extends Component {
         //alert(JSON.stringify(resident));
       })
       .catch((error) => {
-        alert("Erreur de connexion : "+error)
+        this.setState({ newsfeed: [ ] });
+        //alert("Erreur de connexion newsfeeds : "+error)
       })
   }
 
