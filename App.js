@@ -87,6 +87,10 @@ function DrawerContent({navigation}) {
   );
 }
 
+function goToLogin({navigation}) {
+  navigation.dispatch(StackActions.replace('Login'));
+}
+
 function ActionBarIcon({navigation}) {
   //alert(navigation);
   return (
@@ -120,7 +124,6 @@ export default function App(props) {
   const [isLoggedIn, setLoggedIn] = React.useState(true);
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const [idToken, setIdToken] = React.useState("");
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
@@ -132,14 +135,6 @@ export default function App(props) {
 
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
-
-        await axios.get('http://18.191.91.177:8080/login')
-        .then(res => {
-          const token = res.data;
-          setIdToken(token);
-          global.token = token;
-          //alert(token);
-        })
 
         // Load fonts
         await Font.loadAsync({
@@ -164,9 +159,8 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
-    //alert(isLoggedIn);
+    //alert(Object.keys(MyStack));
     return (
-      isLoggedIn ? (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
         <SafeAreaProvider>
@@ -177,18 +171,6 @@ export default function App(props) {
           </NavigationContainer>
         </SafeAreaProvider>
       </View>
-      ) : (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-          <SafeAreaProvider>
-            <NavigationContainer ref={containerRef} initialState={initialNavigationState}>   
-              <Drawer.Navigator initialRouteName="Home"  drawerContent={(props) => <DrawerContent {...props}/>}>
-                <Drawer.Screen name="Home" component={MyStack} />
-              </Drawer.Navigator>
-            </NavigationContainer>
-          </SafeAreaProvider>
-        </View>
-      )
     );
   }
 }

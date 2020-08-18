@@ -18,10 +18,11 @@ export default class NotesFeedScreen extends Component {
 
   componentDidMount() {
     //axios.get('http://18.191.91.177:8080/comments/0')
+    //alert(GLOBALS.BEARERTOKEN);
     axios.get(GLOBALS.ENDPOINT+"/comments/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+global.token
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {

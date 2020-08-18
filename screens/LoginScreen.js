@@ -12,22 +12,35 @@ import {
 } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import axios from 'axios';
 
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+import GLOBALS from '../constants/Globals'
+
 export default class LoginScreen extends Component {
 
   onClickListener = (navigation) => {
-    //Alert.alert("Alert", "Button pressed "+viewId);
-    navigation.dispatch(StackActions.replace('Root'));
+    //alert("Button pressed "+this.state.email);
+    //await axios.get('http://18.191.91.177:8080/login')
+    axios.get('http://18.191.91.177:8080/sign/'+this.state.email+'/'+this.state.password)
+    .then(res => {
+      const pack = res.data;
+      global.token = pack.token;
+      GLOBALS.BEARERTOKEN = pack.token;
+      GLOBALS.RESIDENCYID = pack.residencyId;
+      GLOBALS.RESIDENTID = pack.residentId;
+      //alert(token);
+      navigation.dispatch(StackActions.replace('Root'));
+    })
   }
 
   render() {
     
     const navigation = this.props.navigation;
-    
+    //alert(Object.keys(navigation));
     return (
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>

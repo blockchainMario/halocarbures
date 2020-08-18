@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 
 import TabBarIcon from '../components/TabBarIcon';
 //import AgendaScreen from '../screens/AgendaScreen';
+//import LoginScreen from '../screens/LoginScreen';
 import ResidentScreen from '../screens/ResidentScreen';
 import NotesFeedScreen from '../screens/NotesFeedScreen';
 import ChatScreen from '../screens/ChatScreen';

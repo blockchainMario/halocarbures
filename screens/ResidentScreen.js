@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 
 import axios from 'axios';
 import { NunitoExtraText } from '../components/StyledText';
@@ -24,7 +25,10 @@ export default class ResidentScreen extends Component {
 
   componentDidMount() {
     //axios.get('http://18.191.91.177:8080/resident/0')
-    alert("Bienvenue dans proximité");
+    //alert("Bienvenue dans proximité");
+    //alert(global.token);
+
+  if (global.token) {
 
     axios.get(GLOBALS.ENDPOINT+"/residents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
@@ -55,6 +59,14 @@ export default class ResidentScreen extends Component {
         .catch((error) => {
           alert("Erreur de connexion professionals : "+error)
         })
+
+    } else {
+
+      //alert("Need to login!");
+      const navigation = this.props.navigation;
+      navigation.dispatch(StackActions.replace('Login'));
+        
+    }
     
   }
 
