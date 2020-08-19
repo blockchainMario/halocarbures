@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   ScrollViewProps,
+  TouchableHighlight,
 } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import { useScrollToTop, useTheme } from '@react-navigation/native';
@@ -23,8 +24,8 @@ import GLOBALS from '../constants/Globals'
 
 export default class ChatScreen extends Component {
   state = {
-    messages: null,
-    typing: null
+    messages: [ ],
+    typing: ""
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ export default class ChatScreen extends Component {
     })
       .then(res => {
         const messages = res.data;
-        this.setState({ messages: messages });
+        this.setState({ messages: messages.reverse() });
         //alert(JSON.stringify(messages));
       })
       .catch((error) => {
@@ -47,6 +48,41 @@ export default class ChatScreen extends Component {
   }
 
   render() {
+
+    onSendMessage = (aText) => {
+      //alert("Button pressed "+aText);
+      axios({
+        method: 'post',
+        url: GLOBALS.ENDPOINT+"/messages",
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+global.token
+        },
+        data: {
+          residencyId: GLOBALS.RESIDENCYID,
+          date: "2020-08-19",
+          residentId: GLOBALS.RESIDENTID,
+          issuer: "proximity",
+          message: aText
+        }
+      }).then(res => {
+        var ms = this.state.messages;
+        ms.push({
+          residencyId: GLOBALS.RESIDENCYID,
+          date: (new Date).getTime()/1000,
+          residentId: GLOBALS.RESIDENTID,
+          issuer: "proximity",
+          message: aText
+        });
+        this.setState({ messages: ms });
+        this.setState({ typing: ""});
+        alert("Message ajouté");
+        })
+        .catch((error) => {
+          this.setState({ messages: [ ] });
+          alert("Erreur de connexion messages : "+error)
+        })
+    }
   return (
     (this.state.messages == null) ? (
       <View style={styles.container}>
@@ -55,7 +91,9 @@ export default class ChatScreen extends Component {
     ) : (
     <View style={styles.container}>
       <ScrollView
-        contentContainerStyle={styles.content}
+          style={styles.container2}
+          ref={ref => {this.scrollView = ref}}
+          onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
       >
         {this.state.messages.map((msg, i) => {
           const odd = 0;
@@ -76,7 +114,7 @@ export default class ChatScreen extends Component {
                                   Accept: 'image/jpeg',
                                   'Authorization': 'Bearer '+global.token
                                 }}
-                                : require('../assets/images/MarioPerron.jpg')
+                                : require('../assets/images/avatar.jpg')
                             }
                       />
                       <View style={{flex:4}}>
@@ -100,6 +138,18 @@ export default class ChatScreen extends Component {
         underlineColorAndroid="transparent"
         onChangeText={(typing) => this.setState({typing})}
       />
+      <TouchableHighlight
+              style={{
+                margin: 10,
+                borderRadius: 10,
+                borderWidth: 0,
+                backgroundColor: '#A071B1'
+              }}
+              //onPress={() => this.onClickListener('login')}
+              onPress={() => onSendMessage(this.state.typing)}
+        >
+          <NunitoBoldText style={styles.textStyle}>Envoyer</NunitoBoldText>
+        </TouchableHighlight>
     </View>
     )
   );
@@ -109,6 +159,16 @@ export default class ChatScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  container2: {
+    flex: 1,
+    marginBottom: 10,
+  },
+  textStyle: {
+    textAlign: "center",
+    padding: 5,
+    fontSize: 20,
+    color: "white"
   },
   evenDate:{
       fontSize: 14,

@@ -32,6 +32,7 @@ export default class LoginScreen extends Component {
       GLOBALS.BEARERTOKEN = pack.token;
       GLOBALS.RESIDENCYID = pack.residencyId;
       GLOBALS.RESIDENTID = pack.residentId;
+      GLOBALS.USERNAME = this.state.email;
       //alert(token);
       navigation.dispatch(StackActions.replace('Root'));
     })

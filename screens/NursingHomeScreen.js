@@ -49,7 +49,7 @@ export default class NursingHomeScreen extends Component {
             <View style={styles.container}>
                 <Image style={styles.avatar} 
                   source={{
-                    uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile.jpg',
+                    uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile',
                     headers: {
                       Accept: 'image/jpeg'
                     }

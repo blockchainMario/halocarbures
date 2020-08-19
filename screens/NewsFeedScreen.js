@@ -43,7 +43,12 @@ export default class NewsFeedScreen extends Component {
       </View>
     ) : (
       <View style={styles.container}>
-        <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
+        <ScrollView 
+          style={styles.container2} 
+          contentContainerStyle={styles.contentContainer2}
+          ref={ref => {this.scrollView = ref}}
+          onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
+        >
           <View>
             { this.state.newsfeed.map(newsfeed => <NewsCard key={newsfeed.id} id={newsfeed.id} date={newsfeed.date} logo={newsfeed.logo} title={newsfeed.title} message={newsfeed.message} image={newsfeed.picture} />)}
           </View>
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex: 1,
+    marginBottom: 10,
   },
   info: {
     color: 'black',

@@ -12,6 +12,8 @@ import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+import GLOBALS from '../constants/Globals'
+
 export default class ProfileScreen extends Component {
 
   render() {
@@ -19,11 +21,11 @@ export default class ProfileScreen extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
             <View style={styles.container}>
-                <Image style={styles.avatar} source={require('../assets/images/MarioPerron.jpg')}/>
+                <Image style={styles.avatar} source={require('../assets/images/avatar.jpg')}/>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
                         <NunitoText style={styles.name}>Mario Perron</NunitoText>
-                        <NunitoText style={styles.info}>Contact</NunitoText>
+                        <NunitoText style={styles.info}>{GLOBALS.USERNAME}</NunitoText>
                         <NunitoText style={styles.description}></NunitoText   >
                     </View>
                 </View>

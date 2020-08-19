@@ -46,7 +46,7 @@ function DrawerContent({navigation}) {
     <View style={styles.container2}>
       <View style={{ flexDirection:"row", marginTop: 60 }}>
         <Image
-          source={require('./assets/images/MarioPerron.jpg')}
+          source={require('./assets/images/avatar.jpg')}
           style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
         />
         <NunitoBoldText style={{fontSize: 18, color:'white', marginLeft: 10, marginTop: 12}}>Mario Perron</NunitoBoldText>
@@ -60,12 +60,12 @@ function DrawerContent({navigation}) {
         <ListItem 
           title={"Aide et soutien"} 
           chevron
-          onPress={()=>{ Linking.openURL('https://support.medhelper.ca/hc/fr-ca')}}
+          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
         />
         <ListItem 
           title={"Donnez votre avis"} 
           chevron
-          onPress={()=>{ Linking.openURL('https://support.medhelper.ca/hc/fr-ca/requests/new')}}
+          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
         />
         <ListItem 
           title={"Inscription"}
@@ -108,7 +108,7 @@ function ActionBarIcon({navigation}) {
       <View style={{flex:1}}>
         <Image style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
           source={{
-            uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
+            uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
             headers: {
               Accept: 'image/jpeg',
               'Authorization': 'Bearer '+global.token

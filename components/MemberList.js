@@ -5,13 +5,15 @@ import MemberCard from '../components/MemberCard';
 import axios from 'axios';
 import { View } from 'react-native';
 
+import GLOBALS from '../constants/Globals'
+
 export default class MemberList extends React.Component {
   state = {
     members: []
   }
 
   componentDidMount() {
-    axios.get('http://18.191.91.177:8080/members')
+    axios.get('http://18.191.91.177:8080/members/'+GLOBALS.USERNAME)
       .then(res => {
         const members = res.data;
         this.setState({ members: members });

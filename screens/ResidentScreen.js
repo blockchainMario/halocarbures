@@ -82,7 +82,7 @@ export default class ResidentScreen extends Component {
           <View style={styles.container}>
               <Image style={styles.avatar} 
                   source={{
-                    uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
+                    uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
                     headers: {
                       Accept: 'image/jpeg',
                       'Authorization': 'Bearer '+global.token

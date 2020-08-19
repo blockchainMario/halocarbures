@@ -29,7 +29,7 @@ export default class NewsCard extends Component {
                     <Image
                         style={styles.tinyLogo}
                         source={{
-                          uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile.jpg',
+                          uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile',
                           headers: {
                             Accept: 'image/jpeg'
                           }
