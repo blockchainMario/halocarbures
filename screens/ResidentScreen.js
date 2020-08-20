@@ -26,14 +26,13 @@ export default class ResidentScreen extends Component {
   componentDidMount() {
     //axios.get('http://18.191.91.177:8080/resident/0')
     //alert("Bienvenue dans proximité");
-    //alert(global.token);
 
-  if (global.token) {
+  if (GLOBALS.BEARERTOKEN) {
 
     axios.get(GLOBALS.ENDPOINT+"/residents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+global.token
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
@@ -48,7 +47,7 @@ export default class ResidentScreen extends Component {
     axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.PROFESSIONALID, {
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+global.token
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
         }
       })
         .then(res => {
@@ -85,7 +84,7 @@ export default class ResidentScreen extends Component {
                     uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
                     headers: {
                       Accept: 'image/jpeg',
-                      'Authorization': 'Bearer '+global.token
+                      'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
                     }
                   }}
                 />

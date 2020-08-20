@@ -63,7 +63,7 @@ export default class MoreOptionsScreen extends Component {
     axios.get(GLOBALS.ENDPOINT+"/documents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+global.token
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
     .then(res => {

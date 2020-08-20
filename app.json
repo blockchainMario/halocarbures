@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hello1",
-    "slug": "hello1",
+    "name": "proximity",
+    "slug": "proximity",
     "platforms": [
       "ios",
       "android",

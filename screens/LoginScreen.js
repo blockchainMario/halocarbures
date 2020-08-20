@@ -28,7 +28,6 @@ export default class LoginScreen extends Component {
     axios.get('http://18.191.91.177:8080/sign/'+this.state.email+'/'+this.state.password)
     .then(res => {
       const pack = res.data;
-      global.token = pack.token;
       GLOBALS.BEARERTOKEN = pack.token;
       GLOBALS.RESIDENCYID = pack.residencyId;
       GLOBALS.RESIDENTID = pack.residentId;
@@ -83,10 +82,6 @@ export default class LoginScreen extends Component {
           >
             <NunitoBoldText style={styles.textStyle}>Accéder</NunitoBoldText>
           </TouchableHighlight>
-
-        <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('restore_password')}>
-            <Text>Mot de passe oublié ?</Text>
-        </TouchableHighlight>
       </ScrollView>
       </View>
     );

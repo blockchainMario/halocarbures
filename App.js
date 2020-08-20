@@ -111,7 +111,7 @@ function ActionBarIcon({navigation}) {
             uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
             headers: {
               Accept: 'image/jpeg',
-              'Authorization': 'Bearer '+global.token
+              'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
             }
           }}
         />

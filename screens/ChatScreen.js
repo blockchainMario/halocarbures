@@ -33,7 +33,7 @@ export default class ChatScreen extends Component {
     axios.get(GLOBALS.ENDPOINT+"/messages/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+global.token
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
@@ -56,7 +56,7 @@ export default class ChatScreen extends Component {
         url: GLOBALS.ENDPOINT+"/messages",
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+global.token
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
         },
         data: {
           residencyId: GLOBALS.RESIDENCYID,
@@ -112,7 +112,7 @@ export default class ChatScreen extends Component {
                                 ? {uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
                                 headers: {
                                   Accept: 'image/jpeg',
-                                  'Authorization': 'Bearer '+global.token
+                                  'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
                                 }}
                                 : require('../assets/images/avatar.jpg')
                             }

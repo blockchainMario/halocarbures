@@ -17,7 +17,7 @@ export default class ActivityList extends React.Component {
     axios.get(GLOBALS.ENDPOINT+"/careplan/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+global.token
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
