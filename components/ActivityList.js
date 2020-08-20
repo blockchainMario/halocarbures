@@ -34,7 +34,7 @@ export default class ActivityList extends React.Component {
   render() {
     return (
         <View>
-            { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation} activityName={activity.activityName} next={activity.frequency} />)}
+            { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation_Fr} activityName={activity.intervention_Fr} next={activity.nextOccurrence} />)}
         </View>
     )
   }

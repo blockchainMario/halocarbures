@@ -70,17 +70,17 @@ export default class NursingHomeScreen extends Component {
                         onChangeText={(message) => this.setState({message})}
                       />
                       
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à la réception")}>
-                      <NunitoText style={styles.info}>Réception</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à la réception")}>
+                      <NunitoText style={styles.info}>Envoyer à la réception</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à l'équipe de soins")}>
-                      <NunitoText style={styles.info}>Équipe de soins</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à l'équipe de soins")}>
+                      <NunitoText style={styles.info}>Envoyer à l'équipe de soins</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à la comptabilité")}>
-                      <NunitoText style={styles.info}>Comptabilité</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à la comptabilité")}>
+                      <NunitoText style={styles.info}>Envoyer à la comptabilité</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Message envoyé à la direction")}>
-                      <NunitoText style={styles.info}>Direction</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à la direction")}>
+                      <NunitoText style={styles.info}>Envoyer à la direction</NunitoText>
                       </TouchableHighlight>
                     </View>
                 </View>

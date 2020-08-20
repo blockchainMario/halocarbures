@@ -118,7 +118,7 @@ export default class ChatScreen extends Component {
                             }
                       />
                       <View style={{flex:4}}>
-                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toLocaleString()}</NunitoBoldText>
+                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toLocaleString('fr-CA')}</NunitoBoldText>
                             <NunitoText style={styles.name}>{msg.message}</NunitoText>
                       </View>
                     </View>

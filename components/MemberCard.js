@@ -13,13 +13,15 @@ import { Text, Card, Divider } from 'react-native-elements';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
+import GLOBALS from '../constants/Globals'
+
 export default class MemberCard extends Component {
 
 	render() {
 		return (
 			<Card containerStyle={styles.card}>
                 <Card containerStyle={styles.card2}>
-                    <TouchableHighlight onPress={() => alert('Tap!')} underlayColor="white">
+                    <TouchableHighlight onPress={() => alert('Contact : '+GLOBALS.USERNAME)} underlayColor="white">
                         <View style={{flexDirection:"row"}}>
                             <View style={{flex:4}}>
 				                <NunitoText style={styles.name}>{this.props.firstName} {this.props.lastName}</NunitoText>
