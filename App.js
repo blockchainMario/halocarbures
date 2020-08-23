@@ -14,6 +14,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import CarePlanScreen from './screens/CarePlanScreen';
 import CircleOfCareScreen from './screens/CircleOfCareScreen';
 import ResidentScreen from './screens/ResidentScreen';
+import ProfessionalsScreen from './screens/ProfessionalsScreen';
 import NursingHomeScreen from './screens/NursingHomeScreen';
 import LeaseScreen from './screens/LeaseScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -41,6 +42,11 @@ function closeAndReplace(navigation,screen) {
   navigation.dispatch(StackActions.replace(screen))
 }
 
+function renderFullname(aComp) {
+  //alert("renderFullname "+GLOBALS.USERNAME);
+  return GLOBALS.FULLNAME;
+}
+
 function DrawerContent({navigation}) {
   return (
     <View style={styles.container2}>
@@ -49,28 +55,13 @@ function DrawerContent({navigation}) {
           source={require('./assets/images/avatar.jpg')}
           style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
         />
-        <NunitoBoldText style={{fontSize: 18, color:'white', marginLeft: 10, marginTop: 12}}>Mario Perron</NunitoBoldText>
+        <NunitoBoldText style={{fontSize: 18, color:'white', marginLeft: 10, marginTop: 12}}>{renderFullname.bind(this)()}</NunitoBoldText>
       </View>
       <View style={{ marginTop: 10 }}>
         <ListItem 
           title={"Mon profil"} 
           chevron
           onPress={() => navigation.navigate('Profile')}
-        />
-        <ListItem 
-          title={"Aide et soutien"} 
-          chevron
-          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
-        />
-        <ListItem 
-          title={"Donnez votre avis"} 
-          chevron
-          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
-        />
-        <ListItem 
-          title={"Inscription"}
-          chevron
-          onPress={() => closeAndReplace(navigation,'Register')}
         />
         <ListItem 
           title={"Déconnexion"}
@@ -241,9 +232,29 @@ const MyStack = ({navigation}) => {
         }
       }}
     />
+    <Stack.Screen name='Professionals' component={ProfessionalsScreen}
+      options={{
+        title: 'Professionels',
+        headerStyle: {
+          backgroundColor: '#A071B1',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 30,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -10,
+          textAlign: 'left',
+          marginLeft: -50
+        }
+      }}
+    />
     <Stack.Screen name='Resident' component={ResidentScreen}
       options={{
-        title: 'Gérard Lavallée',
+        title: 'Resident',
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
@@ -323,7 +334,7 @@ const MyStack = ({navigation}) => {
     />
     <Stack.Screen name='Login' component={LoginScreen}
       options={{
-        title: 'Login',
+        title: 'Connexion',
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,

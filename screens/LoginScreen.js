@@ -25,13 +25,15 @@ export default class LoginScreen extends Component {
   onClickListener = (navigation) => {
     //alert("Button pressed "+this.state.email);
     //await axios.get('http://18.191.91.177:8080/login')
-    axios.get('http://18.191.91.177:8080/sign/'+this.state.email+'/'+this.state.password)
+    axios.get('http://18.191.91.177:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
     .then(res => {
       const pack = res.data;
+      //alert(JSON.stringify(pack));
       GLOBALS.BEARERTOKEN = pack.token;
       GLOBALS.RESIDENCYID = pack.residencyId;
       GLOBALS.RESIDENTID = pack.residentId;
-      GLOBALS.USERNAME = this.state.email;
+      GLOBALS.USERNAME = this.state.email.toLowerCase();
+      GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
       //alert(token);
       navigation.dispatch(StackActions.replace('Root'));
     })
@@ -49,7 +51,7 @@ export default class LoginScreen extends Component {
           <NunitoText style={styles.title}>proximité</NunitoText>
         </View>
         <View>
-          <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
+          <NunitoBoldText style={styles.label}>Adresse courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
               placeholderTextColor = "#8B4B9D"

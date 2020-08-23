@@ -97,6 +97,14 @@ export default class ResidentScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>Date d'admission : </NunitoText><NunitoBoldText style={styles.info}>{""}</NunitoBoldText>
                       </View>
+                      <NunitoBoldText style={styles.title}>Professionnels</NunitoBoldText>
+                      <View style={styles.line}>
+                        <NunitoBoldText style={styles.info}>{this.state.professional.firstName} {this.state.professional.lastName}</NunitoBoldText><NunitoText style={styles.label}> ({this.state.professional.jobTitle})</NunitoText>
+                      </View>
+                      <NunitoText style={styles.info}>{this.state.professional.address}, {this.state.professional.city}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.professional.province}, {this.state.professional.country} {this.state.professional.postalCode}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.professional.phone}</NunitoText>
+
                 </View>
               </View>
           </View>

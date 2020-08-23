@@ -60,9 +60,9 @@ export default class ChatScreen extends Component {
         },
         data: {
           residencyId: GLOBALS.RESIDENCYID,
-          date: "2020-08-19",
+          date: (new Date()).toISOString().substr(0,10),
           residentId: GLOBALS.RESIDENTID,
-          issuer: "proximity",
+          issuer: GLOBALS.USERNAME,
           message: aText
         }
       }).then(res => {
@@ -71,12 +71,12 @@ export default class ChatScreen extends Component {
           residencyId: GLOBALS.RESIDENCYID,
           date: (new Date).getTime()/1000,
           residentId: GLOBALS.RESIDENTID,
-          issuer: "proximity",
+          issuer: GLOBALS.USERNAME,
           message: aText
         });
         this.setState({ messages: ms });
         this.setState({ typing: ""});
-        alert("Message ajouté");
+        //alert("Message ajouté");
         })
         .catch((error) => {
           this.setState({ messages: [ ] });
@@ -96,7 +96,13 @@ export default class ChatScreen extends Component {
           onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
       >
         {this.state.messages.map((msg, i) => {
-          const odd = 0;
+          //const odd = 0;
+          var odd = 0;
+          if (msg.issuer == GLOBALS.USERNAME) {
+            odd = 1
+          } else {
+            odd = 0
+          }
           return (
 			        <Card key={i} containerStyle={odd ? styles.card0 : styles.card1}>
                 <Card containerStyle={odd ? styles.card2 : styles.card3}>
@@ -107,18 +113,10 @@ export default class ChatScreen extends Component {
                     >
                       <Image
                             style={[odd ? styles.avatarEven : styles.avatarOdd]}
-                            source={
-                            odd
-                                ? {uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile.jpg',
-                                headers: {
-                                  Accept: 'image/jpeg',
-                                  'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-                                }}
-                                : require('../assets/images/avatar.jpg')
-                            }
+                            source={require('../assets/images/avatar.jpg')}
                       />
                       <View style={{flex:4}}>
-                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toLocaleString('fr-CA')}</NunitoBoldText>
+                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toLocaleString('fr-CA').substr(0,16)}</NunitoBoldText>
                             <NunitoText style={styles.name}>{msg.message}</NunitoText>
                       </View>
                     </View>

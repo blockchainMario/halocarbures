@@ -15,14 +15,19 @@ import GLOBALS from '../constants/Globals'
 
 const list2 = [
     {
-        title: 'Famille et proches aidants',
-        icon: 'group',
-        screen: 'CircleOfCare'
-    },
-    {
         title: 'Plan de soins',
         icon: 'local-hospital',
         screen: 'CarePlan'
+    },
+    {
+        title: 'Professionnels',
+        icon: 'group',
+        screen: 'Professionals'
+    },
+    {
+        title: 'Famille et proches aidants',
+        icon: 'group',
+        screen: 'CircleOfCare'
     },
 ]
 
@@ -125,8 +130,8 @@ export default class MoreOptionsScreen extends Component {
         }
         </View>
 
-        <NunitoText style={styles.subSection}>DOCUMENTS</NunitoText>
-
+      {this.state.documents.length > 0 && <NunitoText style={styles.subSection}>DOCUMENTS</NunitoText>}
+     
       <View>
       {
         this.state.documents.map((item, i) => (

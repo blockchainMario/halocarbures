@@ -24,7 +24,7 @@ export default class ProfileScreen extends Component {
                 <Image style={styles.avatar} source={require('../assets/images/avatar.jpg')}/>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
-                        <NunitoText style={styles.name}>Mario Perron</NunitoText>
+    <NunitoText style={styles.name}>{GLOBALS.FULLNAME}</NunitoText>
                         <NunitoText style={styles.info}>{GLOBALS.USERNAME}</NunitoText>
                         <NunitoText style={styles.description}></NunitoText   >
                     </View>

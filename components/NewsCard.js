@@ -29,9 +29,9 @@ export default class NewsCard extends Component {
                     <Image
                         style={styles.tinyLogo}
                         source={{
-                          uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile',
+                          uri: 'http://18.191.91.177/SyMO/'+GLOBALS.RESIDENCYID+'.png',
                           headers: {
-                            Accept: 'image/jpeg'
+                            Accept: 'image/png'
                           }
                         }}
                     />
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   cardDate: {
     fontSize: 18,
-    margin: 12,
+    marginLeft: 12,
   },
   cardTitle: {
     fontSize: 16,
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 16,
     color: 'black',
+    marginBottom: 8,
   },
   row: {
     flexDirection: 'row',
