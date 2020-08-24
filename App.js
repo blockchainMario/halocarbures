@@ -180,14 +180,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         },
         headerLeft : () => <ActionBarIcon navigation={navigation}/>
       }}
@@ -201,14 +200,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -221,14 +219,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -241,34 +238,32 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
     <Stack.Screen name='Resident' component={ResidentScreen}
       options={{
-        title: 'Resident',
+        title: 'Résident',
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -281,14 +276,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -301,14 +295,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -321,14 +314,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -341,14 +333,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />
@@ -361,14 +352,13 @@ const MyStack = ({navigation}) => {
         },
         headerTintColor: '#fff',
         headerTitleContainerStyle: {
-          left: 30,
+          left: 0,
           right: 0
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -10,
-          textAlign: 'left',
-          marginLeft: -50
+          marginTop: -4,
+          marginLeft: 50
         }
       }}
     />

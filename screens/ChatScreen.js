@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Image,
+  KeyboardAvoidingView,
   Text,
   TextInput,
   ScrollView,
@@ -25,7 +26,8 @@ import GLOBALS from '../constants/Globals'
 export default class ChatScreen extends Component {
   state = {
     messages: [ ],
-    typing: ""
+    typing: "",
+    clearInput: false
   }
 
   componentDidMount() {
@@ -83,6 +85,7 @@ export default class ChatScreen extends Component {
           alert("Erreur de connexion messages : "+error)
         })
     }
+
   return (
     (this.state.messages == null) ? (
       <View style={styles.container}>
@@ -90,8 +93,13 @@ export default class ChatScreen extends Component {
       </View>
     ) : (
     <View style={styles.container}>
-      <ScrollView
-          style={styles.container2}
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+    >
+    <ScrollView 
+          keyboardShouldPersistTaps="handled" 
+          showsVerticalScrollIndicator={false}
           ref={ref => {this.scrollView = ref}}
           onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
       >
@@ -116,7 +124,7 @@ export default class ChatScreen extends Component {
                             source={require('../assets/images/avatar.jpg')}
                       />
                       <View style={{flex:4}}>
-                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toLocaleString('fr-CA').substr(0,16)}</NunitoBoldText>
+                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toISOString().substr(0,16).replace('T',' ')}</NunitoBoldText>
                             <NunitoText style={styles.name}>{msg.message}</NunitoText>
                       </View>
                     </View>
@@ -124,30 +132,22 @@ export default class ChatScreen extends Component {
 			        </Card>
           );
         })}
-        
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: '#fff', color: '#000' },
+          ]}
+          placeholderTextColor={Color('#000').alpha(0.5).rgb().string()}
+          placeholder="Écrire un message"
+          underlineColorAndroid="transparent"
+          value={this.state.typing}
+          onChangeText={(typing) => this.setState({typing})}
+          onSubmitEditing={()=>{
+            onSendMessage(this.state.typing)
+          }}
+        />
       </ScrollView>
-      <TextInput
-        style={[
-          styles.input,
-          { backgroundColor: '#fff', color: '#000' },
-        ]}
-        placeholderTextColor={Color('#000').alpha(0.5).rgb().string()}
-        placeholder="Écrire un message"
-        underlineColorAndroid="transparent"
-        onChangeText={(typing) => this.setState({typing})}
-      />
-      <TouchableHighlight
-              style={{
-                margin: 10,
-                borderRadius: 10,
-                borderWidth: 0,
-                backgroundColor: '#A071B1'
-              }}
-              //onPress={() => this.onClickListener('login')}
-              onPress={() => onSendMessage(this.state.typing)}
-        >
-          <NunitoBoldText style={styles.textStyle}>Envoyer</NunitoBoldText>
-        </TouchableHighlight>
+        </KeyboardAvoidingView>
     </View>
     )
   );
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 48,
+    marginTop: 12,
     paddingVertical: 12,
     paddingHorizontal: 24,
   },

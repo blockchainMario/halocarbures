@@ -6,6 +6,7 @@ import {
   ScrollView,
   TextInput,
   Image,
+  KeyboardAvoidingView,
   TouchableHighlight,
   Alert
 } from 'react-native';
@@ -21,7 +22,7 @@ import GLOBALS from '../constants/Globals'
 export default class NursingHomeScreen extends Component {
   state = {
     residence: null,
-    message: null
+    message: ""
   }
 
   componentDidMount() {
@@ -38,6 +39,22 @@ export default class NursingHomeScreen extends Component {
   }
 
   render() {
+
+    onSendMessage = (aText) => {
+      //alert("Button pressed "+aText);
+      axios({
+        method: 'get',
+        url: "http://18.191.91.177:8080/sendMsg/"+GLOBALS.USERNAME+"/"+aText+"/"+this.state.message
+      }).then(res => {
+        this.setState({ message: ""});
+        alert(aText);
+        })
+        .catch((error) => {
+          this.setState({ messages: [ ] });
+          alert("Erreur d'envoi d'un message : "+error)
+        })
+    }
+
     return (
       (this.state.residence == null) ? (
         <View style={styles.container}>
@@ -45,7 +62,16 @@ export default class NursingHomeScreen extends Component {
         </View>
       ) : (
         <View style={styles.container}>
-          <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 110 : 0}
+        >
+        <ScrollView 
+              keyboardShouldPersistTaps="handled" 
+              showsVerticalScrollIndicator={false}
+              ref={ref => {this.scrollView = ref}}
+              onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
+          >
             <View style={styles.container}>
                 <Image style={styles.avatar} 
                   source={{
@@ -67,25 +93,27 @@ export default class NursingHomeScreen extends Component {
                         placeholder="Écrire votre message ici..."
                         placeholderTextColor = "#A071B1"
                         underlineColorAndroid='transparent'
+                        value={this.state.message}
                         onChangeText={(message) => this.setState({message})}
                       />
                       
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à la réception")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à la réception")}>
                       <NunitoText style={styles.info}>Envoyer à la réception</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à l'équipe de soins")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à l'équipe de soins")}>
                       <NunitoText style={styles.info}>Envoyer à l'équipe de soins</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à la comptabilité")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à la comptabilité")}>
                       <NunitoText style={styles.info}>Envoyer à la comptabilité</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => Alert.alert("Votre message a été envoyé à la direction")}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à la direction")}>
                       <NunitoText style={styles.info}>Envoyer à la direction</NunitoText>
                       </TouchableHighlight>
                     </View>
                 </View>
             </View>
          </ScrollView>
+        </KeyboardAvoidingView>
         </View>
       )
     );

@@ -72,7 +72,7 @@ function getHeaderTitle(route) {
     case 'Resident':
       return 'Résident';
     case 'Notes':
-        return 'Commentaires';
+        return '      Commentaires';
     case 'Chat':
         return 'Messagerie';
     case 'NewsFeed':
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   textStyle: {
     textAlign: "center",
     padding: 0,
-    fontSize: 24,
+    fontSize: 20,
     color: "white"
   },
 });
