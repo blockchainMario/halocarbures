@@ -33,7 +33,7 @@ const list2 = [
 
 const list3 = [
     {
-        title: 'Information sur la résidence',
+        title: 'Informations sur la résidence',
         icon: 'hotel',
         screen: 'NursingHome'
     },

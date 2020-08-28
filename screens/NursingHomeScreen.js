@@ -86,7 +86,7 @@ export default class NursingHomeScreen extends Component {
                       <NunitoBoldText style={styles.name}>{this.state.residence.name}</NunitoBoldText>
                       <NunitoText style={styles.info}>{this.state.residence.address}</NunitoText>
                       <NunitoText style={styles.info}>{this.state.residence.city}</NunitoText>
-                      <NunitoText style={styles.info}>{this.state.residence.province}, {this.state.residence.country} {this.state.residence.postalCode}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.residence.province} {this.state.residence.country} {this.state.residence.postalCode}</NunitoText>
                       
                       <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
                       <TextInput style={styles.field}

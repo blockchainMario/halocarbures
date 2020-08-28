@@ -47,6 +47,19 @@ function renderFullname(aComp) {
   return GLOBALS.FULLNAME;
 }
 
+/*
+        <ListItem 
+          title={"Aide et soutien"} 
+          chevron
+          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
+        />
+        <ListItem 
+          title={"Donnez votre avis"} 
+          chevron
+          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
+        />
+*/
+
 function DrawerContent({navigation}) {
   return (
     <View style={styles.container2}>
