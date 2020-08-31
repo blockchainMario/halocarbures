@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
+//import { AsyncStorage } from '@react-native-community/async-storage';
 
 import axios from 'axios';
 import { NunitoExtraText } from '../components/StyledText';
@@ -26,6 +28,22 @@ export default class ResidentScreen extends Component {
   componentDidMount() {
     //axios.get('http://18.191.91.177:8080/resident/0')
     //alert("Bienvenue dans proximité");
+    const getData = async () => {
+      try {
+          const value = await AsyncStorage.getItem('@test1');
+          //alert('Current value is: '+value);
+          if (value !== null) {
+            const navigation = this.props.navigation;
+            navigation.dispatch(StackActions.replace('Login'));
+          } else {
+            const navigation = this.props.navigation;
+            navigation.dispatch(StackActions.replace('Register'));
+          }
+      } catch(e) {
+        // error reading value
+          alert('ERROR READING ASYNC VALUE!');
+      }
+    }
 
   if (GLOBALS.BEARERTOKEN) {
 
@@ -62,8 +80,7 @@ export default class ResidentScreen extends Component {
     } else {
 
       //alert("Need to login!");
-      const navigation = this.props.navigation;
-      navigation.dispatch(StackActions.replace('Login'));
+      getData();
         
     }
     

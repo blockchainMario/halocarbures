@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -19,7 +20,18 @@ import { NunitoBoldText } from '../components/StyledText';
 export default class RegisterScreen extends Component {
 
   onClickListener = (navigation, viewId) => {
+  
+    const setData = async () => {
+      try {
+            await AsyncStorage.setItem('@test1', 'Second');
+            alert('SUCCESSFULLY WRITTEN');
+      } catch(e) {
+            // save error
+            alert('CANNOT WRITE ASYNC')
+      }
+    }
     //Alert.alert("Alert", "Button pressed "+viewId);
+    setData();
     navigation.dispatch(StackActions.replace('Root'));
   }
 
@@ -38,7 +50,7 @@ export default class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
-              placeholderTextColor = "#a483b8"
+              placeholderTextColor = "#A071B1"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -49,7 +61,7 @@ export default class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#a483b8"
+              placeholderTextColor = "#A071B1"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -60,7 +72,7 @@ export default class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Confirmation du mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#a483b8"
+              placeholderTextColor = "#A071B1"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -72,7 +84,7 @@ export default class RegisterScreen extends Component {
                   margin: 10,
                   borderRadius: 10,
                   borderWidth: 0,
-                  backgroundColor: '#a483b8'
+                  backgroundColor: '#A071B1'
                 }}
                 //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}

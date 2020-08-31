@@ -119,10 +119,13 @@ export default class ChatScreen extends Component {
                         key={i}
                         style={[odd ? styles.even : styles.odd]}
                     >
-                      <Image
+                       <View style={{flex:1}}>
+                        <Image
                             style={[odd ? styles.avatarEven : styles.avatarOdd]}
                             source={require('../assets/images/avatar.jpg')}
-                      />
+                        />
+                        {msg.issuer != GLOBALS.USERNAME && <NunitoText style={styles.micro}>{msg.issuer}</NunitoText>}
+                      </View>
                       <View style={{flex:4}}>
                             <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toISOString().substr(0,16).replace('T',' ')}</NunitoBoldText>
                             <NunitoText style={styles.name}>{msg.message}</NunitoText>
@@ -181,6 +184,11 @@ const styles = StyleSheet.create({
   name:{
     fontSize: 16,
     color: 'black',
+  },
+  micro:{
+    fontSize: 8,
+    color: 'black',
+    textAlign: "center",
   },
   card0:{
       backgroundColor:'white',

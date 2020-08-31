@@ -47,7 +47,7 @@ export default class NursingHomeScreen extends Component {
         url: "http://18.191.91.177:8080/sendMsg/"+GLOBALS.USERNAME+"/"+aText+"/"+this.state.message
       }).then(res => {
         this.setState({ message: ""});
-        alert(aText);
+        Alert.alert("proximité",aText);
         })
         .catch((error) => {
           this.setState({ messages: [ ] });

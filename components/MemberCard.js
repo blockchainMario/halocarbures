@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, View, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { Text, Card, Divider } from 'react-native-elements';
 
 import { NunitoText } from '../components/StyledText';
@@ -21,7 +21,7 @@ export default class MemberCard extends Component {
 		return (
 			<Card containerStyle={styles.card}>
                 <Card containerStyle={styles.card2}>
-                    <TouchableHighlight onPress={() => alert('Contact : '+GLOBALS.USERNAME)} underlayColor="white">
+                    <TouchableHighlight onPress={() => Alert.alert("proximité",'Contact : '+GLOBALS.USERNAME)} underlayColor="white">
                         <View style={{flexDirection:"row"}}>
                             <View style={{flex:4}}>
 				                <NunitoText style={styles.name}>{this.props.firstName} {this.props.lastName}</NunitoText>

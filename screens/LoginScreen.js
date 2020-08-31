@@ -21,22 +21,32 @@ import { NunitoBoldText } from '../components/StyledText';
 import GLOBALS from '../constants/Globals'
 
 export default class LoginScreen extends Component {
+  state = {
+    email: "",
+    password: ""
+  }
 
   onClickListener = (navigation) => {
     //alert("Button pressed "+this.state.email);
     //await axios.get('http://18.191.91.177:8080/login')
-    axios.get('http://18.191.91.177:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
-    .then(res => {
-      const pack = res.data;
-      //alert(JSON.stringify(pack));
-      GLOBALS.BEARERTOKEN = pack.token;
-      GLOBALS.RESIDENCYID = pack.residencyId;
-      GLOBALS.RESIDENTID = pack.residentId;
-      GLOBALS.USERNAME = this.state.email.toLowerCase();
-      GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
-      //alert(token);
-      navigation.dispatch(StackActions.replace('Root'));
-    })
+    if (this.state.email.length < 3) {
+      Alert.alert("proximité","Entrez une adresse courriel valide");
+    } else if (this.state.password.length < 8) {
+      Alert.alert("proximité","Entrez un mot de passe valide");
+    } else {
+      axios.get('http://18.191.91.177:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
+      .then(res => {
+        const pack = res.data;
+        //alert(JSON.stringify(pack));
+        GLOBALS.BEARERTOKEN = pack.token;
+        GLOBALS.RESIDENCYID = pack.residencyId;
+        GLOBALS.RESIDENTID = pack.residentId;
+        GLOBALS.USERNAME = this.state.email.toLowerCase();
+        GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
+        //alert(token);
+        navigation.dispatch(StackActions.replace('Root'));
+      })
+    }
   }
 
   render() {
@@ -54,7 +64,7 @@ export default class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>Adresse courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
-              placeholderTextColor = "#8B4B9D"
+              placeholderTextColor = "#A071B1"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -65,7 +75,7 @@ export default class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#8B4B9D"
+              placeholderTextColor = "#A071B1"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -77,7 +87,7 @@ export default class LoginScreen extends Component {
                   margin: 10,
                   borderRadius: 10,
                   borderWidth: 0,
-                  backgroundColor: '#a483b8'
+                  backgroundColor: '#A071B1'
                 }}
                 //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}

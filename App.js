@@ -37,6 +37,8 @@ const Drawer = createDrawerNavigator();
 
 const Stack = createStackNavigator();
 
+const headerShift = Platform.OS === 'ios' ? -50 : 50;
+
 function closeAndReplace(navigation,screen) {
   navigation.closeDrawer();
   navigation.dispatch(StackActions.replace(screen))
@@ -197,16 +199,16 @@ const MyStack = ({navigation}) => {
           right: 0
         },
         headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          fontSize: 20,
+          marginTop: -2,
+          marginLeft: Platform.OS === 'ios' ? -50 : 50
         },
         headerLeft : () => <ActionBarIcon navigation={navigation}/>
       }}
     />
     <Stack.Screen name='CarePlan' component={CarePlanScreen} 
       options={{
-        title: 'Plan de soins',
+        title: <NunitoBoldText>Plan de soins</NunitoBoldText>,
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
@@ -217,15 +219,15 @@ const MyStack = ({navigation}) => {
           right: 0
         },
         headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          fontSize: 20,
+          marginTop: -2,
+          marginLeft: Platform.OS === 'ios' ? -50 : 50
         }
       }}
     />
     <Stack.Screen name='CircleOfCare' component={CircleOfCareScreen}
       options={{
-        title: 'Contacts',
+        title: <NunitoBoldText>Famille et proches aidants</NunitoBoldText>,
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
@@ -236,15 +238,15 @@ const MyStack = ({navigation}) => {
           right: 0
         },
         headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          fontSize: 20,
+          marginTop: -2,
+          marginLeft: Platform.OS === 'ios' ? 20 : 50
         }
       }}
     />
     <Stack.Screen name='Professionals' component={ProfessionalsScreen}
       options={{
-        title: 'Professionels',
+        title: <NunitoBoldText>Professionels</NunitoBoldText>,
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
@@ -255,9 +257,9 @@ const MyStack = ({navigation}) => {
           right: 0
         },
         headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          fontSize: 20,
+          marginTop: -2,
+          marginLeft: Platform.OS === 'ios' ? -50 : 50
         }
       }}
     />
@@ -275,14 +277,14 @@ const MyStack = ({navigation}) => {
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          marginTop: -2,
+          marginLeft: headerShift
         }
       }}
     />
     <Stack.Screen name='NursingHome' component={NursingHomeScreen}
       options={{
-        title: 'Hébergement',
+        title: <NunitoBoldText>Résidence</NunitoBoldText>,
         headerStyle: {
           backgroundColor: '#A071B1',
           height: 90,
@@ -293,9 +295,9 @@ const MyStack = ({navigation}) => {
           right: 0
         },
         headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          fontSize: 20,
+          marginTop: -2,
+          marginLeft: Platform.OS === 'ios' ? -50 : 50
         }
       }}
     />
@@ -313,8 +315,8 @@ const MyStack = ({navigation}) => {
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          marginTop: -2,
+          marginLeft: headerShift
         }
       }}
     />
@@ -332,8 +334,8 @@ const MyStack = ({navigation}) => {
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          marginTop: -2,
+          marginLeft: headerShift
         }
       }}
     />
@@ -351,8 +353,8 @@ const MyStack = ({navigation}) => {
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          marginTop: -2,
+          marginLeft: headerShift
         }
       }}
     />
@@ -370,8 +372,8 @@ const MyStack = ({navigation}) => {
         },
         headerTitleStyle: {
           fontSize: 18,
-          marginTop: -4,
-          marginLeft: 50
+          marginTop: -2,
+          marginLeft: headerShift
         }
       }}
     />
