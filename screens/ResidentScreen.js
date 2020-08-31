@@ -37,7 +37,8 @@ export default class ResidentScreen extends Component {
             navigation.dispatch(StackActions.replace('Login'));
           } else {
             const navigation = this.props.navigation;
-            navigation.dispatch(StackActions.replace('Register'));
+            //navigation.dispatch(StackActions.replace('Register'));
+            navigation.dispatch(StackActions.replace('Login'));
           }
       } catch(e) {
         // error reading value
