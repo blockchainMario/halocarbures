@@ -17,14 +17,14 @@ export default class MemberList extends React.Component {
       .then(res => {
         const members = res.data;
         this.setState({ members: members });
-        console.log(members);
+        //alert(JSON.stringify(members));
       })
   }
 
   render() {
     return (
         <View>
-            { this.state.members.map(member => <MemberCard key={member.firstName} firstName={member.firstName} lastName={member.lastName} image={member.image} />)}
+            { this.state.members.map(member => <MemberCard key={member.email} email={member.email} firstName={member.firstName} lastName={member.lastName} image={member.image} />)}
         </View>
     )
   }

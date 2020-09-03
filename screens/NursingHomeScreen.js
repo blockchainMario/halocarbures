@@ -42,17 +42,21 @@ export default class NursingHomeScreen extends Component {
 
     onSendMessage = (aText) => {
       //alert("Button pressed "+aText);
-      axios({
-        method: 'get',
-        url: "http://18.191.91.177:8080/sendMsg/"+GLOBALS.USERNAME+"/"+aText+"/"+this.state.message
-      }).then(res => {
-        this.setState({ message: ""});
-        Alert.alert("proximité",aText);
-        })
-        .catch((error) => {
-          this.setState({ messages: [ ] });
-          alert("Erreur d'envoi d'un message : "+error)
-        })
+      if (this.state.message.length < 1) {
+        Alert.alert("proximité","Entrez d'abord un message ci-dessus");
+      } else {
+        axios({
+          method: 'get',
+          url: "http://18.191.91.177:8080/sendMsg/"+GLOBALS.USERNAME+"/"+aText+"/"+this.state.message
+        }).then(res => {
+          this.setState({ message: ""});
+          Alert.alert("proximité",aText);
+          })
+          .catch((error) => {
+            this.setState({ messages: [ ] });
+            alert("Erreur d'envoi d'un message : "+error)
+          })
+      }
     }
 
     return (

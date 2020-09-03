@@ -23,7 +23,13 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.manyeta.proximity",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.manyeta.proximity",
+      "versionCode": 1
     },
     "description": ""
   }
