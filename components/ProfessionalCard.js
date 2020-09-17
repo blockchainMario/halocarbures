@@ -22,7 +22,7 @@ export default class ProfessionalCard extends React.Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.191.91.177:8080/comments/0')
+    //axios.get('http://18.190.29.217:8080/comments/0')
     axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+this.props.id, {
       headers: {
         'Accept': 'application/json',

@@ -29,7 +29,7 @@ export default class NewsCard extends Component {
                     <Image
                         style={styles.tinyLogo}
                         source={{
-                          uri: 'http://18.191.91.177/SyMO/'+GLOBALS.RESIDENCYID+'.png',
+                          uri: 'http://18.190.29.217/SyMO/'+GLOBALS.RESIDENCYID+'.png',
                           headers: {
                             Accept: 'image/png'
                           }

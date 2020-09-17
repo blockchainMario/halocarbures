@@ -14,7 +14,7 @@ export default class CommentCard extends Component {
                 <View style={styles.row}>
                     <Image 
                         style={{ width: 60, height: 60, borderRadius: 60/2, marginLeft : 0, borderColor: '#fff', borderWidth: 2 }}
-                        source={{uri : 'http://18.191.91.177/SyMO/avatar.jpg'}}/>
+                        source={{uri : 'http://18.190.29.217/SyMO/avatar.jpg'}}/>
                     <NunitoBoldText style={styles.cardDate}>{this.props.date.substr(0,10)}</NunitoBoldText>
                 </View>
 				<NunitoBoldText style={styles.cardTitle}>{this.props.title}</NunitoBoldText>

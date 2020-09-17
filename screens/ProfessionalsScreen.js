@@ -18,7 +18,7 @@ export default class ProfessionalsScreen extends Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.191.91.177:8080/comments/0')
+    //axios.get('http://18.190.29.217:8080/comments/0')
     axios.get(GLOBALS.ENDPOINT+"/links/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',

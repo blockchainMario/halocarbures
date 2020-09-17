@@ -47,12 +47,12 @@ const list4 = [
     {
         title: 'Bail',
         icon: 'assignment',
-        document: 'http://18.191.91.177/SyMO/Bail.pdf'
+        document: 'http://18.190.29.217/SyMO/Bail.pdf'
     },
     {
         title: 'Annexe 19',
         icon: 'assignment',
-        document: 'http://18.191.91.177/SyMO/Annexe19.pdf'
+        document: 'http://18.190.29.217/SyMO/Annexe19.pdf'
     },
 ]
 */

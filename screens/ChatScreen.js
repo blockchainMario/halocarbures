@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   View,
   Image,
   KeyboardAvoidingView,
@@ -30,8 +31,9 @@ export default class ChatScreen extends Component {
     clearInput: false
   }
 
-  componentDidMount() {
-    //axios.get('http://18.191.91.177:8080/comments/0')
+  getMessages() {
+    //axios.get('http://18.190.29.217:8080/comments/0')
+    //Alert.alert('Getting new messages!')
     axios.get(GLOBALS.ENDPOINT+"/messages/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
@@ -46,7 +48,15 @@ export default class ChatScreen extends Component {
       .catch((error) => {
         this.setState({ messages: [ ] });
         //alert("Erreur de connexion messages : "+error);
-      })
+      });
+    setTimeout(() => {
+      this.getMessages()
+    }, 60000);
+  }
+
+  componentDidMount() {
+    //axios.get('http://18.190.29.217:8080/comments/0')
+    this.getMessages()
   }
 
   render() {
@@ -127,7 +137,7 @@ export default class ChatScreen extends Component {
                         {msg.issuer != GLOBALS.USERNAME && <NunitoText style={styles.micro}>{msg.issuer}</NunitoText>}
                       </View>
                       <View style={{flex:4}}>
-                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*msg.date)).toISOString().substr(0,16).replace('T',' ')}</NunitoBoldText>
+                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*(msg.date-14400))).toISOString().substr(0,16).replace('T',' ')}</NunitoBoldText>
                             <NunitoText style={styles.name}>{msg.message}</NunitoText>
                       </View>
                     </View>

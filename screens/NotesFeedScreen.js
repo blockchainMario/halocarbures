@@ -16,8 +16,8 @@ export default class NotesFeedScreen extends Component {
     comments: null
   }
 
-  componentDidMount() {
-    //axios.get('http://18.191.91.177:8080/comments/0')
+  getComments() {
+    //axios.get('http://18.190.29.217:8080/comments/0')
     //alert(GLOBALS.BEARERTOKEN);
     axios.get(GLOBALS.ENDPOINT+"/comments/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
@@ -33,7 +33,15 @@ export default class NotesFeedScreen extends Component {
       .catch((error) => {
         this.setState({ comments: [ ] });
         //alert("Erreur de connexion comments : "+error)
-      })
+      });
+    setTimeout(() => {
+      this.getComments()
+    }, 60000);
+  }
+
+  componentDidMount() {
+    //axios.get('http://18.190.29.217:8080/comments/0')
+    this.getComments()
   }
 
   render() {

@@ -47,7 +47,7 @@ export default class NursingHomeScreen extends Component {
       } else {
         axios({
           method: 'get',
-          url: "http://18.191.91.177:8080/sendMsg/"+GLOBALS.USERNAME+"/"+aText+"/"+this.state.message
+          url: "http://18.190.29.217:8080/sendMsg/"+GLOBALS.USERNAME+"/"+aText+"/"+this.state.message
         }).then(res => {
           this.setState({ message: ""});
           Alert.alert("proximité",aText);
@@ -94,6 +94,8 @@ export default class NursingHomeScreen extends Component {
                       
                       <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
                       <TextInput style={styles.field}
+                        multiline
+                        numberOfLines={10}
                         placeholder="Écrire votre message ici..."
                         placeholderTextColor = "#A071B1"
                         underlineColorAndroid='transparent'
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
   },
 	field:{
     margin: 10,
-    height: 40,
+    height: 80,
     padding: 10,
     borderColor: '#8B4B9D',
     borderWidth: 1

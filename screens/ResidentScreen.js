@@ -26,7 +26,7 @@ export default class ResidentScreen extends Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.191.91.177:8080/resident/0')
+    //axios.get('http://18.190.29.217:8080/resident/0')
     //alert("Bienvenue dans proximité");
     const getData = async () => {
       try {

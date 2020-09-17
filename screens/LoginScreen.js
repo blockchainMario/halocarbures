@@ -28,13 +28,13 @@ export default class LoginScreen extends Component {
 
   onClickListener = (navigation) => {
     //alert("Button pressed "+this.state.email);
-    //await axios.get('http://18.191.91.177:8080/login')
+    //await axios.get('http://18.190.29.217:8080/login')
     if (this.state.email.length < 3) {
       Alert.alert("proximité","Entrez une adresse courriel valide");
     } else if (this.state.password.length < 8) {
       Alert.alert("proximité","Entrez un mot de passe valide");
     } else {
-      axios.get('http://18.191.91.177:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
+      axios.get('http://18.190.29.217:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
       .then(res => {
         const pack = res.data;
         //alert(JSON.stringify(pack));
