@@ -3,8 +3,10 @@ export default {
     //Haut Saint-Laurent
     //RESIDENCYID : 'd6f12b5c-dbc7-11ea-890d-25197add35ef',
     //RESIDENCYID : 'cbb6ab06-de74-11ea-a0de-3a886883568c',
-    //Hopem Test residency
+    //Hopem Beta Test residency
     RESIDENCYID : '63788d7e-dc9a-11ea-a808-26e41db60473',
+    //Hopem Dev Test residency
+    //RESIDENCYID : 'b8fbe498-f20e-11ea-ae42-4dab16e8b273',
     //RESIDENTID : 'B540CDED-CF41-41AE-A95E-BC24F2A0A3CA',
     //RESIDENTID : 'fca6ebcb-135b-43ca-9af2-d7e1692b5698',
     //RESIDENTID : '10cc816a-11ec-420e-844d-6b1b44c5d430',

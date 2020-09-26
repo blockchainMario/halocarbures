@@ -43,7 +43,6 @@ export default class LoginScreen extends Component {
         GLOBALS.RESIDENTID = pack.residentId;
         GLOBALS.USERNAME = this.state.email.toLowerCase();
         GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
-        //alert(token);
         navigation.dispatch(StackActions.replace('Root'));
       })
     }

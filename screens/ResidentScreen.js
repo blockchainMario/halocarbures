@@ -62,7 +62,7 @@ export default class ResidentScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion residents : "+error)
       })
-    
+    /*
     axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.PROFESSIONALID, {
         headers: {
           'Accept': 'application/json',
@@ -77,7 +77,7 @@ export default class ResidentScreen extends Component {
         .catch((error) => {
           alert("Erreur de connexion professionals : "+error)
         })
-
+      */  
     } else {
 
       //alert("Need to login!");
@@ -89,7 +89,7 @@ export default class ResidentScreen extends Component {
 
   render() {
     return (
-      (this.state.resident == null || this.state.professional == null) ? (
+      (this.state.resident == null) ? (
         <View style={styles.container}>
           <NunitoText style={styles.info}>Loading...</NunitoText>
         </View>
@@ -112,8 +112,18 @@ export default class ResidentScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>Date de naissance : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.birthDate.substr(0,10)}</NunitoBoldText>
                       </View>
+                      
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Date d'admission : </NunitoText><NunitoBoldText style={styles.info}>{""}</NunitoBoldText>
+                        <NunitoText style={styles.label}>Adresse : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.address}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>Ville : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.city}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>Province : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.province} {this.state.resident.postalCode}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>Téléphone : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.phoneNumber}</NunitoBoldText>
                       </View>
                 </View>
               </View>

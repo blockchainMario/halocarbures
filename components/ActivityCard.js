@@ -16,18 +16,45 @@ import { NunitoBoldText } from '../components/StyledText';
 export default class ActivityCard extends Component {
 
 	render() {
-
+		var freqs = this.props.frequencies;
+		//alert(freqs);
+		if (freqs == null) { freqs = [] };
+		freqs.sort((a, b) => {
+			let fa = a.frequency_Fr.toLowerCase(),
+				fb = b.frequency_Fr.toLowerCase();
+			if (fa < fb) {
+				return -1;
+			}
+			if (fa > fb) {
+				return 1;
+			}
+			return 0;
+		  });
 		return (
-			<Card containerStyle={styles.card}>
-                <Card containerStyle={styles.card2}>
-				    <NunitoText style={styles.activityName}>{this.props.activityName}</NunitoText>
-                </Card>
-				
-				<View style={{flexDirection:'row', justifyContent:'space-between'}}>
-					<NunitoBoldText style={styles.occupation}>{this.props.occupation}</NunitoBoldText>
-					<NunitoBoldText style={styles.frequency}>{this.props.next}</NunitoBoldText>
-				</View>
-			</Card>
+			(freqs.length == 0) ? (
+				<Card containerStyle={styles.card}>
+					<Card containerStyle={styles.card2}>
+						<NunitoText style={styles.activityName}>{this.props.activityName}</NunitoText>
+					</Card>
+					
+					<View style={{flexDirection:'row', justifyContent:'space-between'}}>
+						<NunitoBoldText style={styles.occupation}>{this.props.occupation}</NunitoBoldText>
+						<NunitoBoldText style={styles.frequency}>{this.props.next}</NunitoBoldText>
+					</View>
+				</Card>
+			) : (
+				<Card containerStyle={styles.card}>
+					<Card containerStyle={styles.card2}>
+						<NunitoText style={styles.activityName}>{this.props.activityName}</NunitoText>
+					</Card>
+					<View style={{flexDirection:'row', justifyContent:'space-between'}}>
+						<NunitoText style={styles.frequency}>Fréquence :</NunitoText>
+						<NunitoBoldText style={styles.occupation}>{this.props.occupation}</NunitoBoldText>
+					</View>
+						{ freqs.map(freq => <View key={freq.frequency_Fr} style={{flexDirection:'row', justifyContent:'space-between'}}><NunitoBoldText  style={styles.frequency}>{freq.frequency_Fr}</NunitoBoldText></View>)}
+					
+				</Card>
+			)
 		);
 	}
 }

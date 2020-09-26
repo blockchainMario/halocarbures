@@ -21,9 +21,20 @@ export default class ActivityList extends React.Component {
       }
     })
       .then(res => {
-        const activities = res.data;
-        this.setState({ activities: activities });
+        var activities = res.data;
         //alert(JSON.stringify(activities));
+        activities.sort((a, b) => {
+          let fa = a.occupation_Fr.toLowerCase() + a.intervention_Fr.toLowerCase(),
+              fb = b.occupation_Fr.toLowerCase() + b.intervention_Fr.toLowerCase();
+          if (fa < fb) {
+              return -1;
+          }
+          if (fa > fb) {
+              return 1;
+          }
+          return 0;
+        });
+        this.setState({ activities: activities });
       })
       .catch((error) => {
         this.setState({ activities: [ ] });
@@ -34,7 +45,7 @@ export default class ActivityList extends React.Component {
   render() {
     return (
         <View>
-            { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation_Fr} activityName={activity.intervention_Fr} next={activity.nextOccurrence} />)}
+            { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation_Fr} activityName={activity.intervention_Fr} next={activity.nextOccurrence} frequencies={activity.frequencies} />)}
         </View>
     )
   }

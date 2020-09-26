@@ -53,11 +53,12 @@ export default class ProfessionalCard extends React.Component {
             >
             <Card style={styles.card}>
                 <View style={styles.line}>
-                    <NunitoBoldText style={styles.info}>{this.state.professional.firstName} {this.state.professional.lastName}</NunitoBoldText><NunitoText style={styles.label}> ({this.state.professional.jobTitle})</NunitoText>
+                    <NunitoBoldText style={styles.info}>{this.state.professional.civility_Fr} {this.state.professional.lastName}</NunitoBoldText><NunitoText style={styles.label}> ({this.state.professional.profession})</NunitoText>
                 </View>
-                <NunitoText style={styles.info}>{this.state.professional.address}, {this.state.professional.city}</NunitoText>
-                <NunitoText style={styles.info}>{this.state.professional.province}, {this.state.professional.country} {this.state.professional.postalCode}</NunitoText>
-                <NunitoText style={styles.info}>{this.state.professional.phone}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.address}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.city}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.province} {this.state.professional.postalCode}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.phone} ext. {this.state.professional.phoneExtension}</NunitoText>
             </Card>
            </ScrollView>
           </View>

@@ -48,7 +48,6 @@ export default class ProfessionalsScreen extends Component {
           style={styles.container2} 
           contentContainerStyle={styles.contentContainer2}
           ref={ref => {this.scrollView = ref}}
-          onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
         >
           <View>
             { this.state.professionals.map(professional => <ProfessionalCard key={professional.professionalId} id={professional.professionalId} />)}
