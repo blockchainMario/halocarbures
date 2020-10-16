@@ -18,9 +18,10 @@ import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
-import GLOBALS from '../constants/Globals'
+import GLOBALS from '../constants/Globals';
+import { withTranslation } from 'react-i18next';
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   state = {
     email: "",
     password: ""
@@ -49,9 +50,9 @@ export default class LoginScreen extends Component {
   }
 
   render() {
-    
     const navigation = this.props.navigation;
-    //alert(Object.keys(navigation));
+    const { t } = this.props;
+    GLOBALS.T = t;
     return (
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
@@ -60,9 +61,9 @@ export default class LoginScreen extends Component {
           <NunitoText style={styles.title}>proximité</NunitoText>
         </View>
         <View>
-          <NunitoBoldText style={styles.label}>Adresse courriel</NunitoBoldText>
+          <NunitoBoldText style={styles.label}>{t("login:email")}</NunitoBoldText>
           <TextInput style={styles.field}
-              placeholder="Adresse courriel"
+              placeholder={t("login:email")}
               placeholderTextColor = "#A071B1"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
@@ -71,9 +72,9 @@ export default class LoginScreen extends Component {
         </View>
         
         <View>
-          <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
+          <NunitoBoldText style={styles.label}>{t("login:pass")}</NunitoBoldText>
           <TextInput style={styles.field}
-              placeholder="Mot de passe"
+              placeholder={t("login:pass")}
               placeholderTextColor = "#A071B1"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
@@ -91,7 +92,7 @@ export default class LoginScreen extends Component {
                 //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}
           >
-            <NunitoBoldText style={styles.textStyle}>Accéder</NunitoBoldText>
+            <NunitoBoldText style={styles.textStyle}>{t("login:access")}</NunitoBoldText>
           </TouchableHighlight>
       </ScrollView>
       </View>
@@ -159,4 +160,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
+
+export default withTranslation()(LoginScreen);
  

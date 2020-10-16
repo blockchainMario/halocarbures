@@ -12,54 +12,11 @@ import { NunitoBoldText } from '../components/StyledText';
 import axios from 'axios';
 
 import GLOBALS from '../constants/Globals'
-
-const list2 = [
-    {
-        title: 'Plan de soins',
-        icon: 'local-hospital',
-        screen: 'CarePlan'
-    },
-    {
-        title: 'Professionnels',
-        icon: 'group',
-        screen: 'Professionals'
-    },
-    {
-        title: 'Famille et proches aidants',
-        icon: 'group',
-        screen: 'CircleOfCare'
-    },
-]
-
-const list3 = [
-    {
-        title: 'Informations sur la résidence',
-        icon: 'hotel',
-        screen: 'NursingHome'
-    },
-]
-
-function getDocs() {
-}
-
-/*
-const list4 = [
-    {
-        title: 'Bail',
-        icon: 'assignment',
-        document: 'http://18.190.29.217/SyMO/Bail.pdf'
-    },
-    {
-        title: 'Annexe 19',
-        icon: 'assignment',
-        document: 'http://18.190.29.217/SyMO/Annexe19.pdf'
-    },
-]
-*/
+import { withTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator()
 
-export default class MoreOptionsScreen extends Component {
+class MoreOptionsScreen extends Component {
   state = {
     documents: null
   }
@@ -82,8 +39,53 @@ export default class MoreOptionsScreen extends Component {
   }
 
   render() {
+    const { t } = this.props;
 
     const navigation = this.props.navigation;
+
+    const list2 = [
+        {
+            title: t("infos:careplan"),
+            icon: 'local-hospital',
+            screen: 'CarePlan'
+        },
+        {
+            title: t("infos:professionals"),
+            icon: 'group',
+            screen: 'Professionals'
+        },
+        {
+            title: t("infos:circleofcare"),
+            icon: 'group',
+            screen: 'CircleOfCare'
+        },
+    ]
+    
+    const list3 = [
+        {
+            title: t("infos:profile"),
+            icon: 'hotel',
+            screen: 'NursingHome'
+        },
+    ]
+    
+    function getDocs() {
+    }
+    
+    /*
+    const list4 = [
+        {
+            title: 'Bail',
+            icon: 'assignment',
+            document: 'http://18.190.29.217/SyMO/Bail.pdf'
+        },
+        {
+            title: 'Annexe 19',
+            icon: 'assignment',
+            document: 'http://18.190.29.217/SyMO/Annexe19.pdf'
+        },
+    ]
+    */
     
   return (
         
@@ -96,7 +98,7 @@ export default class MoreOptionsScreen extends Component {
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <NunitoText style={styles.subSection}>SOINS</NunitoText>
+        <NunitoText style={styles.subSection}>{t("infos:section1")}</NunitoText>
 
         <View>
         {
@@ -113,7 +115,7 @@ export default class MoreOptionsScreen extends Component {
         }
         </View>
 
-        <NunitoText style={styles.subSection}>HÉBERGEMENT</NunitoText>
+        <NunitoText style={styles.subSection}>{t("infos:section2")}</NunitoText>
 
         <View>
         {
@@ -130,7 +132,7 @@ export default class MoreOptionsScreen extends Component {
         }
         </View>
 
-      {this.state.documents.length > 0 && <NunitoText style={styles.subSection}>DOCUMENTS</NunitoText>}
+      {this.state.documents.length > 0 && <NunitoText style={styles.subSection}>{t("infos:section3")}</NunitoText>}
      
       <View>
       {
@@ -256,3 +258,5 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+export default withTranslation()(MoreOptionsScreen);

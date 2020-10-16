@@ -21,10 +21,11 @@ import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
 import GLOBALS from '../constants/Globals'
+import { withTranslation } from 'react-i18next';
 
 //const { colors } = useTheme();
 
-export default class ChatScreen extends Component {
+class ChatScreen extends Component {
   state = {
     messages: [ ],
     typing: "",
@@ -60,7 +61,7 @@ export default class ChatScreen extends Component {
   }
 
   render() {
-
+    const { t } = this.props;
     onSendMessage = (aText) => {
       //alert("Button pressed "+aText);
       axios({
@@ -151,7 +152,7 @@ export default class ChatScreen extends Component {
             { backgroundColor: '#fff', color: '#000' },
           ]}
           placeholderTextColor={Color('#000').alpha(0.5).rgb().string()}
-          placeholder="Écrire un message"
+          placeholder={t("chat:invite")}
           underlineColorAndroid="transparent"
           value={this.state.typing}
           onChangeText={(typing) => this.setState({typing})}
@@ -268,3 +269,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 });
+
+export default withTranslation()(ChatScreen);

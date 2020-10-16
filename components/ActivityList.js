@@ -2,7 +2,7 @@ import React from 'react';
 
 import ActivityCard from '../components/ActivityCard';
 
-import GLOBALS from '../constants/Globals'
+import GLOBALS from '../constants/Globals';
 
 import axios from 'axios';
 import { View } from 'react-native';
@@ -24,8 +24,16 @@ export default class ActivityList extends React.Component {
         var activities = res.data;
         //alert(JSON.stringify(activities));
         activities.sort((a, b) => {
-          let fa = a.occupation_Fr.toLowerCase() + a.intervention_Fr.toLowerCase(),
-              fb = b.occupation_Fr.toLowerCase() + b.intervention_Fr.toLowerCase();
+          let fa = ""
+          let fb = ""
+          if (GLOBALS.LANGUAGE == 'fr') {
+            fa = a.occupation_Fr.toLowerCase() + a.intervention_Fr.toLowerCase();
+            fb = b.occupation_Fr.toLowerCase() + b.intervention_Fr.toLowerCase();
+          }
+          if (GLOBALS.LANGUAGE == 'en') {
+            fa = a.occupation_En.toLowerCase() + a.intervention_En.toLowerCase();
+            fb = b.occupation_En.toLowerCase() + b.intervention_En.toLowerCase();
+          }
           if (fa < fb) {
               return -1;
           }
@@ -38,15 +46,19 @@ export default class ActivityList extends React.Component {
       })
       .catch((error) => {
         this.setState({ activities: [ ] });
-        //alert("Erreur de connexion activities : "+error)
+        alert("Erreur de connexion activities : "+error)
       })
   }
 
   render() {
     return (
-        <View>
+      (GLOBALS.LANGUAGE == 'fr') ?
+      (<View>
             { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation_Fr} activityName={activity.intervention_Fr} next={activity.nextOccurrence} frequencies={activity.frequencies} />)}
-        </View>
+      </View>) :
+      (<View>
+            { this.state.activities.map(activity => <ActivityCard key={activity.id} occupation={activity.occupation_En} activityName={activity.intervention_En} next={activity.nextOccurrence} frequencies={activity.frequencies} />)}
+      </View>)
     )
   }
 }

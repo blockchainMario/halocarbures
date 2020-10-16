@@ -17,9 +17,10 @@ import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import GLOBALS from '../constants/Globals'
+import GLOBALS from '../constants/Globals';
+import { withTranslation } from 'react-i18next';
 
-export default class ResidentScreen extends Component {
+class ResidentScreen extends Component {
   state = {
     resident: null,
     professional: null
@@ -88,6 +89,7 @@ export default class ResidentScreen extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       (this.state.resident == null) ? (
         <View style={styles.container}>
@@ -110,20 +112,20 @@ export default class ResidentScreen extends Component {
                   <View style={styles.bodyContent}>
                       <NunitoBoldText style={styles.name}>{this.state.resident.firstName} {this.state.resident.lastName}</NunitoBoldText>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Date de naissance : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.birthDate.substr(0,10)}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("resident:birthdate")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.birthDate.substr(0,10)}</NunitoBoldText>
                       </View>
                       
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Adresse : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.address}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("resident:address")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.address}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Ville : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.city}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("resident:city")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.city}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Province : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.province} {this.state.resident.postalCode}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("resident:state")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.province} {this.state.resident.postalCode}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>Téléphone : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.phoneNumber}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("resident:phone")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.phoneNumber}</NunitoBoldText>
                       </View>
                 </View>
               </View>
@@ -198,4 +200,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 });
+
+export default withTranslation()(ResidentScreen);
  

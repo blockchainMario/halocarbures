@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
+import { useTranslation } from "react-i18next"
 import { StyleSheet } from 'react-native';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -16,8 +17,9 @@ const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Resident';
 
 export default function BottomTabNavigator({ navigation, route }) {
+	const [t, i18n] = useTranslation();
   //navigation.setOptions({ headerTitle: getHeaderTitle(route) });
-  navigation.setOptions({ headerTitle: props => <NunitoBoldText style={styles.textStyle}>{getHeaderTitle(route)}</NunitoBoldText> });
+  navigation.setOptions({ headerTitle: props => <NunitoBoldText style={styles.textStyle}>{getHeaderTitle(route, t)}</NunitoBoldText> });
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
@@ -25,7 +27,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Resident"
         component={ResidentScreen}
         options={{
-          title: 'Résident',
+          title: t("resident:title"),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-contact" />,
         }}
       />
@@ -33,7 +35,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Notes"
         component={NotesFeedScreen}
         options={{
-          title: 'Commentaires',
+          title: t("notes:title"),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-today" />,
         }}
       />
@@ -41,7 +43,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Chat"
         component={ChatScreen}
         options={{
-          title: 'Messagerie',
+          title: t("chat:title"),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-mail" />,
         }}
       />
@@ -49,7 +51,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="NewsFeed"
         component={NewsFeedScreen}
         options={{
-          title: 'Babillard',
+          title: t("newsfeed:title"),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-clipboard" />,
         }}
       />
@@ -57,7 +59,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="MoreOptions"
         component={MoreOptionsScreen}
         options={{
-          title: 'Infos',
+          title: t("infos:title"),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-apps" />,
         }}
       />
@@ -65,20 +67,20 @@ export default function BottomTabNavigator({ navigation, route }) {
   );
 }
 
-function getHeaderTitle(route) {
+function getHeaderTitle(route, t) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
     case 'Resident':
-      return 'Résident';
+      return t("resident:title");
     case 'Notes':
-        return '      Commentaires';
+        return '      '+t("notes:title");
     case 'Chat':
-        return 'Messagerie';
+        return t("chat:title");
     case 'NewsFeed':
-      return 'Babillard';
+      return t("newsfeed:title");
     case 'MoreOptions':
-      return 'Infos';
+      return t("infos:title");
   }
 }
 

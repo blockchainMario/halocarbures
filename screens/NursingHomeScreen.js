@@ -18,8 +18,9 @@ import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
 import GLOBALS from '../constants/Globals'
+import { withTranslation } from 'react-i18next';
 
-export default class NursingHomeScreen extends Component {
+class NursingHomeScreen extends Component {
   state = {
     residence: null,
     message: ""
@@ -39,11 +40,12 @@ export default class NursingHomeScreen extends Component {
   }
 
   render() {
+    const { t } = this.props;
 
     onSendMessage = (aText) => {
       //alert("Button pressed "+aText);
       if (this.state.message.length < 1) {
-        Alert.alert("proximité","Entrez d'abord un message ci-dessus");
+        Alert.alert(t("app:name"),t("residency:warning"));
       } else {
         axios({
           method: 'get',
@@ -92,28 +94,28 @@ export default class NursingHomeScreen extends Component {
                       <NunitoText style={styles.info}>{this.state.residence.city}</NunitoText>
                       <NunitoText style={styles.info}>{this.state.residence.province} {this.state.residence.country} {this.state.residence.postalCode}</NunitoText>
                       
-                      <NunitoBoldText style={styles.name}>Nous contacter</NunitoBoldText>
+                      <NunitoBoldText style={styles.name}>{t("residency:contactus")}</NunitoBoldText>
                       <TextInput style={styles.field}
                         multiline
                         numberOfLines={10}
-                        placeholder="Écrire votre message ici..."
+                        placeholder={t("residency:invite")}
                         placeholderTextColor = "#A071B1"
                         underlineColorAndroid='transparent'
                         value={this.state.message}
                         onChangeText={(message) => this.setState({message})}
                       />
                       
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à la réception")}>
-                      <NunitoText style={styles.info}>Envoyer à la réception</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage(t("residency:sentreception"))}>
+                      <NunitoText style={styles.info}>{t("residency:reception")}</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à l'équipe de soins")}>
-                      <NunitoText style={styles.info}>Envoyer à l'équipe de soins</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage(t("residency:sentcareteam"))}>
+                      <NunitoText style={styles.info}>{t("residency:careteam")}</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à la comptabilité")}>
-                      <NunitoText style={styles.info}>Envoyer à la comptabilité</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage(t("residency:sentaccounting"))}>
+                      <NunitoText style={styles.info}>{t("residency:accounting")}</NunitoText>
                       </TouchableHighlight>
-                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage("Votre message a été envoyé à la direction")}>
-                      <NunitoText style={styles.info}>Envoyer à la direction</NunitoText>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={() => onSendMessage(t("residency:sentmanagement"))}>
+                      <NunitoText style={styles.info}>{t("residency:management")}</NunitoText>
                       </TouchableHighlight>
                     </View>
                 </View>
@@ -195,4 +197,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 });
+
+export default withTranslation()(NursingHomeScreen);
  

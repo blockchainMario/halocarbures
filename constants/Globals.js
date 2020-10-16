@@ -21,5 +21,7 @@ export default {
     NEWSFEEDID : '14f68d4e-de71-11ea-85a3-aacff8cbfcc8',
     BEARERTOKEN : '',
     USERNAME : '',
-    FULLNAME : ''
+    FULLNAME : '',
+    LANGUAGE : 'fr',
+    T : ''
 }
