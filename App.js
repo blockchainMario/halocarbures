@@ -127,6 +127,11 @@ function DrawerContent({navigation}) {
           onPress={()=>{ Linking.openURL('https://www.prox-app.com/utilisation')}}
         />
         <ListItem 
+          title={GLOBALS.T("menu:register")}
+          chevron
+          onPress={() => closeAndReplace(navigation,'Register')}
+        />
+        <ListItem 
           title={GLOBALS.T("menu:language")}
           chevron
           onPress={() => switchLanguage(navigation,'Login','en')}
@@ -166,6 +171,11 @@ function DrawerContent({navigation}) {
           title={GLOBALS.T("menu:howto")} 
           chevron
           onPress={()=>{ Linking.openURL('https://www.prox-app.com/utilisation')}}
+        />
+        <ListItem 
+          title={GLOBALS.T("menu:register")}
+          chevron
+          onPress={() => closeAndReplace(navigation,'Register')}
         />
         <ListItem 
           title={GLOBALS.T("menu:language")}

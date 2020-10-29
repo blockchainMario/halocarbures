@@ -58,7 +58,7 @@ export const infos = {
 	careplan: "Plan de soins",
 	professionals: "Professionnels",
 	circleofcare: "Famille et proches aidants",
-	section2: "HÉBERGEMENT",
+	section2: "ADMINISTRATION",
 	profile: "Informations sur la résidence",
 	section3: "DOCUMENTS",
 }

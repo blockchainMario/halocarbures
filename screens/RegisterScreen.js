@@ -18,12 +18,17 @@ import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
 export default class RegisterScreen extends Component {
+  state = {
+    email: "",
+    password: ""
+  }
 
   onClickListener = (navigation, viewId) => {
   
     const setData = async () => {
       try {
-            await AsyncStorage.setItem('@test1', 'Second');
+            await AsyncStorage.setItem('@username', this.state.email.toLowerCase());
+            await AsyncStorage.setItem('@password', this.state.password);
             alert('SUCCESSFULLY WRITTEN');
       } catch(e) {
             // save error

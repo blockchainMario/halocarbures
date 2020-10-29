@@ -18,12 +18,15 @@ import { NunitoBoldText } from '../components/StyledText';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import GLOBALS from '../constants/Globals';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 import { withTranslation } from 'react-i18next';
+import * as english from "../translations/en";
+import * as french from "../translations/fr";
 
 class ResidentScreen extends Component {
   state = {
     resident: null,
-    professional: null
   }
 
   componentDidMount() {
@@ -31,15 +34,45 @@ class ResidentScreen extends Component {
     //alert("Bienvenue dans proximité");
     const getData = async () => {
       try {
-          const value = await AsyncStorage.getItem('@test1');
-          //alert('Current value is: '+value);
-          if (value !== null) {
-            const navigation = this.props.navigation;
+          const myusername = await AsyncStorage.getItem('@username');
+          const mypassword = await AsyncStorage.getItem('@password');
+          const navigation = this.props.navigation;
+          if (myusername === null) {
             navigation.dispatch(StackActions.replace('Login'));
           } else {
-            const navigation = this.props.navigation;
+            //const navigation = this.props.navigation;
             //navigation.dispatch(StackActions.replace('Register'));
-            navigation.dispatch(StackActions.replace('Login'));
+            //navigation.dispatch(StackActions.replace('Login'));
+          //alert('Current value is: '+myusername+'/'+mypassword);
+          axios.get('http://18.190.29.217:8080/sign/'+myusername+'/'+mypassword)
+          .then(res => {
+            const pack = res.data;
+            //alert(JSON.stringify(pack));
+            GLOBALS.BEARERTOKEN = pack.token;
+            GLOBALS.RESIDENCYID = pack.residencyId;
+            GLOBALS.RESIDENTID = pack.residentId;
+            GLOBALS.USERNAME = myusername.toLowerCase();
+            GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
+            i18n
+              .use(initReactI18next)
+              .init({
+                resources: {
+                  en: english,
+                  fr: french,
+                },
+                //lng: Localization.locale,
+                lng: GLOBALS.LANGUAGE,
+                fallbackLng: 'fr',
+                interpolation: {
+                  escapeValue: false,
+                },
+                cleanCode: true,
+              }).then(function(t) { GLOBALS.T = t; });
+            //alert('Translation all set');
+            //alert(GLOBALS.T);
+            navigation.dispatch(StackActions.replace('Root'));
+          })
+          
           }
       } catch(e) {
         // error reading value
@@ -48,7 +81,6 @@ class ResidentScreen extends Component {
     }
 
   if (GLOBALS.BEARERTOKEN) {
-
     axios.get(GLOBALS.ENDPOINT+"/residents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',
@@ -58,31 +90,17 @@ class ResidentScreen extends Component {
       .then(res => {
         const resident = res.data;
         this.setState({ resident: resident });
+        GLOBALS.RESIDENTNAME = resident.firstName+" "+resident.lastName;
+        GLOBALS.RESIDENTUNIT = resident.address;
         //alert(JSON.stringify(resident));
       })
       .catch((error) => {
         alert("Erreur de connexion residents : "+error)
       })
-    /*
-    axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.PROFESSIONALID, {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const professional = res.data;
-          this.setState({ professional: professional });
-          //alert(JSON.stringify(professional));
-        })
-        .catch((error) => {
-          alert("Erreur de connexion professionals : "+error)
-        })
-      */  
     } else {
-
-      //alert("Need to login!");
-      getData();
+      //alert("Need to getData!");
+      //getData();
+      setTimeout(function(){ getData(); }, 1000);
         
     }
     

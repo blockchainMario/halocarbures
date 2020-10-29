@@ -35,7 +35,7 @@ export const resident = {
 	birthdate: "Birthdate",
 	address: "Address",
 	city: "City",
-	state: "State",
+	state: "Province",
 	phone: "Phone Number",
 }
 
@@ -58,8 +58,8 @@ export const infos = {
 	careplan: "Care Plan",
 	professionals: "Professionals",
 	circleofcare: "Circle of Care",
-	section2: "ACCOMMODATION",
-	profile: "Residency Profile",
+	section2: "MANAGEMENT",
+	profile: "Living Facility Profile",
 	section3: "DOCUMENTS",
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -35,16 +36,32 @@ class LoginScreen extends Component {
     } else if (this.state.password.length < 8) {
       Alert.alert("proximité","Entrez un mot de passe valide");
     } else {
+      const setData = async () => {
+        try {
+              await AsyncStorage.setItem('@username', this.state.email.toLowerCase());
+              await AsyncStorage.setItem('@password', this.state.password);
+              //alert('SUCCESSFULLY WRITTEN');
+        } catch(e) {
+              // save error
+              alert('CANNOT WRITE ASYNC')
+        }
+      }
+      setData();
       axios.get('http://18.190.29.217:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
       .then(res => {
         const pack = res.data;
         //alert(JSON.stringify(pack));
-        GLOBALS.BEARERTOKEN = pack.token;
-        GLOBALS.RESIDENCYID = pack.residencyId;
-        GLOBALS.RESIDENTID = pack.residentId;
-        GLOBALS.USERNAME = this.state.email.toLowerCase();
-        GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
-        navigation.dispatch(StackActions.replace('Root'));
+        if (pack.status == "ok") {
+          GLOBALS.BEARERTOKEN = pack.token;
+          GLOBALS.RESIDENCYID = pack.residencyId;
+          GLOBALS.RESIDENTID = pack.residentId;
+          GLOBALS.USERNAME = this.state.email.toLowerCase();
+          GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
+          navigation.dispatch(StackActions.replace('Root'));
+        } else {
+          Alert.alert("proximité","Adresse courriel ou mot de passe invalide");
+        }
+
       })
     }
   }
