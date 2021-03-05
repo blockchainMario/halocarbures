@@ -11,6 +11,10 @@ export default {
     FULLNAME : '',
     RESIDENTNAME : '',
     RESIDENTUNIT : '',
+    RESIDENTPHOTO : '',
     LANGUAGE : 'fr',
-    T : ''
+    T : '',
+    PROFESSIONNELID : '',
+    PREFIXEDEPLOIEMENT : '',
+    DOCTOR : ''
 }

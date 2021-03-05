@@ -20,8 +20,8 @@ export const register = {
 
 export const menu = {
 	profile: "My Profile",
-	about: "About Proximity",
-	howto: "How to use Proximity",
+	about: "About Halocarbures",
+	howto: "How to use Halocarbures",
 	language: "Français",
 	logout: "Logout",
 }
@@ -36,7 +36,11 @@ export const resident = {
 	address: "Address",
 	city: "City",
 	state: "Province",
+	country: "Country",
 	phone: "Phone Number",
+	postal: "Postal Code",
+	birthcity: "City of birth",
+	admissionDate: "Admission",
 }
 
 export const notes = {
@@ -92,4 +96,58 @@ export const residency = {
 	sentcareteam: "Your message has been sent to care team",
 	sentaccounting: "Your message has been sent to accounting",
 	sentmanagement: "Your message has been sent to management",
+}
+
+export const unit = {
+	title: "Unit",
+	receptionOrg: "Organization",
+	receptionDate: "Creation Date",
+	receptionEmployee: "Employee",
+	transport: "Transport",
+	provenance: "Provenance",
+	unitType: "Unit Type",
+	estimatedQty: "Estimated Weight",
+	destination: "Destination",
+	haloType: "Halocarbon",
+}
+
+export const unittype = {
+	title: "Unit Types",
+	company: "Company",
+	model: "Model",
+	years: "Period",
+	serial: "Serial Number",
+	unitType: "Unit Type",
+	haloType: "Halocarbon",
+	quantity: "Category",
+	weight: "Weight",
+}
+
+export const scan = {
+	title: "Barcode",
+}
+
+export const overview = {
+	title: "Overview",
+}
+
+export const settings = {
+	title: "Settings",
+	section1: "TABLES",
+	careplan: "Organization",
+	professionals: "Provenance",
+	circleofcare: "Halocarbon",
+	section2: "MESURES",
+	profile: "Weight Scales",
+	section3: "DOCUMENTS",
+}
+
+export const process = {
+	title: "Process",
+	viewunit: "See Description",
+	reception: "Reception this Unit",
+	degassing: "Start Degassing",
+	dismantling: "Start Dismantling",
+	gazdisposal: "Dispose of this Gaz Tank",
+	materialdisposal: "Dispose of this Material Bin",
 }

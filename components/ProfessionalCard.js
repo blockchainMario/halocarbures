@@ -23,13 +23,15 @@ export default class ProfessionalCard extends React.Component {
 
   componentDidMount() {
     //axios.get('http://18.190.29.217:8080/comments/0')
-    axios.get(GLOBALS.ENDPOINT+"/professionals/"+GLOBALS.RESIDENCYID+"/"+this.props.id, {
+    //alert(this.props.id);
+    axios.get("https://v504.livia-parcoursdevie.fr/api/v1"+this.props.id, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
+        //alert("De retour");
         const professional = res.data;
         this.setState({ professional: professional });
         //alert(JSON.stringify(professional));
@@ -53,12 +55,12 @@ export default class ProfessionalCard extends React.Component {
             >
             <Card style={styles.card}>
                 <View style={styles.line}>
-                    <NunitoBoldText style={styles.info}>{this.state.professional.civility_Fr} {this.state.professional.lastName}</NunitoBoldText><NunitoText style={styles.label}> ({this.state.professional.profession})</NunitoText>
+                    <NunitoBoldText style={styles.info}>{this.state.professional.prenom} {this.state.professional.nom}</NunitoBoldText>
                 </View>
-                <NunitoText style={styles.info}>{this.state.professional.address}</NunitoText>
-                <NunitoText style={styles.info}>{this.state.professional.city}</NunitoText>
-                <NunitoText style={styles.info}>{this.state.professional.province} {this.state.professional.postalCode}</NunitoText>
-                <NunitoText style={styles.info}>{this.state.professional.phone} ext. {this.state.professional.phoneExtension}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.professionRomes[0].metier}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.adresse}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.codePostal} {this.state.professional.ville}</NunitoText>
+                <NunitoText style={styles.info}>{this.state.professional.telFixe}</NunitoText>
             </Card>
            </ScrollView>
           </View>

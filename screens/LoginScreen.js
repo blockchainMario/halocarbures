@@ -32,9 +32,9 @@ class LoginScreen extends Component {
     //alert("Button pressed "+this.state.email);
     //await axios.get('http://18.190.29.217:8080/login')
     if (this.state.email.length < 3) {
-      Alert.alert("proximité","Entrez une adresse courriel valide");
+      Alert.alert("Halocarbures","Entrez une adresse courriel valide");
     } else if (this.state.password.length < 8) {
-      Alert.alert("proximité","Entrez un mot de passe valide");
+      Alert.alert("Halocarbures","Entrez un mot de passe valide");
     } else {
       const setData = async () => {
         try {
@@ -47,21 +47,30 @@ class LoginScreen extends Component {
         }
       }
       setData();
-      axios.get('http://18.190.29.217:8080/sign/'+this.state.email.toLowerCase()+'/'+this.state.password)
-      .then(res => {
-        const pack = res.data;
-        //alert(JSON.stringify(pack));
-        if (pack.status == "ok") {
-          GLOBALS.BEARERTOKEN = pack.token;
-          GLOBALS.RESIDENCYID = pack.residencyId;
-          GLOBALS.RESIDENTID = pack.residentId;
-          GLOBALS.USERNAME = this.state.email.toLowerCase();
-          GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
-          navigation.dispatch(StackActions.replace('Root'));
-        } else {
-          Alert.alert("proximité","Adresse courriel ou mot de passe invalide");
+      axios({
+        method: 'post',
+        url: "https://door.livia-parcoursdevie.fr/api/authentication",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          //"login": this.state.email.toLowerCase(),
+          //"password": this.state.password,
+          "login": "proximite",
+          "password": "L1viaproximite",
+          "prefixeDns": "c3636f"
         }
-
+      }).then(res => {
+        //alert(Object.keys(res.data));
+        GLOBALS.BEARERTOKEN = res.data.token;
+        GLOBALS.PROFESSIONNELID = res.data.professionnelId;
+        GLOBALS.RESIDENTID = res.data.prefixeDeploiement;
+        //alert("Done login");
+        navigation.dispatch(StackActions.replace('Root'));
+        })
+        .catch((error) => {
+          this.setState({ messages: [ ] });
+          alert("Erreur de connexion Livia : "+error)
       })
     }
   }
@@ -74,14 +83,13 @@ class LoginScreen extends Component {
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
         <View  style={styles.container3}>
-          <Image style={styles.avatar} source={require('../assets/images/logoBlackongray.png')}/>
-          <NunitoText style={styles.title}>proximité</NunitoText>
+          <Image style={styles.avatar} source={require('../assets/images/rivraLogo.png')}/>
         </View>
         <View>
           <NunitoBoldText style={styles.label}>{t("login:email")}</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder={t("login:email")}
-              placeholderTextColor = "#A071B1"
+              placeholderTextColor = "#3e444c"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -92,7 +100,7 @@ class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>{t("login:pass")}</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder={t("login:pass")}
-              placeholderTextColor = "#A071B1"
+              placeholderTextColor = "#3e444c"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -104,7 +112,7 @@ class LoginScreen extends Component {
                   margin: 10,
                   borderRadius: 10,
                   borderWidth: 0,
-                  backgroundColor: '#A071B1'
+                  backgroundColor: '#57b0e3'
                 }}
                 //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}
@@ -149,7 +157,7 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     padding: 10,
-    borderColor: '#8B4B9D',
+    borderColor: '#3e444c',
     borderWidth: 1
 	},
   container: {
@@ -170,8 +178,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 320,
+    height: 196,
     alignSelf:'center',
     marginTop: 30,
     marginBottom: 30,

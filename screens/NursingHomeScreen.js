@@ -27,8 +27,14 @@ class NursingHomeScreen extends Component {
   }
 
   componentDidMount() {
-    axios.get(GLOBALS.ENDPOINT+"/residencies/"+GLOBALS.RESIDENCYID)
+    //axios.get(GLOBALS.ENDPOINT+"/residencies/"+GLOBALS.RESIDENCYID)
     //axios.get(endPoint+'residencies/8d3e5cdd-b9b8-11ea-8ef4-cf8716974132')
+    axios.get("https://v504.livia-parcoursdevie.fr/api/etablissements?actifs=true&professionnelId=781", {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
       .then(res => {
         const residence = res.data;
         this.setState({ residence: residence });
@@ -81,20 +87,13 @@ class NursingHomeScreen extends Component {
               onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
           >
             <View style={styles.container}>
-                <Image style={styles.avatar} 
-                  source={{
-                    uri: GLOBALS.ENDPOINT+'/images/residencies/'+GLOBALS.RESIDENCYID+'/profile',
-                    headers: {
-                      Accept: 'image/jpeg'
-                    }
-                  }}
-                />
+              <Image style={styles.avatar} source={require('../assets/images/ephad.png')}/>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
-                      <NunitoBoldText style={styles.name}>{this.state.residence.name}</NunitoBoldText>
-                      <NunitoText style={styles.info}>{this.state.residence.address}</NunitoText>
-                      <NunitoText style={styles.info}>{this.state.residence.city}</NunitoText>
-                      <NunitoText style={styles.info}>{this.state.residence.province} {this.state.residence.country} {this.state.residence.postalCode}</NunitoText>
+                      <NunitoBoldText style={styles.name}>{this.state.residence[0].raisonSociale}</NunitoBoldText>
+                      <NunitoText style={styles.info}>{this.state.residence[0].adresse}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.residence[0].codePostal} {this.state.residence.ville}</NunitoText>
+                      <NunitoText style={styles.info}>{this.state.residence[0].pays}</NunitoText>
                       
                       <NunitoBoldText style={styles.name}>{t("residency:contactus")}</NunitoBoldText>
                       <TextInput style={styles.field}
@@ -156,10 +155,6 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     position: 'absolute',
     marginTop:0
-  },
-  name:{
-    fontSize:24,
-    color:"black",
   },
   body:{
     marginTop:200,

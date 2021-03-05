@@ -26,15 +26,8 @@ export default class NewsCard extends Component {
         ) : (
             <Card style={styles.card}>
                 <View style={styles.row}>
-                    <Image
-                        style={styles.tinyLogo}
-                        source={{
-                          uri: 'http://18.190.29.217/SyMO/'+GLOBALS.RESIDENCYID+'.png',
-                          headers: {
-                            Accept: 'image/png'
-                          }
-                        }}
-                    />
+                    <Image style={styles.tinyLogo} source={require('../assets/images/logo-ehpad-2016.png')}/>
+                    <NunitoText style={styles.cardDate}>{"La Madeleine"}</NunitoText>
                     <NunitoBoldText style={styles.cardDate}>{this.props.date.substr(0,10)}</NunitoBoldText>
                 </View>
                 <NunitoBoldText style={styles.cardTitle}>{this.props.title}</NunitoBoldText>
@@ -85,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tinyLogo: {
-    width: 80,
+    width: 40,
     height: 40,
   },
 });

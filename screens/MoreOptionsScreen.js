@@ -45,27 +45,27 @@ class MoreOptionsScreen extends Component {
 
     const list2 = [
         {
-            title: t("infos:careplan"),
-            icon: 'local-hospital',
-            screen: 'CarePlan'
+            title: t("settings:careplan"),
+            icon: 'grid-on',
+            screen: 'Resident'
         },
         {
-            title: t("infos:professionals"),
-            icon: 'group',
-            screen: 'Professionals'
+            title: t("settings:professionals"),
+            icon: 'grid-on',
+            screen: 'Resident'
         },
         {
-            title: t("infos:circleofcare"),
-            icon: 'group',
-            screen: 'CircleOfCare'
+            title: t("settings:circleofcare"),
+            icon: 'grid-on',
+            screen: 'Resident'
         },
     ]
     
     const list3 = [
         {
-            title: t("infos:profile"),
-            icon: 'hotel',
-            screen: 'NursingHome'
+            title: t("settings:profile"),
+            icon: 'av-timer',
+            screen: 'Resident'
         },
     ]
     
@@ -98,7 +98,7 @@ class MoreOptionsScreen extends Component {
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <NunitoText style={styles.subSection}>{t("infos:section1")}</NunitoText>
+        <NunitoText style={styles.subSection}>{t("settings:section1")}</NunitoText>
 
         <View>
         {
@@ -115,7 +115,7 @@ class MoreOptionsScreen extends Component {
         }
         </View>
 
-        <NunitoText style={styles.subSection}>{t("infos:section2")}</NunitoText>
+        <NunitoText style={styles.subSection}>{t("settings:section2")}</NunitoText>
 
         <View>
         {

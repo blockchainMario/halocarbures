@@ -19,21 +19,10 @@ export default class ProfessionalsScreen extends Component {
 
   componentDidMount() {
     //axios.get('http://18.190.29.217:8080/comments/0')
-    axios.get(GLOBALS.ENDPOINT+"/links/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-      }
-    })
-      .then(res => {
-        const professionals = res.data;
+    //axios.get("https://v504.livia-parcoursdevie.fr/api/v1/"+GLOBALS.DOCTOR
+        const professionals = [ ];
+        professionals.push(GLOBALS.DOCTOR);
         this.setState({ professionals: professionals });
-        //alert(JSON.stringify(professionals));
-      })
-      .catch((error) => {
-        this.setState({ professionals: [ ] });
-        //alert("Erreur de connexion professionals : "+error)
-      })
   }
 
   render() {
@@ -50,7 +39,7 @@ export default class ProfessionalsScreen extends Component {
           ref={ref => {this.scrollView = ref}}
         >
           <View>
-            { this.state.professionals.map(professional => <ProfessionalCard key={professional.professionalId} id={professional.professionalId} />)}
+            { this.state.professionals.map(professional => <ProfessionalCard key={professional} id={professional} />)}
           </View>
        </ScrollView>
       </View>

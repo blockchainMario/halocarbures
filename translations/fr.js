@@ -20,8 +20,8 @@ export const register = {
 
 export const menu = {
 	profile: "Mon profil",
-	about: "À propos de Proximité",
-	howto: "Comment utiliser Proximité",
+	about: "À propos de Halocarbures",
+	howto: "Comment utiliser Halocarbures",
 	language: "English",
 	logout: "Déconnexion",
 }
@@ -36,7 +36,11 @@ export const resident = {
 	address: "Adresse",
 	city: "Ville",
 	state: "Province",
+	country: "Pays",
 	phone: "Téléphone",
+	postal: "Code postal",
+	birthcity: "Ville de naissance",
+	admissionDate: "Entrée",
 }
 
 export const notes = {
@@ -49,7 +53,7 @@ export const chat = {
 }
 
 export const newsfeed = {
-	title: "Babillard",
+	title: "Nouvelles",
 }
 
 export const infos = {
@@ -92,4 +96,58 @@ export const residency = {
 	sentcareteam: "Votre message a été envoyé à l'équipe de soins",
 	sentaccounting: "Votre message a été envoyé à la comptabilité",
 	sentmanagement: "Votre message a été envoyé à la direction",
+}
+
+export const unit = {
+	title: "Unité",
+	receptionOrg: "Organisation",
+	receptionDate: "Date de création",
+	receptionEmployee: "Employé",
+	transport: "Transporteur",
+	provenance: "Provenance",
+	unitType: "Type d'unité",
+	estimatedQty: "Poids estimé",
+	destination: "Destination",
+	haloType: "Halocarbure",
+}
+
+export const unittype = {
+	title: "Types d'unités",
+	company: "Compagnie",
+	model: "Modèle",
+	years: "Période",
+	serial: "Numéro de série",
+	unitType: "Type d'unité",
+	haloType: "Halocarbure",
+	quantity: "Quantité",
+	weight: "Poids",
+}
+
+export const scan = {
+	title: "Code barre",
+}
+
+export const overview = {
+	title: "Survol",
+}
+
+export const settings = {
+	title: "Paramètres",
+	section1: "TABLES",
+	careplan: "Organisation",
+	professionals: "Provenance",
+	circleofcare: "Halocarbure",
+	section2: "MESURES",
+	profile: "Balances",
+	section3: "DOCUMENTS",
+}
+
+export const process = {
+	title: "Processus",
+	viewunit: "Voir la description",
+	reception: "Enregistrer la réception",
+	degassing: "Débuter le dégazage",
+	dismantling: "Débuter le démantèlement",
+	gazdisposal: "Disposer de cette bonbonne",
+	materialdisposal: "Disposer de ces matières",
 }

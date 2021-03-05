@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next"
 import { StyleSheet } from 'react-native';
 
 import TabBarIcon from '../components/TabBarIcon';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import AgendaScreen from '../screens/AgendaScreen';
 //import LoginScreen from '../screens/LoginScreen';
 import ResidentScreen from '../screens/ResidentScreen';
 import NotesFeedScreen from '../screens/NotesFeedScreen';
 import ChatScreen from '../screens/ChatScreen';
-import NewsFeedScreen from '../screens/NewsFeedScreen';
+import OverviewScreen from '../screens/OverviewScreen';
 import MoreOptionsScreen from '../screens/MoreOptionsScreen';
 import { NunitoBoldText } from '../components/StyledText';
 
@@ -24,43 +25,43 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          title: t("scan:title"),
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="qrcode-scan" size={24} />,
+        }}
+      />
+      <BottomTab.Screen
         name="Resident"
         component={ResidentScreen}
         options={{
-          title: t("resident:title"),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-contact" />,
+          title: t("unit:title"),
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="fridge-outline" size={24} />,
         }}
       />
       <BottomTab.Screen
         name="Notes"
         component={NotesFeedScreen}
         options={{
-          title: t("notes:title"),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-today" />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Chat"
-        component={ChatScreen}
-        options={{
-          title: t("chat:title"),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-mail" />,
+          title: t("unittype:title"),
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="checkbox-multiple-blank" size={24} />,
         }}
       />
       <BottomTab.Screen
         name="NewsFeed"
-        component={NewsFeedScreen}
+        component={OverviewScreen}
         options={{
-          title: t("newsfeed:title"),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-clipboard" />,
+          title: t("overview:title"),
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="monitor-multiple" size={24} />,
         }}
       />
       <BottomTab.Screen
         name="MoreOptions"
         component={MoreOptionsScreen}
         options={{
-          title: t("infos:title"),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-apps" />,
+          title: t("settings:title"),
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="cogs" size={24} />,
         }}
       />
     </BottomTab.Navigator>
@@ -72,15 +73,15 @@ function getHeaderTitle(route, t) {
 
   switch (routeName) {
     case 'Resident':
-      return t("resident:title");
+      return t("unit:title")+" 908KR00052";
     case 'Notes':
-        return '      '+t("notes:title");
+        return "Kenmore 795.79754.904";
     case 'Chat':
-        return t("chat:title");
+        return t("scan:title");
     case 'NewsFeed':
-      return t("newsfeed:title");
+      return t("overview:title");
     case 'MoreOptions':
-      return t("infos:title");
+      return t("settings:title");
   }
 }
 

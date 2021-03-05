@@ -26,7 +26,9 @@ import * as french from "../translations/fr";
 
 class ResidentScreen extends Component {
   state = {
-    resident: null,
+    unit: null,
+    admissionDate: "",
+    base64image: "",
   }
 
   componentDidMount() {
@@ -37,22 +39,14 @@ class ResidentScreen extends Component {
           const myusername = await AsyncStorage.getItem('@username');
           const mypassword = await AsyncStorage.getItem('@password');
           const navigation = this.props.navigation;
-          if (myusername === null) {
+          //if (myusername === null) {
+          if (true) {
             navigation.dispatch(StackActions.replace('Login'));
           } else {
             //const navigation = this.props.navigation;
             //navigation.dispatch(StackActions.replace('Register'));
             //navigation.dispatch(StackActions.replace('Login'));
           //alert('Current value is: '+myusername+'/'+mypassword);
-          axios.get('http://18.190.29.217:8080/sign/'+myusername+'/'+mypassword)
-          .then(res => {
-            const pack = res.data;
-            //alert(JSON.stringify(pack));
-            GLOBALS.BEARERTOKEN = pack.token;
-            GLOBALS.RESIDENCYID = pack.residencyId;
-            GLOBALS.RESIDENTID = pack.residentId;
-            GLOBALS.USERNAME = myusername.toLowerCase();
-            GLOBALS.FULLNAME = pack.firstName + " " + pack.lastName;
             i18n
               .use(initReactI18next)
               .init({
@@ -71,7 +65,6 @@ class ResidentScreen extends Component {
             //alert('Translation all set');
             //alert(GLOBALS.T);
             navigation.dispatch(StackActions.replace('Root'));
-          })
           
           }
       } catch(e) {
@@ -81,22 +74,7 @@ class ResidentScreen extends Component {
     }
 
   if (GLOBALS.BEARERTOKEN) {
-    axios.get(GLOBALS.ENDPOINT+"/residents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-      }
-    })
-      .then(res => {
-        const resident = res.data;
-        this.setState({ resident: resident });
-        GLOBALS.RESIDENTNAME = resident.firstName+" "+resident.lastName;
-        GLOBALS.RESIDENTUNIT = resident.address;
-        //alert(JSON.stringify(resident));
-      })
-      .catch((error) => {
-        alert("Erreur de connexion residents : "+error)
-      })
+    //alert("https://"+GLOBALS.PREFIXEDEPLOIEMENT+".livia-parcoursdevie.fr/api/usagers/340");
     } else {
       //alert("Need to getData!");
       //getData();
@@ -109,48 +87,55 @@ class ResidentScreen extends Component {
   render() {
     const { t } = this.props;
     return (
-      (this.state.resident == null) ? (
-        <View style={styles.container}>
-          <NunitoText style={styles.info}>Loading...</NunitoText>
-        </View>
-    ) : (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
-              <Image style={styles.avatar} 
-                  source={{
-                    uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
-                    headers: {
-                      Accept: 'image/jpeg',
-                      'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-                    }
-                  }}
-                />
+            <Image style={styles.avatar}
+              source={require('../assets/images/tagID.jpg')}
+            />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <NunitoBoldText style={styles.name}>{this.state.resident.firstName} {this.state.resident.lastName}</NunitoBoldText>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("resident:birthdate")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.birthDate.substr(0,10)}</NunitoBoldText>
-                      </View>
-                      
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("resident:address")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.address}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:receptionOrg")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"REP Coderr"}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("resident:city")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.city}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:receptionDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"2021-02-15 09:15"}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("resident:state")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.province} {this.state.resident.postalCode}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:transport")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"Transport Morneau"}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("resident:phone")} : </NunitoText><NunitoBoldText style={styles.info}>{this.state.resident.phoneNumber}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"Jean Untel, #001291297"}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:provenance")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"Écocentre St-Ludger-De-Milot"}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:unitType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"Kenmore 795.79754.904"}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:haloType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"R134a"}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:estimatedQty")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"0,145 kg"}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:destination")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{"PureSphéra"}</NunitoBoldText>
                       </View>
                 </View>
               </View>
           </View>
        </ScrollView>
       </View>
-    )
     );
   }
 }
@@ -174,8 +159,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 400,
-    height: 200,
+    width: 260,
+    height: 240,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -184,7 +169,7 @@ const styles = StyleSheet.create({
     marginTop:0
   },
   body:{
-    marginTop: 210,
+    marginTop: 230,
   },
   bodyContent: {
     padding:10,
@@ -203,12 +188,18 @@ const styles = StyleSheet.create({
   },
   label:{
     fontSize:16,
-    color: "black",
+    color: "#3e444c",
     marginTop:10
   },
   info:{
     fontSize:16,
     color: "black",
+    marginTop:10
+  },
+  addr:{
+    fontSize:16,
+    color: "black",
+    marginLeft:70,
     marginTop:10
   },
   description:{

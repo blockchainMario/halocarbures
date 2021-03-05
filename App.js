@@ -58,43 +58,9 @@ function switchLanguage(navigation,screen,lang) {
 
 function renderFullname(aComp) {
   //alert("renderFullname "+GLOBALS.USERNAME);
-  return GLOBALS.FULLNAME;
+  //return GLOBALS.FULLNAME;
+  return "Mario Perron";
 }
-
-/*
-        <ListItem 
-          title={"Aide et soutien"} 
-          chevron
-          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
-        />
-        <ListItem 
-          title={"Donnez votre avis"} 
-          chevron
-          onPress={()=>{ Linking.openURL('https://www.manyeta.com')}}
-        />
-*/
-/*
-        <ListItem 
-          title={"Mon profil"} 
-          chevron
-          onPress={() => navigation.navigate('Profile')}
-        />
-        <ListItem 
-          title={"À propos de Proximité"} 
-          chevron
-          onPress={()=>{ Linking.openURL('https://www.prox-app.com')}}
-        />
-        <ListItem 
-          title={"Comment utiliser Proximité"} 
-          chevron
-          onPress={()=>{ Linking.openURL('https://www.prox-app.com/utilisation')}}
-        />
-        <ListItem 
-          title={"Déconnexion"}
-          chevron
-          onPress={() => closeAndReplace(navigation,'Login')}
-        />
-*/
 
 function DrawerContent({navigation}) {
   //alert(GLOBALS.T);
@@ -105,10 +71,10 @@ function DrawerContent({navigation}) {
     (<View style={styles.container2}>
       <View style={{ flexDirection:"row", marginTop: 60 }}>
         <Image
-          source={require('./assets/images/avatar.jpg')}
+          source={require('./assets/images/MarioPerron.jpg')}
           style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
         />
-        <NunitoBoldText style={{fontSize: 18, color:'white', marginLeft: 10, marginTop: 12}}>{renderFullname.bind(this)()}</NunitoBoldText>
+        <NunitoBoldText style={{fontSize: 18, color:'#3e444c', marginLeft: 10, marginTop: 12}}>{renderFullname.bind(this)()}</NunitoBoldText>
       </View>
       <View style={{ marginTop: 10 }}>
         <ListItem 
@@ -119,17 +85,12 @@ function DrawerContent({navigation}) {
         <ListItem 
           title={GLOBALS.T("menu:about")} 
           chevron
-          onPress={()=>{ Linking.openURL('https://www.prox-app.com')}}
+          onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
         />
         <ListItem 
           title={GLOBALS.T("menu:howto")} 
           chevron
-          onPress={()=>{ Linking.openURL('https://www.prox-app.com/utilisation')}}
-        />
-        <ListItem 
-          title={GLOBALS.T("menu:register")}
-          chevron
-          onPress={() => closeAndReplace(navigation,'Register')}
+          onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
         />
         <ListItem 
           title={GLOBALS.T("menu:language")}
@@ -142,11 +103,6 @@ function DrawerContent({navigation}) {
           onPress={() => closeAndReplace(navigation,'Login')}
         />
       </View>
-      <ImageBackground
-          source={require('./assets/images/background.png')}
-          style={styles.image}
-      >
-      </ImageBackground>
     </View>) : 
     (<View style={styles.container2}>
       <View style={{ flexDirection:"row", marginTop: 60 }}>
@@ -154,7 +110,7 @@ function DrawerContent({navigation}) {
           source={require('./assets/images/avatar.jpg')}
           style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
         />
-        <NunitoBoldText style={{fontSize: 18, color:'white', marginLeft: 10, marginTop: 12}}>{renderFullname.bind(this)()}</NunitoBoldText>
+        <NunitoBoldText style={{fontSize: 18, color:'#3e444c', marginLeft: 10, marginTop: 12}}>{renderFullname.bind(this)()}</NunitoBoldText>
       </View>
       <View style={{ marginTop: 10 }}>
         <ListItem 
@@ -165,17 +121,12 @@ function DrawerContent({navigation}) {
         <ListItem 
           title={GLOBALS.T("menu:about")} 
           chevron
-          onPress={()=>{ Linking.openURL('https://www.prox-app.com')}}
+          onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
         />
         <ListItem 
           title={GLOBALS.T("menu:howto")} 
           chevron
-          onPress={()=>{ Linking.openURL('https://www.prox-app.com/utilisation')}}
-        />
-        <ListItem 
-          title={GLOBALS.T("menu:register")}
-          chevron
-          onPress={() => closeAndReplace(navigation,'Register')}
+          onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
         />
         <ListItem 
           title={GLOBALS.T("menu:language")}
@@ -188,11 +139,6 @@ function DrawerContent({navigation}) {
           onPress={() => closeAndReplace(navigation,'Login')}
         />
       </View>
-      <ImageBackground
-          source={require('./assets/images/background2en.png')}
-          style={styles.image}
-      >
-      </ImageBackground>
     </View>)
   );
 }
@@ -213,17 +159,6 @@ function ActionBarIcon({navigation}) {
           color={'white'}
           onPress={() => navigation.openDrawer()}
           //onPress={() => this.props.navigation.navigate('MyDrawer')}
-        />
-      </View>
-      <View style={{flex:1}}>
-        <Image style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
-          source={{
-            uri: GLOBALS.ENDPOINT+'/images/residents/'+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID+'/profile',
-            headers: {
-              Accept: 'image/jpeg',
-              'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-            }
-          }}
         />
       </View>
     </View>
@@ -315,7 +250,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: GLOBALS.T("infos:title"),
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -335,7 +270,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: <NunitoBoldText>{GLOBALS.T("careplan:title")}</NunitoBoldText>,
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -354,7 +289,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: <NunitoBoldText>{GLOBALS.T("circleofcare:title")}</NunitoBoldText>,
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -373,7 +308,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: <NunitoBoldText>{GLOBALS.T("professionals:title")}</NunitoBoldText>,
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -392,7 +327,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: GLOBALS.T("resident:title"),
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -411,7 +346,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: <NunitoBoldText>{GLOBALS.T("residency:title")}</NunitoBoldText>,
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -430,7 +365,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: GLOBALS.T("lease:title"),
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -449,7 +384,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: GLOBALS.T("profile:title"),
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -468,7 +403,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Login',
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -487,7 +422,7 @@ const MyStack = ({navigation}) => {
       options={{
         title: 'Register',
         headerStyle: {
-          backgroundColor: '#A071B1',
+          backgroundColor: '#57b0e3',
           height: 90,
         },
         headerTintColor: '#fff',
@@ -506,212 +441,14 @@ const MyStack = ({navigation}) => {
   )
 }
 
-/*
-  <Stack.Navigator>
-    <Stack.Screen 
-      name="Root" 
-      component={BottomTabNavigator} 
-      options={{
-        title: 'Infos',
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
-        },
-        headerLeft : () => <ActionBarIcon navigation={navigation}/>
-      }}
-    />
-    <Stack.Screen name='CarePlan' component={CarePlanScreen} 
-      options={{
-        title: <NunitoBoldText>{"careplan:title"}</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
-        }
-      }}
-    />
-    <Stack.Screen name='CircleOfCare' component={CircleOfCareScreen}
-      options={{
-        title: <NunitoBoldText>Famille et proches aidants</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? 20 : 50
-        }
-      }}
-    />
-    <Stack.Screen name='Professionals' component={ProfessionalsScreen}
-      options={{
-        title: <NunitoBoldText>Professionnels</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
-        }
-      }}
-    />
-    <Stack.Screen name='Resident' component={ResidentScreen}
-      options={{
-        title: 'Résident',
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -2,
-          marginLeft: headerShift
-        }
-      }}
-    />
-    <Stack.Screen name='NursingHome' component={NursingHomeScreen}
-      options={{
-        title: <NunitoBoldText>Résidence</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
-        }
-      }}
-    />
-    <Stack.Screen name='Lease' component={LeaseScreen}
-      options={{
-        title: 'Bail',
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -2,
-          marginLeft: headerShift
-        }
-      }}
-    />
-    <Stack.Screen name='Profile' component={ProfileScreen}
-      options={{
-        title: 'Mon profil',
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -2,
-          marginLeft: headerShift
-        }
-      }}
-    />
-    <Stack.Screen name='Login' component={LoginScreen}
-      options={{
-        title: 'Connexion',
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -2,
-          marginLeft: headerShift
-        }
-      }}
-    />
-    <Stack.Screen name='Register' component={RegisterScreen}
-      options={{
-        title: 'Inscription',
-        headerStyle: {
-          backgroundColor: '#A071B1',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          marginTop: -2,
-          marginLeft: headerShift
-        }
-      }}
-    />
-  </Stack.Navigator>
-*/
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#A071B1',
+    backgroundColor: '#a6ce39',
   },
   container2: {
     flex: 1,
-    backgroundColor: '#8B4B9D',
+    backgroundColor: '#a6ce39',
   },
 	topName: {
 		fontSize: 24,

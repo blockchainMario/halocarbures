@@ -9,6 +9,7 @@ import {
   ScrollView,
   StyleSheet,
   ScrollViewProps,
+  TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
@@ -29,244 +30,229 @@ class ChatScreen extends Component {
   state = {
     messages: [ ],
     typing: "",
-    clearInput: false
+    clearInput: false,
+    viewBtn: false,
+    regBtn: false,
+    degasBtn: true,
+    disBtn: true,
+    tankBtn: true,
+    matBtn: true,
   }
 
-  getMessages() {
-    //axios.get('http://18.190.29.217:8080/comments/0')
-    //Alert.alert('Getting new messages!')
-    axios.get(GLOBALS.ENDPOINT+"/messages/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-      }
-    })
-      .then(res => {
-        const messages = res.data;
-        this.setState({ messages: messages.reverse() });
-        //alert(JSON.stringify(messages));
-      })
-      .catch((error) => {
-        this.setState({ messages: [ ] });
-        //alert("Erreur de connexion messages : "+error);
-      });
-    setTimeout(() => {
-      this.getMessages()
-    }, 60000);
+  onClickListener({navigation}) {
+    navigation.dispatch(StackActions.replace('Resident'));
   }
 
-  componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/comments/0')
-    this.getMessages()
+  onRegBtn() {
+    this.setState({regBtn:true});
+    this.setState({degasBtn:false});
+  }
+
+  onDegasBtn() {
+    this.setState({degasBtn:true});
+    this.setState({disBtn:false});
+  }
+
+  onDisBtn() {
+    this.setState({disBtn:true});
+    this.setState({tankBtn:false});
+  }
+
+  onTankBtn() {
+    this.setState({tankBtn:true});
+    this.setState({matBtn:false});
+  }
+
+  onMatBtn() {
+    this.setState({matBtn:true});
+    this.setState({regBtn:false});
   }
 
   render() {
     const { t } = this.props;
-    onSendMessage = (aText) => {
-      //alert("Button pressed "+aText);
-      axios({
-        method: 'post',
-        url: GLOBALS.ENDPOINT+"/messages",
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        },
-        data: {
-          residencyId: GLOBALS.RESIDENCYID,
-          date: (new Date()).toISOString().substr(0,10),
-          residentId: GLOBALS.RESIDENTID,
-          issuer: GLOBALS.USERNAME,
-          message: aText
-        }
-      }).then(res => {
-        var ms = this.state.messages;
-        ms.push({
-          residencyId: GLOBALS.RESIDENCYID,
-          date: (new Date).getTime()/1000,
-          residentId: GLOBALS.RESIDENTID,
-          issuer: GLOBALS.USERNAME,
-          message: aText
-        });
-        this.setState({ messages: ms });
-        this.setState({ typing: ""});
-        //alert("Message ajouté");
-        })
-        .catch((error) => {
-          this.setState({ messages: [ ] });
-          alert("Erreur de connexion messages : "+error)
-        })
-    }
-
+    const navigation = this.props.navigation;
   return (
-    (this.state.messages == null) ? (
-      <View style={styles.container}>
-        <NunitoText style={styles.info}>Loading...</NunitoText>
-      </View>
-    ) : (
     <View style={styles.container}>
-    <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
-    >
-    <ScrollView 
-          keyboardShouldPersistTaps="handled" 
-          showsVerticalScrollIndicator={false}
-          ref={ref => {this.scrollView = ref}}
-          onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
-      >
-        {this.state.messages.map((msg, i) => {
-          //const odd = 0;
-          var odd = 0;
-          if (msg.issuer == GLOBALS.USERNAME) {
-            odd = 1
-          } else {
-            odd = 0
-          }
-          return (
-			        <Card key={i} containerStyle={odd ? styles.card0 : styles.card1}>
-                <Card containerStyle={odd ? styles.card2 : styles.card3}>
-                    <View
-                        // eslint-disable-next-line react/no-array-index-key
-                        key={i}
-                        style={[odd ? styles.even : styles.odd]}
-                    >
-                       <View style={{flex:1}}>
-                        <Image
-                            style={[odd ? styles.avatarEven : styles.avatarOdd]}
-                            source={require('../assets/images/avatar.jpg')}
-                        />
-                        {msg.issuer != GLOBALS.USERNAME && <NunitoText style={styles.micro}>{msg.issuer}</NunitoText>}
-                      </View>
-                      <View style={{flex:4}}>
-                            <NunitoBoldText style={[odd ? styles.evenDate : styles.oddDate]}>{(new Date(1000*(msg.date-14400))).toISOString().substr(0,16).replace('T',' ')}</NunitoBoldText>
-                            <NunitoText style={styles.name}>{msg.message}</NunitoText>
-                      </View>
-                    </View>
-			          </Card>
-			        </Card>
-          );
-        })}
-        <TextInput
-          style={[
-            styles.input,
-            { backgroundColor: '#fff', color: '#000' },
-          ]}
-          placeholderTextColor={Color('#000').alpha(0.5).rgb().string()}
-          placeholder={t("chat:invite")}
-          underlineColorAndroid="transparent"
-          value={this.state.typing}
-          onChangeText={(typing) => this.setState({typing})}
-          onSubmitEditing={()=>{
-            onSendMessage(this.state.typing)
-          }}
-        />
-      </ScrollView>
-        </KeyboardAvoidingView>
+      <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
+        <View style={styles.container}>
+          <Image style={styles.avatar}
+            source={require('../assets/images/QR-250.jpg')}
+          />
+            <View style={styles.body}>
+                <View style={styles.bodyContent}>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: (this.state.viewBtn ? 0.4 : 1)
+                }}
+                //onPress={() => this.onClickListener('login')}
+                disabled={this.state.viewBtn}
+                onPress={() => navigation.navigate('Resident')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:viewunit")}</NunitoBoldText>
+          </TouchableOpacity>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: (this.state.regBtn ? 0.4 : 1)
+                }}
+                //onPress={() => this.onClickListener('login')}
+                disabled={this.state.regBtn}
+                onPress={() => this.onRegBtn()}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:reception")}</NunitoBoldText>
+          </TouchableOpacity>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: (this.state.degasBtn ? 0.4 : 1)
+                }}
+                //onPress={() => this.onClickListener('login')}
+                disabled={this.state.degasBtn}
+                onPress={() => this.onDegasBtn()}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:degassing")}</NunitoBoldText>
+          </TouchableOpacity>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: (this.state.disBtn ? 0.4 : 1)
+                }}
+                //onPress={() => this.onClickListener('login')}
+                disabled={this.state.disBtn}
+                onPress={() => this.onDisBtn()}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:dismantling")}</NunitoBoldText>
+          </TouchableOpacity>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: (this.state.tankBtn ? 0.4 : 1)
+                }}
+                //onPress={() => this.onClickListener('login')}
+                disabled={this.state.tankBtn}
+                onPress={() => this.onTankBtn()}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:gazdisposal")}</NunitoBoldText>
+          </TouchableOpacity>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: (this.state.matBtn ? 0.4 : 1)
+                }}
+                //onPress={() => this.onClickListener('login')}
+                disabled={this.state.matBtn}
+                onPress={() => this.onMatBtn()}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:materialdisposal")}</NunitoBoldText>
+          </TouchableOpacity>
+
+              </View>
+            </View>
+        </View>
+     </ScrollView>
     </View>
     )
-  );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  container2: {
-    flex: 1,
-    marginBottom: 10,
-  },
   textStyle: {
     textAlign: "center",
     padding: 5,
     fontSize: 20,
     color: "white"
   },
-  evenDate:{
-      fontSize: 14,
-      textAlign: 'left',
-      color:'black',
-  },
-  oddDate:{
-      fontSize: 14,
-      textAlign: 'left',
-      color:'black',
-  },
-  name:{
-    fontSize: 16,
-    color: 'black',
-  },
-  micro:{
-    fontSize: 8,
-    color: 'black',
-    textAlign: "center",
-  },
-  card0:{
-      backgroundColor:'white',
-      borderColor:'#f0f0f0',
-      borderWidth:0,
-      borderRadius:10
-  },
-  card1:{
-      backgroundColor:'white',
-      borderWidth:0,
-      borderRadius:10
-  },
-  card2:{
-      backgroundColor:'white',
-      borderColor:'#f0f0f0',
-      borderWidth:0,
-      borderRadius:5,
-      margin:-10,
-      marginBottom: -11
-  },
-  card3:{
-      backgroundColor:'white',
-      borderColor:'#f0f0f0',
-      borderWidth:0,
-      borderRadius:5,
-      margin:-10,
-      marginBottom: -11
-  },
-  inverted: {
-    transform: [{ scaleY: -1 }],
-  },
-  content: {
-    padding: 0,
+  container: {
     flex: 1,
     backgroundColor: '#e9e9e9',
+    marginTop: 0,
   },
-  even: {
-    flexDirection: 'row',
+  container2: {
+    flex: 1,
+    backgroundColor: '#e9e9e9',
+    marginTop: 0,
   },
-  odd: {
-    flexDirection: 'row-reverse',
+  contentContainer: {
+    padding: 0,
   },
-  avatarEven: {
-    marginVertical: 0,
-    marginHorizontal: 0,
-    height: 40,
-    width: 40,
-    borderRadius: 40/2,
-    marginRight : 12, 
-    borderColor: '#fff',
-    borderWidth: 2,
+  contentContainer2: {
+    padding: 0,
   },
-  avatarOdd: {
-    marginVertical: 0,
-    marginHorizontal: 0,
-    height: 40,
-    width: 40,
-    borderRadius: 40/2,
-    marginLeft : 12, 
-    borderColor: '#fff',
-    borderWidth: 2,
+  avatar: {
+    flex: 1,
+    width: 220,
+    height: 220,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:10
   },
-  input: {
-    height: 48,
-    marginTop: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+  body:{
+    marginTop: 230,
+  },
+  bodyContent: {
+    padding:10,
+  },
+  name:{
+    fontSize:24,
+    color: 'black',
+  },
+  title:{
+    fontSize:24,
+    color: 'black',
+    marginTop:20
+  },
+  line: {
+    flexDirection:'row',
+  },
+  label:{
+    fontSize:16,
+    color: "black",
+    marginTop:10
+  },
+  info:{
+    fontSize:16,
+    color: "black",
+    marginTop:10
+  },
+  addr:{
+    fontSize:16,
+    color: "black",
+    marginLeft:70,
+    marginTop:10
+  },
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    textAlign: 'center'
   },
 });
 

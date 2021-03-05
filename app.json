@@ -1,18 +1,18 @@
 {
   "expo": {
-    "name": "proximity",
-    "slug": "proximity",
+    "name": "halocarbures",
+    "slug": "halocarbures",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.2",
+    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/haloIcon.png",
     "scheme": "myapp",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/rivraSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,12 +23,12 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.manyeta.proximity",
-      "buildNumber": "1.0.2",
+      "bundleIdentifier": "com.semiosis.halocarbures",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.manyeta.proximity",
+      "package": "com.semiosis.halocarbures",
       "versionCode": 1
     },
     "description": ""
