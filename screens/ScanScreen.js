@@ -26,7 +26,7 @@ import { withTranslation } from 'react-i18next';
 
 //const { colors } = useTheme();
 
-class ChatScreen extends Component {
+class ScanScreen extends Component {
   state = {
     messages: [ ],
     typing: "",
@@ -40,7 +40,7 @@ class ChatScreen extends Component {
   }
 
   onClickListener({navigation}) {
-    navigation.dispatch(StackActions.replace('Resident'));
+    navigation.dispatch(StackActions.replace('Unit'));
   }
 
   onRegBtn() {
@@ -91,7 +91,7 @@ class ChatScreen extends Component {
                 }}
                 //onPress={() => this.onClickListener('login')}
                 disabled={this.state.viewBtn}
-                onPress={() => navigation.navigate('Resident')}
+                onPress={() => navigation.navigate('Unit')}
           >
             <NunitoBoldText style={styles.textStyle}>{t("process:viewunit")}</NunitoBoldText>
           </TouchableOpacity>
@@ -106,7 +106,8 @@ class ChatScreen extends Component {
                 }}
                 //onPress={() => this.onClickListener('login')}
                 disabled={this.state.regBtn}
-                onPress={() => this.onRegBtn()}
+                //onPress={() => this.onRegBtn()}
+                onPress={() => navigation.navigate('NewUnit')}
           >
             <NunitoBoldText style={styles.textStyle}>{t("process:reception")}</NunitoBoldText>
           </TouchableOpacity>
@@ -256,4 +257,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(ChatScreen);
+export default withTranslation()(ScanScreen);

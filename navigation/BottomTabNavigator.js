@@ -7,15 +7,15 @@ import TabBarIcon from '../components/TabBarIcon';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import AgendaScreen from '../screens/AgendaScreen';
 //import LoginScreen from '../screens/LoginScreen';
-import ResidentScreen from '../screens/ResidentScreen';
+import UnitScreen from '../screens/UnitScreen';
 import NotesFeedScreen from '../screens/NotesFeedScreen';
-import ChatScreen from '../screens/ChatScreen';
+import ScanScreen from '../screens/ScanScreen';
 import OverviewScreen from '../screens/OverviewScreen';
 import MoreOptionsScreen from '../screens/MoreOptionsScreen';
 import { NunitoBoldText } from '../components/StyledText';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Resident';
+const INITIAL_ROUTE_NAME = 'Unit';
 
 export default function BottomTabNavigator({ navigation, route }) {
 	const [t, i18n] = useTranslation();
@@ -26,7 +26,7 @@ export default function BottomTabNavigator({ navigation, route }) {
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
         name="Chat"
-        component={ChatScreen}
+        component={ScanScreen}
         options={{
           title: t("scan:title"),
           tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="qrcode-scan" size={24} />,
@@ -34,7 +34,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Resident"
-        component={ResidentScreen}
+        component={UnitScreen}
         options={{
           title: t("unit:title"),
           tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="fridge-outline" size={24} />,
@@ -72,7 +72,7 @@ function getHeaderTitle(route, t) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Resident':
+    case 'Unit':
       return t("unit:title")+" 908KR00052";
     case 'Notes':
         return "Kenmore 795.79754.904";

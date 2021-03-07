@@ -5,11 +5,18 @@ import {
   Text,
   View,
   ScrollView,
+  TextInput,
   Image,
+  UIManager,
+  findNodeHandle,
   TouchableOpacity
 } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 //import { AsyncStorage } from '@react-native-community/async-storage';
+
+// import components
+import DropDown from '../components/DropDown';
+import MyButton from '../components/MyButton';
 
 import axios from 'axios';
 import { NunitoExtraText } from '../components/StyledText';
@@ -24,64 +31,36 @@ import { withTranslation } from 'react-i18next';
 import * as english from "../translations/en";
 import * as french from "../translations/fr";
 
-class ResidentScreen extends Component {
+class NewUnitScreen extends Component {
   state = {
     unit: null,
-    admissionDate: "",
-    base64image: "",
+    serialNumber: "",
+    today: "2021-03-05 11:15",
+    show: false,
+    position: {},
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/resident/0')
-    //alert("Bienvenue dans proximité");
-    const getData = async () => {
-      try {
-          const myusername = await AsyncStorage.getItem('@username');
-          const mypassword = await AsyncStorage.getItem('@password');
-          const navigation = this.props.navigation;
-          //if (myusername === null) {
-          if (true) {
-            navigation.dispatch(StackActions.replace('Login'));
-          } else {
-            //const navigation = this.props.navigation;
-            //navigation.dispatch(StackActions.replace('Register'));
-            //navigation.dispatch(StackActions.replace('Login'));
-          //alert('Current value is: '+myusername+'/'+mypassword);
-            i18n
-              .use(initReactI18next)
-              .init({
-                resources: {
-                  en: english,
-                  fr: french,
-                },
-                //lng: Localization.locale,
-                lng: GLOBALS.LANGUAGE,
-                fallbackLng: 'fr',
-                interpolation: {
-                  escapeValue: false,
-                },
-                cleanCode: true,
-              }).then(function(t) { GLOBALS.T = t; });
-            //alert('Translation all set');
-            //alert(GLOBALS.T);
-            navigation.dispatch(StackActions.replace('Root'));
-          
-          }
-      } catch(e) {
-        // error reading value
-          alert('ERROR READING ASYNC VALUE!');
-      }
+    var today = new Date();
+    today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5)
+    this.setState({today: today});
+  }
+  // handle showing the dropdown
+  showDropDown = () => {
+    if (this.button) {
+      // use the uimanager to measure the button's position in the window
+      UIManager.measure(findNodeHandle(this.button), (x, y, width, height, pageX, pageY) => {
+        const position = { left: pageX, top: pageY, width: width, height: height };
+        // setState, which updates the props that are passed to the DropDown component
+        this.setState({show: true, position: { x: pageX + (width / 2), y: pageY + (2 * height / 3) }})
+      });
     }
+  }
 
-  if (GLOBALS.BEARERTOKEN) {
-    //alert("https://"+GLOBALS.PREFIXEDEPLOIEMENT+".livia-parcoursdevie.fr/api/usagers/340");
-    } else {
-      //alert("Need to getData!");
-      //getData();
-      setTimeout(function(){ getData(); }, 1000);
-        
-    }
-    
+  // hide the dropdown
+  hideDropDown = (item) => {
+    alert(item)
+    this.setState({show: false, position: {}})
   }
 
   render() {
@@ -95,13 +74,22 @@ class ResidentScreen extends Component {
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
+                      <View>
+                        <NunitoBoldText style={styles.label}>{t("unit:serialNumber")}</NunitoBoldText>
+                        <TextInput style={styles.field}
+                            placeholder={t("unit:serialNumber")}
+                            placeholderTextColor = "#3e444c"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(serialNumber) => this.setState({serialNumber})}
+                        />
+                      </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionOrg")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{"REP Coderr"}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"2021-02-15 09:15"}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.today}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:transport")} : </NunitoText>
@@ -118,18 +106,6 @@ class ResidentScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:unitType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{"Kenmore 795.79754.904"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:haloType")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"R134a"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:estimatedQty")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0,145 kg"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:destination")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"PureSphéra"}</NunitoBoldText>
                       </View>
                 </View>
               </View>
@@ -191,10 +167,28 @@ const styles = StyleSheet.create({
     color: "#3e444c",
     marginTop:10
   },
+  label2:{
+    fontSize:14,
+    color: "black",
+    marginTop:5,
+    marginLeft:15
+  },
+  field:{
+    margin: 10,
+    height: 40,
+    padding: 10,
+    borderColor: '#3e444c',
+    borderWidth: 1
+  },
   info:{
     fontSize:16,
     color: "black",
     marginTop:10
+  },
+  info2:{
+    fontSize:14,
+    color: "black",
+    marginTop:5
   },
   addr:{
     fontSize:16,
@@ -210,5 +204,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(ResidentScreen);
+export default withTranslation()(NewUnitScreen);
  

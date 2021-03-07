@@ -47,17 +47,17 @@ class MoreOptionsScreen extends Component {
         {
             title: t("settings:careplan"),
             icon: 'grid-on',
-            screen: 'Resident'
+            screen: 'Unit'
         },
         {
             title: t("settings:professionals"),
             icon: 'grid-on',
-            screen: 'Resident'
+            screen: 'Unit'
         },
         {
             title: t("settings:circleofcare"),
             icon: 'grid-on',
-            screen: 'Resident'
+            screen: 'Unit'
         },
     ]
     
@@ -65,7 +65,7 @@ class MoreOptionsScreen extends Component {
         {
             title: t("settings:profile"),
             icon: 'av-timer',
-            screen: 'Resident'
+            screen: 'Unit'
         },
     ]
     

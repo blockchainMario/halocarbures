@@ -17,7 +17,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import GLOBALS from '../constants/Globals'
 
-export default class ResidentScreen extends Component {
+export default class UnitScreen extends Component {
   state = {
     resident: null,
     professional: null

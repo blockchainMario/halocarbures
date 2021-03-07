@@ -100,6 +100,8 @@ export const residency = {
 
 export const unit = {
 	title: "Unité",
+	newunit: "Nouvelle unité",
+	serialNumber: "Numéro de série",
 	receptionOrg: "Organisation",
 	receptionDate: "Date de création",
 	receptionEmployee: "Employé",

@@ -13,7 +13,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import CarePlanScreen from './screens/CarePlanScreen';
 import CircleOfCareScreen from './screens/CircleOfCareScreen';
-import ResidentScreen from './screens/ResidentScreen';
+import UnitScreen from './screens/UnitScreen';
+import NewUnitScreen from './screens/NewUnitScreen';
 import ProfessionalsScreen from './screens/ProfessionalsScreen';
 import NursingHomeScreen from './screens/NursingHomeScreen';
 import LeaseScreen from './screens/LeaseScreen';
@@ -323,9 +324,28 @@ const MyStack = ({navigation}) => {
         }
       }}
     />
-    <Stack.Screen name='Resident' component={ResidentScreen}
+    <Stack.Screen name='Unit' component={UnitScreen}
       options={{
         title: GLOBALS.T("resident:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='NewUnit' component={NewUnitScreen}
+      options={{
+        title: GLOBALS.T("unit:newunit"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,
