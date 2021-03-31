@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Platform, StatusBar, ImageBackground, StyleSheet, View, Image, Text, Linking } from 'react-native';
 import { Card, Divider, ListItem } from 'react-native-elements';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
@@ -14,7 +15,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import CarePlanScreen from './screens/CarePlanScreen';
 import CircleOfCareScreen from './screens/CircleOfCareScreen';
 import UnitScreen from './screens/UnitScreen';
+import TankScreen from './screens/TankScreen';
+import BinScreen from './screens/BinScreen';
 import NewUnitScreen from './screens/NewUnitScreen';
+import NewTankScreen from './screens/NewTankScreen';
+import NewBinScreen from './screens/NewBinScreen';
 import ProfessionalsScreen from './screens/ProfessionalsScreen';
 import NursingHomeScreen from './screens/NursingHomeScreen';
 import LeaseScreen from './screens/LeaseScreen';
@@ -192,6 +197,9 @@ function App(props) {
           'nunito-light': require('./assets/fonts/Brown-Light.ttf'),
           'nunito-extra-bold': require('./assets/fonts/Brown-Bold.ttf'),
         });
+
+        await BarCodeScanner.requestPermissionsAsync();
+
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
@@ -326,7 +334,45 @@ const MyStack = ({navigation}) => {
     />
     <Stack.Screen name='Unit' component={UnitScreen}
       options={{
-        title: GLOBALS.T("resident:title"),
+        title: GLOBALS.T("unit:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='Tank' component={TankScreen}
+      options={{
+        title: GLOBALS.T("tank:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='Bin' component={BinScreen}
+      options={{
+        title: GLOBALS.T("bin:title"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,
@@ -346,6 +392,44 @@ const MyStack = ({navigation}) => {
     <Stack.Screen name='NewUnit' component={NewUnitScreen}
       options={{
         title: GLOBALS.T("unit:newunit"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='NewTank' component={NewTankScreen}
+      options={{
+        title: GLOBALS.T("tank:newtank"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='NewBin' component={NewBinScreen}
+      options={{
+        title: GLOBALS.T("bin:newbin"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,

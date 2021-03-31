@@ -7,8 +7,8 @@ export default {
     PROFESSIONALID : 'B5D41F99-7663-4B85-969A-ABE601400DDF',
     NEWSFEEDID : '14f68d4e-de71-11ea-85a3-aacff8cbfcc8',
     BEARERTOKEN : '',
-    USERNAME : '',
-    FULLNAME : '',
+    USERNAME : 'mperron@semiosis.com',
+    FULLNAME : 'Mario Perron',
     RESIDENTNAME : '',
     RESIDENTUNIT : '',
     RESIDENTPHOTO : '',
@@ -16,5 +16,7 @@ export default {
     T : '',
     PROFESSIONNELID : '',
     PREFIXEDEPLOIEMENT : '',
-    DOCTOR : ''
+    DOCTOR : '',
+    UUID : '',
+    TYPE : '',
 }

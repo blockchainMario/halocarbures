@@ -27,66 +27,56 @@ import * as french from "../translations/fr";
 class UnitScreen extends Component {
   state = {
     unit: null,
-    admissionDate: "",
-    base64image: "",
+    /*
+"unitId":"b391f8d2-7878-4281-b377-869151ed3e4a",
+"unitType":"Cellier réfrigérant",
+"location":"Reception",
+"destination":"Dismantling",
+"brandModel":"ac0f7a7b-56b9-473b-81e6-8c0c94783227",
+"brand":"Frigidaire",
+"model":"795.79754.904",
+"year":"2004",
+"haloType":"R134a",
+"haloQty":"0.144",
+"weight":"103.14",
+"serialNumber":"glht186jwo",
+"provenance":"Alma",
+"mrc":"Lac-Saint-Jean-Est",
+"receptionDate":"2020-05-14 7:53",
+"transporter":"CRE Transport",
+"destinataire":"REP Coderr",
+"receptionEmployee":"99f642b1-7e9e-4165-9829-89f6876f6dd9",
+"storageIn":"2020-05-18 10:52",
+"storageOut":"2020-05-30 8:11"
+    */
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/resident/0')
-    //alert("Bienvenue dans proximité");
-    const getData = async () => {
-      try {
-          const myusername = await AsyncStorage.getItem('@username');
-          const mypassword = await AsyncStorage.getItem('@password');
-          const navigation = this.props.navigation;
-          //if (myusername === null) {
-          if (true) {
-            navigation.dispatch(StackActions.replace('Login'));
-          } else {
-            //const navigation = this.props.navigation;
-            //navigation.dispatch(StackActions.replace('Register'));
-            //navigation.dispatch(StackActions.replace('Login'));
-          //alert('Current value is: '+myusername+'/'+mypassword);
-            i18n
-              .use(initReactI18next)
-              .init({
-                resources: {
-                  en: english,
-                  fr: french,
-                },
-                //lng: Localization.locale,
-                lng: GLOBALS.LANGUAGE,
-                fallbackLng: 'fr',
-                interpolation: {
-                  escapeValue: false,
-                },
-                cleanCode: true,
-              }).then(function(t) { GLOBALS.T = t; });
-            //alert('Translation all set');
-            //alert(GLOBALS.T);
-            navigation.dispatch(StackActions.replace('Root'));
-          
-          }
-      } catch(e) {
-        // error reading value
-          alert('ERROR READING ASYNC VALUE!');
+    //alert("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
-    }
-
-  if (GLOBALS.BEARERTOKEN) {
-    //alert("https://"+GLOBALS.PREFIXEDEPLOIEMENT+".livia-parcoursdevie.fr/api/usagers/340");
-    } else {
-      //alert("Need to getData!");
-      //getData();
-      setTimeout(function(){ getData(); }, 1000);
-        
-    }
-    
+    })
+      .then(res => {
+        const unit = res.data[0];
+        this.setState({ unit: unit });
+        //alert(JSON.stringify(unit));
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Unit : "+error)
+      })
   }
 
   render() {
     const { t } = this.props;
     return (
+      (this.state.unit == null) ? (
+        <View style={styles.container}>
+          <NunitoText style={styles.info}>Loading...</NunitoText>
+        </View>
+      ) : (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
@@ -96,49 +86,98 @@ class UnitScreen extends Component {
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:receptionOrg")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"REP Coderr"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"2021-02-15 09:15"}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.receptionDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:transport")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"Transport Morneau"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"Jean Untel, #001291297"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:provenance")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"Écocentre St-Ludger-De-Milot"}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:unitId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.unitId}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:unitType")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"Kenmore 795.79754.904"}</NunitoBoldText>
-                      </View>
-                    <View style={{ flex:1 }}>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label2}>{t("unit:haloType")} : </NunitoText>
-                        <NunitoBoldText style={styles.info2}>{"R134a"}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.unitType}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label2}>{t("unit:estimatedQty")} : </NunitoText>
-                        <NunitoBoldText style={styles.info2}>{"0,145 kg"}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:location")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.location}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label2}>{t("unit:destination")} : </NunitoText>
-                        <NunitoBoldText style={styles.info2}>{"PureSphéra"}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:destination")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.destination}</NunitoBoldText>
                       </View>
-                    </View>
-                </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:brandModel")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.brandModel}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:brand")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.brand}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:model")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.model}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:year")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.year}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:haloType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.haloType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:haloQty")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.haloQty}</NunitoBoldText>
+                        <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:year")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.year}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:weight")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.weight}</NunitoBoldText>
+                        <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:serialNumber")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.serialNumber}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:provenance")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.provenance}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:mrc")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.mrc}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:transporter")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.transporter}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:destinataire")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.destinataire}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.receptionEmployee}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:storageIn")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.storageIn}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:storageOut")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.storageOut}</NunitoBoldText>
+                      </View>
+                  </View>
               </View>
           </View>
        </ScrollView>
       </View>
-    );
+    )
+    )
   }
 }
 

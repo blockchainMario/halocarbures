@@ -101,16 +101,57 @@ export const residency = {
 export const unit = {
 	title: "Unité",
 	newunit: "Nouvelle unité",
-	serialNumber: "Numéro de série",
-	receptionOrg: "Organisation",
-	receptionDate: "Date de création",
-	receptionEmployee: "Employé",
-	transport: "Transporteur",
-	provenance: "Provenance",
+	unitId: "Identifiant de l'unité",
 	unitType: "Type d'unité",
-	estimatedQty: "Poids estimé",
+	location: "Localisation",
 	destination: "Destination",
+	brandModel: "Marque et modèle",
+	brand: "Marque",
+	model: "Modèle",
+	year: "Année",
 	haloType: "Halocarbure",
+	haloQty: "Quantité",
+	weight: "Poids de l'unité",
+	serialNumber: "Numéro de série",
+	provenance: "Provenance",
+	mrc : "MRC",
+	receptionDate: "Date de réception",
+	transporter: "Transporteur",
+	destinataire: "Organisation",
+	receptionEmployee: "Employé",
+	storageIn : "Date d'entreposage",
+	storageOut : "Sortie de l'entreposage"
+}
+
+export const tank = {
+	title: "Bonbonne",
+	newtank: "Nouvelle bonbonne",
+	tankId: "Identifiant de la bonbonne",
+	tankType: "Type de bonbonne",
+	location: "Localisation",
+	creationDate: "Date de création",
+	haloType: "Halocarbure",
+	haloQty: "Quantité",
+	fullDate: "Date de remplissage",
+	departureDate: "Date de départ",
+	ticketId: "Numéro de ticket",
+	departureEmployee: "Employé",
+	provider: "Fournisseur"
+}
+
+export const bin = {
+	title: "Conteneur",
+	newbin: "Nouveau conteneur",
+	binId: "Identifiant du conteneur",
+	binType: "Type de conteneur",
+	location: "Localisation",
+	creationDate: "Date de création",
+	quantity: "Quantité",
+	fullDate: "Date de remplissage",
+	departureDate: "Date de départ",
+	ticketId: "Numéro de ticket",
+	departureEmployee: "Employé",
+	provider: "Fournisseur"
 }
 
 export const unittype = {
@@ -125,8 +166,15 @@ export const unittype = {
 	weight: "Poids",
 }
 
+export const measure = {
+	title: "Mesure",
+	lbs: "(lbs)",
+	kg: "(kg)",
+	liters: "(litres)",
+}
+
 export const scan = {
-	title: "Code barre",
+	title: "Scanner le code QR",
 }
 
 export const overview = {
@@ -146,10 +194,24 @@ export const settings = {
 
 export const process = {
 	title: "Processus",
+	scanagain: "Nouveau QR Code",
+	newunit: "Nouvelle unité",
+	newtank: "Nouvelle bonbonne",
+	newbin: "Nouveau conteneur",
+
+	saveunit: "Sauvegarder l'unité",
 	viewunit: "Voir la description",
-	reception: "Enregistrer la réception",
 	degassing: "Débuter le dégazage",
+	storing: "Entreposer l'unité",
 	dismantling: "Débuter le démantèlement",
-	gazdisposal: "Disposer de cette bonbonne",
-	materialdisposal: "Disposer de ces matières",
+
+	savetank: "Sauvegarder la bonbonne",
+	viewtank: "Voir la description",
+	tankfull: "Marquer comme pleine",
+	gasdisposal: "Disposer de la bonbonne",
+
+	savebin: "Sauvegarder le conteneur",
+	viewbin: "Voir la description",
+	binfull: "Marquer comme plein",
+	bindisposal: "Disposer de ces matières",
 }

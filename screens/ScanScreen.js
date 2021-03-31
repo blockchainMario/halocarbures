@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Alert,
+  Button,
   View,
   Image,
   KeyboardAvoidingView,
@@ -14,6 +15,7 @@ import {
 } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import { useScrollToTop, useTheme } from '@react-navigation/native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
 import Color from 'color';
 
@@ -31,52 +33,69 @@ class ScanScreen extends Component {
     messages: [ ],
     typing: "",
     clearInput: false,
-    viewBtn: false,
-    regBtn: false,
-    degasBtn: true,
-    disBtn: true,
-    tankBtn: true,
-    matBtn: true,
+    scanned: false,
+    type: "none",
   }
 
   onClickListener({navigation}) {
     navigation.dispatch(StackActions.replace('Unit'));
   }
 
-  onRegBtn() {
-    this.setState({regBtn:true});
-    this.setState({degasBtn:false});
-  }
-
-  onDegasBtn() {
-    this.setState({degasBtn:true});
-    this.setState({disBtn:false});
-  }
-
-  onDisBtn() {
-    this.setState({disBtn:true});
-    this.setState({tankBtn:false});
-  }
-
-  onTankBtn() {
-    this.setState({tankBtn:true});
-    this.setState({matBtn:false});
-  }
-
-  onMatBtn() {
-    this.setState({matBtn:true});
-    this.setState({regBtn:false});
-  }
-
   render() {
     const { t } = this.props;
     const navigation = this.props.navigation;
+
+    const handleBarCodeScanned = ({ type, data }) => {
+      this.setState({scanned: true});
+/*
+      axios.get("http://18.190.29.217:8081/qrcode/"+data, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const answer = res.data;
+          alert(JSON.stringify(answer));
+            this.setState({type: answer.type});
+            GLOBALS.TYPE = answer.type;
+            GLOBALS.UUID = answer.id;
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Unit : "+error)
+        })
+*/
+
+      GLOBALS.UUID = data;
+      if (data == "b391f8d2-7878-4281-b377-869151ed3e4a") {
+        this.setState({type: "unit"});
+        GLOBALS.TYPE = "unit";
+      } else if (data == "7f9a293e-561a-4747-b459-034e767a5b36") {
+        this.setState({type: "tank"});
+        GLOBALS.TYPE = "tank";
+      } else if (data == "6eeca4af-1636-4124-bf43-f5c7f041af23") {
+        this.setState({type: "bin"});
+        GLOBALS.TYPE = "bin";
+      } else {
+        this.setState({type: "unknown"});
+        GLOBALS.TYPE = "unknown";
+      }
+      //alert("Bar code with type "+type+" and data "+data+" has been scanned!");
+
+    };
+
+    const reScan = () => {
+      this.setState({scanned: false});
+      this.setState({type: "none"});
+    };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
         <View style={styles.container}>
-          <Image style={styles.avatar}
-            source={require('../assets/images/QR-250.jpg')}
+          <BarCodeScanner
+            onBarCodeScanned={this.state.scanned ? undefined : handleBarCodeScanned}
+            style={styles.avatar}
           />
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
@@ -87,90 +106,182 @@ class ScanScreen extends Component {
                   borderRadius: 10,
                   borderWidth: 0,
                   backgroundColor: '#57b0e3',
-                  opacity: (this.state.viewBtn ? 0.4 : 1)
+                  opacity: (this.state.scanned ? 1 : 0.4)
                 }}
-                //onPress={() => this.onClickListener('login')}
-                disabled={this.state.viewBtn}
+                disabled={!this.state.scanned}
+                onPress={reScan}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:scanagain")}</NunitoBoldText>
+          </TouchableOpacity>
+
+          {this.state.type == "unit" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
                 onPress={() => navigation.navigate('Unit')}
           >
             <NunitoBoldText style={styles.textStyle}>{t("process:viewunit")}</NunitoBoldText>
-          </TouchableOpacity>
+          </TouchableOpacity>}
 
-        <TouchableOpacity
+          {this.state.type == "unknown" && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
                   borderWidth: 0,
                   backgroundColor: '#57b0e3',
-                  opacity: (this.state.regBtn ? 0.4 : 1)
+                  opacity: 1
                 }}
-                //onPress={() => this.onClickListener('login')}
-                disabled={this.state.regBtn}
-                //onPress={() => this.onRegBtn()}
                 onPress={() => navigation.navigate('NewUnit')}
           >
-            <NunitoBoldText style={styles.textStyle}>{t("process:reception")}</NunitoBoldText>
-          </TouchableOpacity>
+            <NunitoBoldText style={styles.textStyle}>{t("process:newunit")}</NunitoBoldText>
+          </TouchableOpacity>}
 
-        <TouchableOpacity
+          {this.state.type == "unknown" && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
                   borderWidth: 0,
                   backgroundColor: '#57b0e3',
-                  opacity: (this.state.degasBtn ? 0.4 : 1)
+                  opacity: 1
                 }}
-                //onPress={() => this.onClickListener('login')}
-                disabled={this.state.degasBtn}
-                onPress={() => this.onDegasBtn()}
+                onPress={() => navigation.navigate('NewTank')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:newtank")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "unknown" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('NewBin')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:newbin")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "tank" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('Tank')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:viewtank")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "unit" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('Degassing')}
           >
             <NunitoBoldText style={styles.textStyle}>{t("process:degassing")}</NunitoBoldText>
-          </TouchableOpacity>
+          </TouchableOpacity>}
 
-        <TouchableOpacity
+          {this.state.type == "unit" && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
                   borderWidth: 0,
                   backgroundColor: '#57b0e3',
-                  opacity: (this.state.disBtn ? 0.4 : 1)
+                  opacity: 1
                 }}
-                //onPress={() => this.onClickListener('login')}
-                disabled={this.state.disBtn}
-                onPress={() => this.onDisBtn()}
+                onPress={() => navigation.navigate('Storing')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:storing")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "unit" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('Dismantling')}
           >
             <NunitoBoldText style={styles.textStyle}>{t("process:dismantling")}</NunitoBoldText>
-          </TouchableOpacity>
+          </TouchableOpacity>}
 
-        <TouchableOpacity
+          {this.state.type == "tank" && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
                   borderWidth: 0,
                   backgroundColor: '#57b0e3',
-                  opacity: (this.state.tankBtn ? 0.4 : 1)
+                  opacity: 1
                 }}
-                //onPress={() => this.onClickListener('login')}
-                disabled={this.state.tankBtn}
-                onPress={() => this.onTankBtn()}
+                onPress={() => navigation.navigate('TankFull')}
           >
-            <NunitoBoldText style={styles.textStyle}>{t("process:gazdisposal")}</NunitoBoldText>
-          </TouchableOpacity>
+            <NunitoBoldText style={styles.textStyle}>{t("process:tankfull")}</NunitoBoldText>
+          </TouchableOpacity>}
 
-        <TouchableOpacity
+          {this.state.type == "tank" && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
                   borderWidth: 0,
                   backgroundColor: '#57b0e3',
-                  opacity: (this.state.matBtn ? 0.4 : 1)
+                  opacity: 1
                 }}
-                //onPress={() => this.onClickListener('login')}
-                disabled={this.state.matBtn}
-                onPress={() => this.onMatBtn()}
+                onPress={() => navigation.navigate('GasDisposal')}
           >
-            <NunitoBoldText style={styles.textStyle}>{t("process:materialdisposal")}</NunitoBoldText>
-          </TouchableOpacity>
+            <NunitoBoldText style={styles.textStyle}>{t("process:gasdisposal")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "bin" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('Bin')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:viewbin")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "bin" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('BinFull')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:binfull")}</NunitoBoldText>
+          </TouchableOpacity>}
+
+          {this.state.type == "bin" && <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3',
+                  opacity: 1
+                }}
+                onPress={() => navigation.navigate('BinDisposal')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("process:bindisposal")}</NunitoBoldText>
+          </TouchableOpacity>}
 
               </View>
             </View>

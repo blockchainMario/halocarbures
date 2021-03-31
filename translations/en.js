@@ -101,16 +101,57 @@ export const residency = {
 export const unit = {
 	title: "Unit",
 	newunit: "New Unit",
-	serialNumber: "Serial Number",
-	receptionOrg: "Organization",
-	receptionDate: "Creation Date",
-	receptionEmployee: "Employee",
-	transport: "Transport",
-	provenance: "Provenance",
+	unitId: "Unit Identifier",
 	unitType: "Unit Type",
-	estimatedQty: "Estimated Weight",
+	location: "Location",
 	destination: "Destination",
+	brandModel: "Brand & Model",
+	brand: "Brand",
+	model: "Model",
+	year: "Year",
 	haloType: "Halocarbon",
+	haloQty: "Quantity",
+	weight: "Weight",
+	serialNumber: "Serial Number",
+	provenance: "Provenance",
+	mrc: "MRC",
+	receptionDate: "Reception Date",
+	transporter: "Transport",
+	destinataire: "Organization",
+	receptionEmployee: "Employee",
+	storageIn : "Storage Date",
+	storageOut : "Out of Storage Date"
+}
+
+export const tank = {
+	title: "Tank",
+	newtank: "New tank",
+	tankId: "Tank Identifier",
+	tankType: "Tank Type",
+	location: "Location",
+	creationDate: "Creation Date",
+	haloType: "Halocarbon",
+	haloQty: "Quantity",
+	fullDate: "Fill-up Date",
+	departureDate: "Departure Date",
+	ticketId: "Ticket Id",
+	departureEmployee: "Employee",
+	provider: "Provider"
+}
+
+export const bin = {
+	title: "Bin",
+	newbin: "New Bin",
+	binId: "Bin Identifier",
+	binType: "Bin Type",
+	location: "Location",
+	creationDate: "Creation Date",
+	quantity: "Quantity",
+	fullDate: "Fill-up Date",
+	departureDate: "Departure Date",
+	ticketId: "Ticket Id",
+	departureEmployee: "Employee",
+	provider: "Provider"
 }
 
 export const unittype = {
@@ -125,8 +166,15 @@ export const unittype = {
 	weight: "Weight",
 }
 
+export const measure = {
+	title: "Mesure",
+	lbs: "(lbs)",
+	kg: "(kg)",
+	liters: "(liters)",
+}
+
 export const scan = {
-	title: "Barcode",
+	title: "Scan QR Code",
 }
 
 export const overview = {
@@ -146,10 +194,24 @@ export const settings = {
 
 export const process = {
 	title: "Process",
-	viewunit: "See Description",
-	reception: "Reception this Unit",
+	scanagain: "New QR Code",
+	newunit: "New Unit",
+	newtank: "New Tank",
+	newbin: "New Bin",
+
+	saveunit: "Save the Unit",
+	viewunit: "View Description",
 	degassing: "Start Degassing",
+	storing: "Store the Unit",
 	dismantling: "Start Dismantling",
-	gazdisposal: "Dispose of this Gaz Tank",
-	materialdisposal: "Dispose of this Material Bin",
+
+	savetank: "Save the Tank",
+	viewtank: "View Description",
+	tankfull: "Mark as Full",
+	gasdisposal: "Dispose of this Gaz Tank",
+
+	viewbin: "View Description",
+	savebin: "Save the Bin",
+	binfull: "Mark as Full",
+	bindisposal: "Dispose of this Bin",
 }

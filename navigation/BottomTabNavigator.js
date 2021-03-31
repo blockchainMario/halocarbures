@@ -73,7 +73,7 @@ function getHeaderTitle(route, t) {
 
   switch (routeName) {
     case 'Unit':
-      return t("unit:title")+" 908KR00052";
+      return t("scan:title");
     case 'Notes':
         return "Kenmore 795.79754.904";
     case 'Chat':
