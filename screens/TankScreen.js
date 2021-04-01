@@ -71,11 +71,11 @@ class TankScreen extends Component {
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
             <Image style={styles.avatar}
-              source={require('../assets/images/tagID.jpg')}
+              source={require('../assets/images/tank.jpg')}
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line}>
+                      <View style={styles.line2}>
                         <NunitoText style={styles.label}>{t("tank:tankId")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.tankId}</NunitoBoldText>
                       </View>
@@ -84,16 +84,16 @@ class TankScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.tank.tankType}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:haloType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.haloType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:location")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.location}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:creationDate")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.creationDate}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("tank:haloType")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tank.haloType}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:haloQty")} : </NunitoText>
@@ -175,6 +175,9 @@ const styles = StyleSheet.create({
   },
   line: {
     flexDirection:'row',
+  },
+  line2: {
+    flexDirection:'column',
   },
   label:{
     fontSize:16,

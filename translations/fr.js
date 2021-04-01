@@ -140,10 +140,10 @@ export const tank = {
 }
 
 export const bin = {
-	title: "Conteneur",
-	newbin: "Nouveau conteneur",
-	binId: "Identifiant du conteneur",
-	binType: "Type de conteneur",
+	title: "bac",
+	newbin: "Nouveau bac",
+	binId: "Identifiant du bac",
+	binType: "Type de bac",
 	location: "Localisation",
 	creationDate: "Date de création",
 	quantity: "Quantité",
@@ -174,7 +174,7 @@ export const measure = {
 }
 
 export const scan = {
-	title: "Scanner le code QR",
+	title: "Scanner un code QR",
 }
 
 export const overview = {
@@ -194,10 +194,10 @@ export const settings = {
 
 export const process = {
 	title: "Processus",
-	scanagain: "Nouveau QR Code",
+	scanagain: "Scanner un autre QR Code",
 	newunit: "Nouvelle unité",
 	newtank: "Nouvelle bonbonne",
-	newbin: "Nouveau conteneur",
+	newbin: "Nouveau bac",
 
 	saveunit: "Sauvegarder l'unité",
 	viewunit: "Voir la description",
@@ -210,7 +210,7 @@ export const process = {
 	tankfull: "Marquer comme pleine",
 	gasdisposal: "Disposer de la bonbonne",
 
-	savebin: "Sauvegarder le conteneur",
+	savebin: "Sauvegarder le bac",
 	viewbin: "Voir la description",
 	binfull: "Marquer comme plein",
 	bindisposal: "Disposer de ces matières",

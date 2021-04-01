@@ -21,13 +21,13 @@ export default class ProfileScreen extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
             <View style={styles.container}>
-                <Image style={styles.avatar} source={require('../assets/images/MarioPerron.jpg')}/>
+                <Image style={styles.avatar} source={require('../assets/images/avatar.jpg')}/>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
-                        <NunitoText style={styles.name}>{"Mario Perron"}</NunitoText>
-                        <NunitoText style={styles.info}>{"mperron@semiosis.com"}</NunitoText>
+                        <NunitoText style={styles.name}>{"Joel Tremblay"}</NunitoText>
+                        <NunitoText style={styles.info}>{"joeltremblay@coderr.ca"}</NunitoText>
                         <NunitoText style={styles.description}>Manutentionnaire</NunitoText>
-                        <NunitoText style={styles.description}>#001291297</NunitoText>
+                        <NunitoText style={styles.description}>99f642b1-7e9e-4165-9829-89f6876f6dd9</NunitoText>
                     </View>
                 </View>
             </View>

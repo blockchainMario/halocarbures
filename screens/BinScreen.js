@@ -74,7 +74,7 @@ class BinScreen extends Component {
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line}>
+                      <View style={styles.line2}>
                         <NunitoText style={styles.label}>{t("bin:binId")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.bin.binId}</NunitoBoldText>
                       </View>
@@ -170,6 +170,9 @@ const styles = StyleSheet.create({
   },
   line: {
     flexDirection:'row',
+  },
+  line2: {
+    flexDirection:'column',
   },
   label:{
     fontSize:16,

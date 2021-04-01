@@ -34,17 +34,15 @@ class NewUnitScreen extends Component {
   state = {
     unit: null,
     unitType: "",
-    brandModel: "Danby W-45",
-    year: "",
+    brandModel: "",
     serialNumber: "",
     weight: "",
+    year: "",
+    haloType: "",
     provenance: "",
-    mrc: "Domaine-du-Roy",
     receptionDate: "",
     transporter: "",
-    receptionEmployee: "Mario Perron",
-    show: false,
-    position: {},
+    receptionEmployee: "Joel Tremblay",
   }
 
   componentDidMount() {
@@ -53,26 +51,36 @@ class NewUnitScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({receptionDate: today});
   }
-  // handle showing the dropdown
-  showDropDown = () => {
-    if (this.button) {
-      // use the uimanager to measure the button's position in the window
-      UIManager.measure(findNodeHandle(this.button), (x, y, width, height, pageX, pageY) => {
-        const position = { left: pageX, top: pageY, width: width, height: height };
-        // setState, which updates the props that are passed to the DropDown component
-        this.setState({show: true, position: { x: pageX + (width / 2), y: pageY + (2 * height / 3) }})
-      });
-    }
-  }
 
-  // hide the dropdown
-  hideDropDown = (item) => {
-    alert(item)
-    this.setState({show: false, position: {}})
+  saveunit = (navigation) => {
+    //alert("http://18.190.29.217:8081/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
+    //+"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.haloType+"/"+this.state.haloQty
+    //+"/"+this.state.serialNumber+"/"+this.state.weight
+    //+"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee);
+    axios.get("http://18.190.29.217:8081/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
+    +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.haloType+"/"+this.state.haloQty
+    +"/"+this.state.serialNumber+"/"+this.state.weight
+    +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const unit = res.data[0];
+        //alert(JSON.stringify(unit));
+        navigation.navigate('Root');
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Unit : "+error)
+      })
   }
 
   render() {
     const { t } = this.props;
+    const navigation = this.props.navigation;
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
@@ -88,6 +96,76 @@ class NewUnitScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 90 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:provenance")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={[
+                          {label: 'Alma', value: 'Alma'},
+                          {label: 'Dolbeau', value: 'Dolbeau'},
+                          {label: 'Hébertville', value: 'Hébertville'},
+                          {label: 'Normandin', value: 'Normandin'},
+                          {label: 'Roberval', value: 'Roberval'},
+                          {label: 'Saint-Félicien', value: 'Saint-Félicien'},
+                          {label: 'Saint-François-de-Sales', value: 'Saint-François-de-Sales'},
+                          {label: 'Saint-Ludger-de-Milot', value: 'Saint-Ludger-de-Milot'},
+                          {label: 'Aucun fournisseur', value: 'Aucun fournisseur'},
+                        ]}
+                        defaultValue={this.state.provenance}
+                        placeholder={t("unit:provenance")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          provenance: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 80 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:transporter")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={[
+                          {label: 'Bernière', value: 'Bernière'},
+                          {label: 'Besner', value: 'Besner'},
+                          {label: 'Cascades', value: 'Cascades'},
+                          {label: 'Collectes Coderr', value: 'Collectes Coderr'},
+                          {label: 'CRE Transport', value: 'CRE Transport'},
+                          {label: 'Grégoire', value: 'Grégoire'},
+                          {label: 'Jardins du Saguenay', value: 'Jardins du Saguenay'},
+                          {label: 'Jonadahi', value: 'Jonadahi'},
+                          {label: 'RCI', value: 'RCI'},
+                          {label: 'Rossignol Transport', value: 'Rossignol Transport'},
+                          {label: 'Transport Guillemette', value: 'Transport Guillemette'},
+                          {label: 'Transport Morneau', value: 'Transport Morneau'},
+                          {label: 'Transport Robert', value: 'Transport Robert'},
+                          {label: 'Transport Sanitaire Fortin', value: 'Transport Sanitaire Fortin'},
+                          {label: 'Autre transporteur', value: 'Autre transporteur'},
+                        ]}
+                        defaultValue={this.state.transporter}
+                        placeholder={t("unit:transporter")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          transporter: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 70 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:unitType")}</NunitoBoldText>
                       <DropDownPicker
                         items={[
@@ -116,12 +194,39 @@ class NewUnitScreen extends Component {
                       />
                     </View>
 
-                    <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:brandModel")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.brandModel}</NunitoBoldText>
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:brandModel")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={[
+                          {label: 'Danby DPA120B8WDB', value: 'Danby DPA120B8WDB'},
+                          {label: 'Danby DPA140B8BDB', value: 'Danby DPA140B8BDB'},
+                          {label: 'Danby DPTA090HEB1WDB', value: 'Danby DPTA090HEB1WDB'},
+                          {label: 'Danby DPTA120HEB1WDB', value: 'Danby DPTA120HEB1WDB'},
+                          {label: 'Danby DPTA150HEB1WDB', value: 'Danby DPTA150HEB1WDB'},
+                          {label: 'Koolatron WC12', value: 'Koolatron WC12'},
+                          {label: 'Koolatron WC12-35D', value: 'Koolatron WC12-35D'},
+                          {label: 'Koolatron WC24', value: 'Koolatron WC24'},
+                          {label: 'Koolatron WC18', value: 'Koolatron WC18'},
+                        ]}
+                        defaultValue={this.state.brandModel}
+                        placeholder={t("unit:brandModel")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          brandModel: item.value
+                        })}
+                      />
                     </View>
 
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 80 }) }}>
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 50 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:year")}</NunitoBoldText>
                       <DropDownPicker
                         items={[
@@ -170,6 +275,43 @@ class NewUnitScreen extends Component {
                       />
                     </View>
 
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 40 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:haloType")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={[
+                          {label: 'R22', value: 'R22'},
+                          {label: 'R134a', value: 'R134a'},
+                          {label: 'R12 et autres', value: 'R12 et autres'},
+                          {label: 'R410', value: 'R410'},
+                        ]}
+                        defaultValue={this.state.haloType}
+                        placeholder={t("unit:haloType")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          haloType: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unit:haloQty")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          placeholder={t("unit:haloQty")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(haloQty) => this.setState({haloQty})}
+                      />
+                    </View>
+
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unit:serialNumber")}</NunitoBoldText>
                       <TextInput style={styles.field}
@@ -189,99 +331,23 @@ class NewUnitScreen extends Component {
                       />
                     </View>
 
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 70 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:provenance")}</NunitoBoldText>
-                      <DropDownPicker
-                        items={[
-                          {label: 'Alma', value: 'Alma'},
-                          {label: 'Dolbeau', value: 'Dolbeau'},
-                          {label: 'Hébertville', value: 'Hébertville'},
-                          {label: 'Normandin', value: 'Normandin'},
-                          {label: 'Roberval', value: 'Roberval'},
-                          {label: 'Saint-Félicien', value: 'Saint-Félicien'},
-                          {label: 'Saint-François-de-Sales', value: 'Saint-François-de-Sales'},
-                          {label: 'Saint-Ludger-de-Milot', value: 'Saint-Ludger-de-Milot'},
-                          {label: 'Aucun fournisseur', value: 'Aucun fournisseur'},
-                        ]}
-                        defaultValue={this.state.provenance}
-                        placeholder={t("unit:provenance")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          provenance: item.value
-                        })}
-                      />
-                    </View>
-
-                    <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:mrc")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.mrc}</NunitoBoldText>
-                    </View>
-
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:transporter")}</NunitoBoldText>
-                      <DropDownPicker
-                        items={[
-                          {label: 'Bernière', value: 'Bernière'},
-                          {label: 'Besner', value: 'Besner'},
-                          {label: 'Cascades', value: 'Cascades'},
-                          {label: 'Collectes Coderr', value: 'Collectes Coderr'},
-                          {label: 'CRE Transport', value: 'CRE Transport'},
-                          {label: 'Grégoire', value: 'Grégoire'},
-                          {label: 'Jardins du Saguenay', value: 'Jardins du Saguenay'},
-                          {label: 'Jonadahi', value: 'Jonadahi'},
-                          {label: 'RCI', value: 'RCI'},
-                          {label: 'Rossignol Transport', value: 'Rossignol Transport'},
-                          {label: 'Transport Guillemette', value: 'Transport Guillemette'},
-                          {label: 'Transport Morneau', value: 'Transport Morneau'},
-                          {label: 'Transport Robert', value: 'Transport Robert'},
-                          {label: 'Transport Sanitaire Fortin', value: 'Transport Sanitaire Fortin'},
-                          {label: 'Autre transporteur', value: 'Autre transporteur'},
-                        ]}
-                        defaultValue={this.state.transporter}
-                        placeholder={t("unit:transporter")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          transporter: item.value
-                        })}
-                      />
-                    </View>
-
                     <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{GLOBALS.FULLNAME}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.receptionEmployee}</NunitoBoldText>
                     </View>
 
-                <TouchableOpacity
+                  {this.state.weight.length > 0 && <TouchableOpacity
                     style={{
-                        margin: 5,
+                        margin: 10,
                         borderRadius: 10,
                         borderWidth: 0,
                         backgroundColor: '#57b0e3',
-                        opacity: (this.state.transporter.length > 0 ? 1 : 0.4)
+                        opacity: 1
                     }}
-                    disabled={this.state.transporter.length > 0}
-                    onPress={() => navigation.navigate('Scan')}
+                    onPress={() => this.saveunit(navigation)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:saveunit")}</NunitoBoldText>
-                    </TouchableOpacity>
+                  </TouchableOpacity>}
               </View>
             </View>
           </View>

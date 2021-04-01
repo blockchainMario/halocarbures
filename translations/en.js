@@ -174,7 +174,7 @@ export const measure = {
 }
 
 export const scan = {
-	title: "Scan QR Code",
+	title: "Scan a QR Code",
 }
 
 export const overview = {
@@ -194,7 +194,7 @@ export const settings = {
 
 export const process = {
 	title: "Process",
-	scanagain: "New QR Code",
+	scanagain: "Scan another QR Code",
 	newunit: "New Unit",
 	newtank: "New Tank",
 	newbin: "New Bin",

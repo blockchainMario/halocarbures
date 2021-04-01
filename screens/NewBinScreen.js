@@ -35,8 +35,6 @@ class NewBinScreen extends Component {
     bin: null,
     creationDate: "",
     binType: "",
-    show: false,
-    position: {},
   }
 
   componentDidMount() {
@@ -45,32 +43,28 @@ class NewBinScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
   }
-  // handle showing the dropdown
-  showDropDown = () => {
-    if (this.button) {
-      // use the uimanager to measure the button's position in the window
-      UIManager.measure(findNodeHandle(this.button), (x, y, width, height, pageX, pageY) => {
-        const position = { left: pageX, top: pageY, width: width, height: height };
-        // setState, which updates the props that are passed to the DropDown component
-        this.setState({show: true, position: { x: pageX + (width / 2), y: pageY + (2 * height / 3) }})
-      });
-    }
-  }
 
-  // hide the dropdown
-  hideDropDown = (item) => {
-    alert(item)
-    this.setState({show: false, position: {}})
+  savebin = (navigation) => {
+    //alert("http://18.190.29.217:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);
+    axios.get("http://18.190.29.217:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const bin = res.data[0];
+        //alert(JSON.stringify(bin));
+        navigation.navigate('Root');
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Bin : "+error)
+      })
   }
 
   render() {
     const { t } = this.props;
     const navigation = this.props.navigation;
-
-    const saveBin = () => {
-      this.setState({scanned: false});
-      this.setState({type: "none"});
-    };
 
     return (
       <View style={styles.container}>
@@ -126,19 +120,18 @@ class NewBinScreen extends Component {
                       />
                     </View>
 
-                <TouchableOpacity
+                    {this.state.binType.length > 0 && <TouchableOpacity
                     style={{
-                        margin: 5,
+                        margin: 10,
                         borderRadius: 10,
                         borderWidth: 0,
                         backgroundColor: '#57b0e3',
-                        opacity: (this.state.binType.length > 0 ? 1 : 0.4)
+                        opacity: 1
                     }}
-                    disabled={this.state.binType.length > 0}
-                    onPress={() => navigation.navigate('Scan')}
+                    onPress={() => this.savebin(navigation)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:savebin")}</NunitoBoldText>
-                    </TouchableOpacity>
+                  </TouchableOpacity>}
               </View>
             </View>
           </View>

@@ -114,7 +114,6 @@ class LoginScreen extends Component {
                   borderWidth: 0,
                   backgroundColor: '#57b0e3'
                 }}
-                //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}
           >
             <NunitoBoldText style={styles.textStyle}>{t("login:access")}</NunitoBoldText>

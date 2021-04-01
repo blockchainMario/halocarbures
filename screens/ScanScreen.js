@@ -47,7 +47,7 @@ class ScanScreen extends Component {
 
     const handleBarCodeScanned = ({ type, data }) => {
       this.setState({scanned: true});
-/*
+
       axios.get("http://18.190.29.217:8081/qrcode/"+data, {
         headers: {
           'Accept': 'application/json',
@@ -55,17 +55,17 @@ class ScanScreen extends Component {
         }
       })
         .then(res => {
-          const answer = res.data;
-          alert(JSON.stringify(answer));
+          const answer = res.data[0];
+          //alert(JSON.stringify(answer));
             this.setState({type: answer.type});
             GLOBALS.TYPE = answer.type;
-            GLOBALS.UUID = answer.id;
+            GLOBALS.UUID = data;
         })
         .catch((error) => {
           alert("Erreur de connexion Unit : "+error)
         })
-*/
 
+/*
       GLOBALS.UUID = data;
       if (data == "b391f8d2-7878-4281-b377-869151ed3e4a") {
         this.setState({type: "unit"});
@@ -81,7 +81,7 @@ class ScanScreen extends Component {
         GLOBALS.TYPE = "unknown";
       }
       //alert("Bar code with type "+type+" and data "+data+" has been scanned!");
-
+*/
     };
 
     const reScan = () => {

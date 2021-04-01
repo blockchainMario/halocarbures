@@ -65,7 +65,7 @@ function switchLanguage(navigation,screen,lang) {
 function renderFullname(aComp) {
   //alert("renderFullname "+GLOBALS.USERNAME);
   //return GLOBALS.FULLNAME;
-  return "Mario Perron";
+  return "Joel Tremblay";
 }
 
 function DrawerContent({navigation}) {
@@ -77,7 +77,7 @@ function DrawerContent({navigation}) {
     (<View style={styles.container2}>
       <View style={{ flexDirection:"row", marginTop: 60 }}>
         <Image
-          source={require('./assets/images/MarioPerron.jpg')}
+          source={require('./assets/images/avatar.jpg')}
           style={{ width: 50, height: 50, borderRadius: 50/2, marginLeft : 10, borderColor: '#fff', borderWidth: 2 }} 
         />
         <NunitoBoldText style={{fontSize: 18, color:'#3e444c', marginLeft: 10, marginTop: 12}}>{renderFullname.bind(this)()}</NunitoBoldText>

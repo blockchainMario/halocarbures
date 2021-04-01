@@ -81,15 +81,11 @@ class UnitScreen extends Component {
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
             <Image style={styles.avatar}
-              source={require('../assets/images/tagID.jpg')}
+              source={require('../assets/images/newUnit.png')}
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:receptionDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.receptionDate}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
+                      <View style={styles.line2}>
                         <NunitoText style={styles.label}>{t("unit:unitId")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.unitId}</NunitoBoldText>
                       </View>
@@ -102,20 +98,16 @@ class UnitScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.unit.location}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:receptionDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.receptionDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:destination")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.destination}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:brandModel")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.brandModel}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:brand")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.brand}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:model")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.model}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:year")} : </NunitoText>
@@ -226,6 +218,9 @@ const styles = StyleSheet.create({
   },
   line: {
     flexDirection:'row',
+  },
+  line2: {
+    flexDirection:'column',
   },
   label:{
     fontSize:16,
