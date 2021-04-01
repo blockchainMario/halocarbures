@@ -30,72 +30,8 @@ export const profile = {
 	title: "My Profile",
 }
 
-export const resident = {
-	title: "Resident",
-	birthdate: "Birthdate",
-	address: "Address",
-	city: "City",
-	state: "Province",
-	country: "Country",
-	phone: "Phone Number",
-	postal: "Postal Code",
-	birthcity: "City of birth",
-	admissionDate: "Admission",
-}
-
-export const notes = {
-	title: "Comments",
-}
-
-export const chat = {
-	title: "Messenger",
-	invite: "Write a message...",
-}
-
-export const newsfeed = {
-	title: "Newsfeed",
-}
-
 export const infos = {
-	title: "More",
-	section1: "HEALTHCARE",
-	careplan: "Care Plan",
-	professionals: "Professionals",
-	circleofcare: "Circle of Care",
-	section2: "MANAGEMENT",
-	profile: "Living Facility Profile",
-	section3: "DOCUMENTS",
-}
-
-export const careplan = {
-	title: "Care Plan",
-}
-
-export const professionals = {
-	title: "Professionals",
-}
-
-export const circleofcare = {
-	title: "Circle of Care",
-}
-
-export const lease = {
-	title: "Lease",
-}
-
-export const residency = {
-	title: "Residency",
-	contactus: "Contact Us",
-	invite: "Write your message here...",
-	warning: "Write your message above first",
-	reception: "Send to reception",
-	careteam: "Send to care team",
-	accounting: "Send to accounting",
-	management: "Send to management",
-	sentreception: "Your message has been sent to reception",
-	sentcareteam: "Your message has been sent to care team",
-	sentaccounting: "Your message has been sent to accounting",
-	sentmanagement: "Your message has been sent to management",
+	title: "Scan",
 }
 
 export const unit = {
@@ -118,9 +54,11 @@ export const unit = {
 	receptionDate: "Reception Date",
 	transporter: "Transport",
 	destinataire: "Organization",
-	receptionEmployee: "Employee",
-	storageIn : "Storage Date",
-	storageOut : "Out of Storage Date"
+	receptionEmployee: "Reception Employee",
+	degassingDate : "Degassing Date",
+	degassingEmployee: "Degassing Employee",
+	storingDate : "Storage Date",
+	dismantlingDate : "Dismantling Date"
 }
 
 export const tank = {
@@ -133,9 +71,9 @@ export const tank = {
 	haloType: "Halocarbon",
 	haloQty: "Quantity",
 	fullDate: "Fill-up Date",
-	departureDate: "Departure Date",
+	disposalDate: "Departure Date",
 	ticketId: "Ticket Id",
-	departureEmployee: "Employee",
+	disposalEmployee: "Employee",
 	provider: "Provider"
 }
 
@@ -148,9 +86,9 @@ export const bin = {
 	creationDate: "Creation Date",
 	quantity: "Quantity",
 	fullDate: "Fill-up Date",
-	departureDate: "Departure Date",
+	disposalDate: "Departure Date",
 	ticketId: "Ticket Id",
-	departureEmployee: "Employee",
+	disposalEmployee: "Employee",
 	provider: "Provider"
 }
 
@@ -184,12 +122,20 @@ export const overview = {
 export const settings = {
 	title: "Settings",
 	section1: "TABLES",
-	careplan: "Organization",
-	professionals: "Provenance",
-	circleofcare: "Halocarbon",
-	section2: "MESURES",
-	profile: "Weight Scales",
-	section3: "DOCUMENTS",
+	organization: "Organization",
+	location: "Location",
+	unitType: "Unit Type",
+	brandModel: "Brand and Model",
+	tankType: "Tank Type",
+	halocarbon: "Halocarbon",
+	binType: "Bin Type",
+	destination: "Destination",
+	provenance: "Provenance",
+	mrc: "MRC",
+	transporter: "Transporter",
+	provider: "Provider",
+	section2: "MESURE",
+	scale: "Weight Scales",
 }
 
 export const process = {
@@ -201,14 +147,14 @@ export const process = {
 
 	saveunit: "Save the Unit",
 	viewunit: "View Description",
-	degassing: "Start Degassing",
+	degassing: "Record Degassing",
 	storing: "Store the Unit",
 	dismantling: "Start Dismantling",
 
 	savetank: "Save the Tank",
 	viewtank: "View Description",
 	tankfull: "Mark as Full",
-	gasdisposal: "Dispose of this Gaz Tank",
+	tankdisposal: "Dispose of this Gaz Tank",
 
 	viewbin: "View Description",
 	savebin: "Save the Bin",

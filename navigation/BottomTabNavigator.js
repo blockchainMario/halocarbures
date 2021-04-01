@@ -17,6 +17,21 @@ import { NunitoBoldText } from '../components/StyledText';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Unit';
 
+
+function getHeaderTitle(route, t) {
+  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+
+  switch (routeName) {
+    case 'Root':
+      return t("scan:title");
+    case 'BrandModel':
+        return t("unit:brandModel");
+    case 'MoreOptions':
+      return t("settings:title");
+  }
+}
+
+
 export default function BottomTabNavigator({ navigation, route }) {
 	const [t, i18n] = useTranslation();
   //navigation.setOptions({ headerTitle: getHeaderTitle(route) });
@@ -25,35 +40,11 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Chat"
+        name="Scan"
         component={ScanScreen}
         options={{
           title: t("scan:title"),
           tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="qrcode-scan" size={24} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Resident"
-        component={UnitScreen}
-        options={{
-          title: t("unit:title"),
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="fridge-outline" size={24} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Notes"
-        component={NotesFeedScreen}
-        options={{
-          title: t("unittype:title"),
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="checkbox-multiple-blank" size={24} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="NewsFeed"
-        component={OverviewScreen}
-        options={{
-          title: t("overview:title"),
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="monitor-multiple" size={24} />,
         }}
       />
       <BottomTab.Screen
@@ -66,23 +57,6 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
     </BottomTab.Navigator>
   );
-}
-
-function getHeaderTitle(route, t) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
-  switch (routeName) {
-    case 'Unit':
-      return t("scan:title");
-    case 'Notes':
-        return "Kenmore 795.79754.904";
-    case 'Chat':
-        return t("scan:title");
-    case 'NewsFeed':
-      return t("overview:title");
-    case 'MoreOptions':
-      return t("settings:title");
-  }
 }
 
 const styles = StyleSheet.create({

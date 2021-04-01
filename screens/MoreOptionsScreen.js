@@ -22,20 +22,6 @@ class MoreOptionsScreen extends Component {
   }
 
   componentDidMount() {
-    axios.get(GLOBALS.ENDPOINT+"/documents/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-      }
-    })
-    .then(res => {
-      const documents = res.data;
-      this.setState({ documents: documents })
-    })
-    .catch((error) => {
-      this.setState({ documents: [ ] });
-      //alert("Erreur de connexion documents : "+error)
-    })
   }
 
   render() {
@@ -45,55 +31,76 @@ class MoreOptionsScreen extends Component {
 
     const list2 = [
         {
-            title: t("settings:careplan"),
+            title: t("settings:organization"),
             icon: 'grid-on',
-            screen: 'Unit'
+            screen: 'Table'
         },
         {
-            title: t("settings:professionals"),
+            title: t("settings:location"),
             icon: 'grid-on',
-            screen: 'Unit'
+            screen: 'Table'
         },
         {
-            title: t("settings:circleofcare"),
+            title: t("settings:unitType"),
             icon: 'grid-on',
-            screen: 'Unit'
+            screen: 'Table'
+        },
+        {
+            title: t("settings:brandModel"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:tankType"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:halocarbon"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:binType"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:destination"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:provenance"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:mrc"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:transporter"),
+            icon: 'grid-on',
+            screen: 'Table'
+        },
+        {
+            title: t("settings:provider"),
+            icon: 'grid-on',
+            screen: 'Table'
         },
     ]
     
     const list3 = [
         {
-            title: t("settings:profile"),
+            title: t("settings:scale"),
             icon: 'av-timer',
-            screen: 'Unit'
+            screen: 'Scale'
         },
     ]
-    
-    function getDocs() {
-    }
-    
-    /*
-    const list4 = [
-        {
-            title: 'Bail',
-            icon: 'assignment',
-            document: 'http://18.190.29.217/SyMO/Bail.pdf'
-        },
-        {
-            title: 'Annexe 19',
-            icon: 'assignment',
-            document: 'http://18.190.29.217/SyMO/Annexe19.pdf'
-        },
-    ]
-    */
     
   return (
-        
-    (this.state.documents == null) ? (
-      <View>
-        <NunitoText style={styles.info}>Loading...</NunitoText>
-      </View>
-    ) : (
     <View style={styles.container}>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -109,7 +116,7 @@ class MoreOptionsScreen extends Component {
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => navigation.navigate(item.screen)}
+                onPress={() => alert(item.screen)}
             />
             ))
         }
@@ -126,33 +133,14 @@ class MoreOptionsScreen extends Component {
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => navigation.navigate(item.screen)}
+                onPress={() => alert(item.screen)}
             />
             ))
         }
         </View>
 
-      {this.state.documents.length > 0 && <NunitoText style={styles.subSection}>{t("infos:section3")}</NunitoText>}
-     
-      <View>
-      {
-        this.state.documents.map((item, i) => (
-        <ListItem
-            key={i}
-            title={item.name}
-            leftIcon={{ name: 'assignment' }}
-            bottomDivider
-            chevron
-            //onPress={() => navigation.navigate(item.screen)}
-            onPress={() => WebBrowser.openBrowserAsync(item.file)}
-        />
-        ))
-      }
-      </View>
-
       </ScrollView>
     </View>
-    )
   );
 }
 }

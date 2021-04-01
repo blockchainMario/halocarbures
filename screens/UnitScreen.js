@@ -123,10 +123,6 @@ class UnitScreen extends Component {
                         <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:year")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.year}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:weight")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.weight}</NunitoBoldText>
                         <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
@@ -156,12 +152,20 @@ class UnitScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.unit.receptionEmployee}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:storageIn")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.storageIn}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:degassingDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.degassingDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:storageOut")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.storageOut}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("unit:degassingEmployee")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.degassingEmployee}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:storingDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.storingDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:dismantlingDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.dismantlingDate}</NunitoBoldText>
                       </View>
                   </View>
               </View>
@@ -192,8 +196,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 260,
-    height: 240,
+    width: 140,
+    height: 140,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop:0
   },
   body:{
-    marginTop: 230,
+    marginTop: 140,
   },
   bodyContent: {
     padding:10,

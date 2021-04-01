@@ -70,7 +70,7 @@ class BinScreen extends Component {
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
             <Image style={styles.avatar}
-              source={require('../assets/images/tagID.jpg')}
+              source={require('../assets/images/bin.png')}
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
@@ -100,16 +100,16 @@ class BinScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.bin.fullDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("bin:departureDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.bin.departureDate}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("bin:disposalDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.bin.disposalDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:ticketId")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.bin.ticketId}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("bin:departureEmployee")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.bin.departureEmployee}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("bin:disposalEmployee")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.bin.disposalEmployee}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:provider")} : </NunitoText>
@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 260,
-    height: 240,
+    width: 140,
+    height: 140,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     marginTop:0
   },
   body:{
-    marginTop: 230,
+    marginTop: 140,
   },
   bodyContent: {
     padding:10,

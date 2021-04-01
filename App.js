@@ -12,17 +12,19 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import CarePlanScreen from './screens/CarePlanScreen';
-import CircleOfCareScreen from './screens/CircleOfCareScreen';
 import UnitScreen from './screens/UnitScreen';
 import TankScreen from './screens/TankScreen';
 import BinScreen from './screens/BinScreen';
 import NewUnitScreen from './screens/NewUnitScreen';
 import NewTankScreen from './screens/NewTankScreen';
 import NewBinScreen from './screens/NewBinScreen';
-import ProfessionalsScreen from './screens/ProfessionalsScreen';
-import NursingHomeScreen from './screens/NursingHomeScreen';
-import LeaseScreen from './screens/LeaseScreen';
+import UnitDegassingScreen from './screens/UnitDegassingScreen';
+import UnitStoringScreen from './screens/UnitStoringScreen';
+import UnitDismantlingScreen from './screens/UnitDismantlingScreen';
+import TankFullScreen from './screens/TankFullScreen';
+import TankDisposalScreen from './screens/TankDisposalScreen';
+import BinFullScreen from './screens/BinFullScreen';
+import BinDisposalScreen from './screens/BinDisposalScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -275,63 +277,6 @@ const MyStack = ({navigation}) => {
         headerLeft : () => <ActionBarIcon navigation={navigation}/>
       }}
     />
-    <Stack.Screen name='CarePlan' component={CarePlanScreen} 
-      options={{
-        title: <NunitoBoldText>{GLOBALS.T("careplan:title")}</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#57b0e3',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
-        }
-      }}
-    />
-    <Stack.Screen name='CircleOfCare' component={CircleOfCareScreen}
-      options={{
-        title: <NunitoBoldText>{GLOBALS.T("circleofcare:title")}</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#57b0e3',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? 20 : 50
-        }
-      }}
-    />
-    <Stack.Screen name='Professionals' component={ProfessionalsScreen}
-      options={{
-        title: <NunitoBoldText>{GLOBALS.T("professionals:title")}</NunitoBoldText>,
-        headerStyle: {
-          backgroundColor: '#57b0e3',
-          height: 90,
-        },
-        headerTintColor: '#fff',
-        headerTitleContainerStyle: {
-          left: 0,
-          right: 0
-        },
-        headerTitleStyle: {
-          fontSize: 20,
-          marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
-        }
-      }}
-    />
     <Stack.Screen name='Unit' component={UnitScreen}
       options={{
         title: GLOBALS.T("unit:title"),
@@ -446,9 +391,9 @@ const MyStack = ({navigation}) => {
         }
       }}
     />
-    <Stack.Screen name='NursingHome' component={NursingHomeScreen}
+    <Stack.Screen name='Degassing' component={UnitDegassingScreen}
       options={{
-        title: <NunitoBoldText>{GLOBALS.T("residency:title")}</NunitoBoldText>,
+        title: GLOBALS.T("unit:title"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,
@@ -459,15 +404,110 @@ const MyStack = ({navigation}) => {
           right: 0
         },
         headerTitleStyle: {
-          fontSize: 20,
+          fontSize: 18,
           marginTop: -2,
-          marginLeft: Platform.OS === 'ios' ? -50 : 50
+          marginLeft: headerShift
         }
       }}
     />
-    <Stack.Screen name='Lease' component={LeaseScreen}
+    <Stack.Screen name='Storing' component={UnitStoringScreen}
       options={{
-        title: GLOBALS.T("lease:title"),
+        title: GLOBALS.T("unit:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='Dismantling' component={UnitDismantlingScreen}
+      options={{
+        title: GLOBALS.T("unit:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='TankFull' component={TankFullScreen}
+      options={{
+        title: GLOBALS.T("tank:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='TankDisposal' component={TankDisposalScreen}
+      options={{
+        title: GLOBALS.T("tank:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='BinFull' component={BinFullScreen}
+      options={{
+        title: GLOBALS.T("bin:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='BinDisposal' component={BinDisposalScreen}
+      options={{
+        title: GLOBALS.T("bin:title"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,

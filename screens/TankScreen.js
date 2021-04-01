@@ -105,16 +105,16 @@ class TankScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.tank.fullDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("tank:departureDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tank.departureDate}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("tank:disposalDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.disposalDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:ticketId")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.ticketId}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("tank:departureEmployee")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tank.departureEmployee}</NunitoBoldText>
+                        <NunitoText style={styles.label}>{t("tank:disposalEmployee")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.disposalEmployee}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:provider")} : </NunitoText>
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 260,
-    height: 240,
+    width: 140,
+    height: 140,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     marginTop:0
   },
   body:{
-    marginTop: 230,
+    marginTop: 140,
   },
   bodyContent: {
     padding:10,

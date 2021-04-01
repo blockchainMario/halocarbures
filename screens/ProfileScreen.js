@@ -26,8 +26,8 @@ export default class ProfileScreen extends Component {
                     <View style={styles.bodyContent}>
                         <NunitoText style={styles.name}>{"Joel Tremblay"}</NunitoText>
                         <NunitoText style={styles.info}>{"joeltremblay@coderr.ca"}</NunitoText>
-                        <NunitoText style={styles.description}>Manutentionnaire</NunitoText>
-                        <NunitoText style={styles.description}>99f642b1-7e9e-4165-9829-89f6876f6dd9</NunitoText>
+                        <NunitoText style={styles.description}>Jack of all trade</NunitoText>
+                        <NunitoText style={styles.description}>de1a8a4e-ab8b-4ebc-937b-455bbb8ea50e</NunitoText>
                     </View>
                 </View>
             </View>

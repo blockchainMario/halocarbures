@@ -37,6 +37,21 @@ class ScanScreen extends Component {
     type: "none",
   }
 
+  componentDidMount() {
+
+  if (GLOBALS.USERNAME) {
+
+      alert("Bienvenue dans Holocarbures")
+
+    } else {
+
+      //alert("Need to login!");
+      const navigation = this.props.navigation;
+      navigation.navigate('Login');
+        
+    }
+  }
+  
   onClickListener({navigation}) {
     navigation.dispatch(StackActions.replace('Unit'));
   }
@@ -239,9 +254,9 @@ class ScanScreen extends Component {
                   backgroundColor: '#57b0e3',
                   opacity: 1
                 }}
-                onPress={() => navigation.navigate('GasDisposal')}
+                onPress={() => navigation.navigate('TankDisposal')}
           >
-            <NunitoBoldText style={styles.textStyle}>{t("process:gasdisposal")}</NunitoBoldText>
+            <NunitoBoldText style={styles.textStyle}>{t("process:tankdisposal")}</NunitoBoldText>
           </TouchableOpacity>}
 
           {this.state.type == "bin" && <TouchableOpacity

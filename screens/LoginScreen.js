@@ -46,33 +46,9 @@ class LoginScreen extends Component {
               alert('CANNOT WRITE ASYNC')
         }
       }
-      setData();
-      axios({
-        method: 'post',
-        url: "https://door.livia-parcoursdevie.fr/api/authentication",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: {
-          //"login": this.state.email.toLowerCase(),
-          //"password": this.state.password,
-          "login": "proximite",
-          "password": "L1viaproximite",
-          "prefixeDns": "c3636f"
-        }
-      }).then(res => {
-        //alert(Object.keys(res.data));
-        GLOBALS.BEARERTOKEN = res.data.token;
-        GLOBALS.PROFESSIONNELID = res.data.professionnelId;
-        GLOBALS.RESIDENTID = res.data.prefixeDeploiement;
-        //alert("Done login");
-        navigation.dispatch(StackActions.replace('Root'));
-        })
-        .catch((error) => {
-          this.setState({ messages: [ ] });
-          alert("Erreur de connexion Livia : "+error)
-      })
     }
+        GLOBALS.USERNAME = this.state.email.toLowerCase();
+        navigation.dispatch(StackActions.replace('Root'));
   }
 
   render() {

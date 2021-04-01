@@ -30,72 +30,8 @@ export const profile = {
 	title: "Mon profil",
 }
 
-export const resident = {
-	title: "Résident",
-	birthdate: "Date de naissance",
-	address: "Adresse",
-	city: "Ville",
-	state: "Province",
-	country: "Pays",
-	phone: "Téléphone",
-	postal: "Code postal",
-	birthcity: "Ville de naissance",
-	admissionDate: "Entrée",
-}
-
-export const notes = {
-	title: "Commentaires",
-}
-
-export const chat = {
-	title: "Messagerie",
-	invite: "Écrire un message...",
-}
-
-export const newsfeed = {
-	title: "Nouvelles",
-}
-
 export const infos = {
-	title: "Infos",
-	section1: "SOINS",
-	careplan: "Plan de soins",
-	professionals: "Professionnels",
-	circleofcare: "Famille et proches aidants",
-	section2: "ADMINISTRATION",
-	profile: "Informations sur la résidence",
-	section3: "DOCUMENTS",
-}
-
-export const careplan = {
-	title: "Plan de soins",
-}
-
-export const professionals = {
-	title: "Professionnels",
-}
-
-export const circleofcare = {
-	title: "Famille et proches aidants",
-}
-
-export const lease = {
-	title: "Bail",
-}
-
-export const residency = {
-	title: "Résidence",
-	contactus: "Nous contacter",
-	invite: "Écrire votre message ici...",
-	warning: "Entrez d'abord un message ci-dessus",
-	reception: "Envoyer à la réception",
-	careteam: "Envoyer à l'équipe de soins",
-	accounting: "Envoyer à la comptabilité",
-	management: "Envoyer à la direction",
-	sentreception: "Votre message a été envoyé à la réception",
-	sentcareteam: "Votre message a été envoyé à l'équipe de soins",
-	sentaccounting: "Votre message a été envoyé à la comptabilité",
-	sentmanagement: "Votre message a été envoyé à la direction",
+	title: "Scan",
 }
 
 export const unit = {
@@ -118,9 +54,11 @@ export const unit = {
 	receptionDate: "Date de réception",
 	transporter: "Transporteur",
 	destinataire: "Organisation",
-	receptionEmployee: "Employé",
-	storageIn : "Date d'entreposage",
-	storageOut : "Sortie de l'entreposage"
+	receptionEmployee: "Employé à la réception",
+	degassingDate : "Date de dégazage",
+	degassingEmployee: "Employé au dégazage",
+	storingDate : "Date d'entreposage",
+	dismantlingDate : "Début du démantèlement"
 }
 
 export const tank = {
@@ -133,14 +71,14 @@ export const tank = {
 	haloType: "Halocarbure",
 	haloQty: "Quantité",
 	fullDate: "Date de remplissage",
-	departureDate: "Date de départ",
+	disposalDate: "Date de départ",
 	ticketId: "Numéro de ticket",
-	departureEmployee: "Employé",
+	disposalEmployee: "Employé",
 	provider: "Fournisseur"
 }
 
 export const bin = {
-	title: "bac",
+	title: "Bac",
 	newbin: "Nouveau bac",
 	binId: "Identifiant du bac",
 	binType: "Type de bac",
@@ -148,9 +86,9 @@ export const bin = {
 	creationDate: "Date de création",
 	quantity: "Quantité",
 	fullDate: "Date de remplissage",
-	departureDate: "Date de départ",
+	disposalDate: "Date de départ",
 	ticketId: "Numéro de ticket",
-	departureEmployee: "Employé",
+	disposalEmployee: "Employé",
 	provider: "Fournisseur"
 }
 
@@ -182,14 +120,22 @@ export const overview = {
 }
 
 export const settings = {
-	title: "Paramètres",
+	title: "Settings",
 	section1: "TABLES",
-	careplan: "Organisation",
-	professionals: "Provenance",
-	circleofcare: "Halocarbure",
-	section2: "MESURES",
-	profile: "Balances",
-	section3: "DOCUMENTS",
+	organization: "Organization",
+	location: "Localisation",
+	unitType: "Type d'unité",
+	brandModel: "Marque et modèle",
+	tankType: "Type de bonbonne",
+	halocarbon: "Halocarbure",
+	binType: "Type de bac",
+	destination: "Destination",
+	provenance: "Provenance",
+	mrc: "MRC",
+	transporter: "Transporteur",
+	provider: "Fournisseur",
+	section2: "MESURE",
+	scale: "Balance",
 }
 
 export const process = {
@@ -201,14 +147,14 @@ export const process = {
 
 	saveunit: "Sauvegarder l'unité",
 	viewunit: "Voir la description",
-	degassing: "Débuter le dégazage",
+	degassing: "Enregistrer le dégazage",
 	storing: "Entreposer l'unité",
 	dismantling: "Débuter le démantèlement",
 
 	savetank: "Sauvegarder la bonbonne",
 	viewtank: "Voir la description",
 	tankfull: "Marquer comme pleine",
-	gasdisposal: "Disposer de la bonbonne",
+	tankdisposal: "Disposer de la bonbonne",
 
 	savebin: "Sauvegarder le bac",
 	viewbin: "Voir la description",
