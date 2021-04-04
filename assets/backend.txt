@@ -1,0 +1,379 @@
+
+const app = require('express')();
+
+app.get('/', (req, res) => res.json({ welcome: "Hello World!" }));
+
+const qrcodes = {
+	"b391f8d2-7878-4281-b377-869151ed3e4a" : { "type" : "unit", "id" : "b391f8d2-7878-4281-b377-869151ed3e4a" },
+	"7f9a293e-561a-4747-b459-034e767a5b36" : { "type" : "tank", "id" : "7f9a293e-561a-4747-b459-034e767a5b36" },
+	"6eeca4af-1636-4124-bf43-f5c7f041af23" : { "type" : "bin", "id" : "6eeca4af-1636-4124-bf43-f5c7f041af23" },
+
+	"a0b1a6b1-533f-4b7c-93a2-0d5b6f489baf" : { "type" : "unit", "id" : "a0b1a6b1-533f-4b7c-93a2-0d5b6f489baf" },
+	"b64bf084-0b7e-467d-9f8d-51a2841240aa" : { "type" : "tank", "id" : "b64bf084-0b7e-467d-9f8d-51a2841240aa" },
+	"5fd3824f-143d-42b1-9b31-32315d822e9f" : { "type" : "bin", "id" : "5fd3824f-143d-42b1-9b31-32315d822e9f" },
+
+	"07900a58-cc6a-4d7f-925c-288d3c04a6ad" : { "type" : "unit", "id" : "07900a58-cc6a-4d7f-925c-288d3c04a6ad" },
+	"3c06703c-0c7d-4717-9f37-23584635ae6d" : { "type" : "tank", "id" : "3c06703c-0c7d-4717-9f37-23584635ae6d" },
+	"7de7ef68-35bb-4e70-82a2-dd6736b5d92e" : { "type" : "bin", "id" : "7de7ef68-35bb-4e70-82a2-dd6736b5d92e" },
+
+	"f061962d-daf2-47ff-a18f-5cd4f07df2dd" : { "type" : "unit", "id" : "f061962d-daf2-47ff-a18f-5cd4f07df2dd" },
+	"def27e0c-40e7-4347-b8dc-a544381b685c" : { "type" : "tank", "id" : "def27e0c-40e7-4347-b8dc-a544381b685c" },
+	"a65e3667-5326-4789-9f8e-79cd50f40358" : { "type" : "bin", "id" : "a65e3667-5326-4789-9f8e-79cd50f40358" }
+};
+
+app.get('/qrcode/:qrcode', (req, res) => {
+		if (req.params.qrcode in qrcodes) {
+			return res.send([qrcodes[req.params.qrcode]]);
+		} else {
+        	return res.send([{ "type" : "unknown", "id" : "0" }]);
+		}
+});
+
+const units = {
+	"b391f8d2-7878-4281-b377-869151ed3e4a" : {
+		"unitId" : "b391f8d2-7878-4281-b377-869151ed3e4a",
+		"unitType" : "Cellier réfrigérant",
+		"location" : "Réception",
+		"destination" : "Démantèlement",
+		"brandModel" : "Danby DPA140B8BDB",
+		"year" : "2004",
+		"haloType" : "R134a",
+		"haloQty" : "0.144",
+		"tankId" : "",
+		"weight" : "25.3",
+		"serialNumber" : "glht186jwo",
+		"provenance" : "Alma",
+		"mrc" : "Lac-Saint-Jean-Est",
+		"receptionDate" : "2021-03-18 12:43",
+		"receptionEmployee" : "Joel Tremblay",
+		"transporter" : "CRE Transport",
+		"destinataire" : "REP Coderr",
+		"degassingDate" : "2021-03-19 10:52",
+		"degassingEmployee" : "Joel Tremblay",
+		"storingDate" : "2021-03-19 11:22",
+		"dismantlingDate" : "2021-03-30 8:11"
+		},
+	"a0b1a6b1-533f-4b7c-93a2-0d5b6f489baf" : {
+		"unitId" : "a0b1a6b1-533f-4b7c-93a2-0d5b6f489baf",
+		"unitType" : "Cellier réfrigérant",
+		"location" : "Réception",
+		"destination" : "Démantèlement",
+		"brandModel" : "Danby DPA140B8BDB",
+		"year" : "2004",
+		"haloType" : "R134a",
+		"haloQty" : "0.144",
+		"tankId" : "",
+		"weight" : "25.3",
+		"serialNumber" : "glht186jwo",
+		"provenance" : "Alma",
+		"mrc" : "Lac-Saint-Jean-Est",
+		"receptionDate" : "2021-03-18 12:43",
+		"receptionEmployee" : "Joel Tremblay",
+		"transporter" : "CRE Transport",
+		"destinataire" : "REP Coderr",
+		"degassingDate" : "2021-03-19 10:52",
+		"degassingEmployee" : "Joel Tremblay",
+		"storingDate" : "2021-03-19 11:22",
+		"dismantlingDate" : "2021-03-30 8:11"
+		},
+	"07900a58-cc6a-4d7f-925c-288d3c04a6ad" : {
+		"unitId" : "07900a58-cc6a-4d7f-925c-288d3c04a6ad",
+		"unitType" : "Cellier réfrigérant",
+		"location" : "Réception",
+		"destination" : "Démantèlement",
+		"brandModel" : "Danby DPA140B8BDB",
+		"year" : "2004",
+		"haloType" : "R134a",
+		"haloQty" : "0.144",
+		"tankId" : "",
+		"weight" : "25.3",
+		"serialNumber" : "glht186jwo",
+		"provenance" : "Alma",
+		"mrc" : "Lac-Saint-Jean-Est",
+		"receptionDate" : "2021-03-18 12:43",
+		"receptionEmployee" : "Joel Tremblay",
+		"transporter" : "CRE Transport",
+		"destinataire" : "REP Coderr",
+		"degassingDate" : "2021-03-19 10:52",
+		"degassingEmployee" : "Joel Tremblay",
+		"storingDate" : "2021-03-19 11:22",
+		"dismantlingDate" : "2021-03-30 8:11"
+		},
+	"f061962d-daf2-47ff-a18f-5cd4f07df2dd" : {
+		"unitId" : "f061962d-daf2-47ff-a18f-5cd4f07df2dd",
+		"unitType" : "Cellier réfrigérant",
+		"location" : "Réception",
+		"destination" : "Démantèlement",
+		"brandModel" : "Danby DPA140B8BDB",
+		"year" : "2004",
+		"haloType" : "R134a",
+		"haloQty" : "0.144",
+		"tankId" : "",
+		"weight" : "25.3",
+		"serialNumber" : "glht186jwo",
+		"provenance" : "Alma",
+		"mrc" : "Lac-Saint-Jean-Est",
+		"receptionDate" : "2021-03-18 12:43",
+		"receptionEmployee" : "Joel Tremblay",
+		"transporter" : "CRE Transport",
+		"destinataire" : "REP Coderr",
+		"degassingDate" : "2021-03-19 10:52",
+		"degassingEmployee" : "Joel Tremblay",
+		"storingDate" : "2021-03-19 11:22",
+		"dismantlingDate" : "2021-03-30 8:11"
+		}
+};
+
+app.get('/unit/:unitId', (req, res) => {
+		if (req.params.unitId in units) {
+			return res.send([units[req.params.unitId]]);
+		} else {
+        	return res.send([{ "unitId" : "0", "location" : "unknown" }]);
+		}
+});
+
+app.get('/saveunit/:unitId/:receptiondate/:unittype/:brandmodel/:year/:halotype/:haloqty/:serialnumber/:weight/:provenance/:transporter/:employee', (req, res) => {
+		qrcodes[req.params.unitId] = { "type" : "unit", "id" : req.params.unitId }
+		units[req.params.unitId] = {
+			"unitId" : req.params.unitId,
+			"location" : "Réception",
+			"destination" : "Démantèlement",
+			"unitType" : req.params.unittype,
+			"brandModel" : req.params.brandmodel,
+			"year" : req.params.year,
+			"haloType" : req.params.halotype,
+			"haloQty" : req.params.haloqty,
+			"tankId" : "",
+			"serialNumber" : req.params.serialnumber,
+			"weight" : req.params.weight,
+			"provenance" : req.params.provenance,
+			"mrc" : "Lac-Saint-Jean-Est",
+			"transporter" : req.params.transporter,
+			"destinataire" : "REP Coderr",
+			"receptionDate" : req.params.receptiondate,
+			"receptionEmployee" : req.params.employee,
+			"degassingDate" : "",
+			"degassingEmployee" : "",
+			"storingDate" : "",
+			"dismantlingDate" : ""
+		}
+        return res.send([{ "unitId" : req.params.unitId, "location" : "Réception" }]);
+});
+
+app.get('/savedegassing/:unitId/:degassingdate/:haloqty/:tankId/:employee', (req, res) => {
+		units[req.params.unitId].location = "Dégazage";
+		units[req.params.unitId].degassingDate = req.params.degassingdate;
+		units[req.params.unitId].haloQty = req.params.haloqty;
+		units[req.params.unitId].degassingEmployee = req.params.employee;
+		var partialQty = eval(tanks[req.params.tankId].partialQty) + eval(req.params.haloqty);
+		tanks[req.params.tankId].partialQty = partialQty.toString();
+        return res.send([{ "unitId" : req.params.unitId, "location" : "Dégazage", "partialQty" : partialQty.toString() }]);
+});
+
+app.get('/savestoring/:unitId/:storingdate', (req, res) => {
+		units[req.params.unitId].location = "Entreposage";
+		units[req.params.unitId].storingDate = req.params.storingdate;
+        return res.send([{ "unitId" : req.params.unitId, "location" : "Entreposage" }]);
+});
+
+app.get('/savedismantling/:unitId/:dismantlingdate', (req, res) => {
+		units[req.params.unitId].location = "Démantèlement";
+		units[req.params.unitId].dismantlingDate = req.params.dismantlingdate;
+        return res.send([{ "unitId" : req.params.unitId, "location" : "Démantèlement" }]);
+});
+
+const tanks = {
+	"7f9a293e-561a-4747-b459-034e767a5b36" : {
+		"tankId" : "7f9a293e-561a-4747-b459-034e767a5b36",
+		"tankType" : "Petite",
+		"location" : "Disposition",
+		"creationDate" : "2021-01-28 14:53",
+		"haloType" : "R22",
+		"haloQty" : "12.3",
+		"partialQty" : "12.5",
+		"fullDate" : "2021-03-27 13:15",
+		"disposalDate" : "2021-03-31 8:15",
+		"ticketId" : "PS-1001",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "PureSphéra"
+		},
+	"b64bf084-0b7e-467d-9f8d-51a2841240aa" : {
+		"tankId" : "b64bf084-0b7e-467d-9f8d-51a2841240aa",
+		"tankType" : "Petite",
+		"location" : "Disposition",
+		"creationDate" : "2021-01-28 14:53",
+		"haloType" : "R22",
+		"haloQty" : "12.3",
+		"partialQty" : "12.5",
+		"fullDate" : "2021-03-27 13:15",
+		"disposalDate" : "2021-03-31 8:15",
+		"ticketId" : "PS-1001",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "PureSphéra"
+		},
+	"3c06703c-0c7d-4717-9f37-23584635ae6d" : {
+		"tankId" : "3c06703c-0c7d-4717-9f37-23584635ae6d",
+		"tankType" : "Petite",
+		"location" : "Disposition",
+		"creationDate" : "2021-01-28 14:53",
+		"haloType" : "R22",
+		"haloQty" : "12.3",
+		"partialQty" : "12.5",
+		"fullDate" : "2021-03-27 13:15",
+		"disposalDate" : "2021-03-31 8:15",
+		"ticketId" : "PS-1001",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "PureSphéra"
+		},
+	"def27e0c-40e7-4347-b8dc-a544381b685c" : {
+		"tankId" : "def27e0c-40e7-4347-b8dc-a544381b685c",
+		"tankType" : "Petite",
+		"location" : "Disposition",
+		"creationDate" : "2021-01-28 14:53",
+		"haloType" : "R22",
+		"haloQty" : "12.3",
+		"partialQty" : "12.5",
+		"fullDate" : "2021-03-27 13:15",
+		"disposalDate" : "2021-03-31 8:15",
+		"ticketId" : "PS-1001",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "PureSphéra"
+		}
+};
+
+app.get('/tank/:tankId', (req, res) => {
+		if (req.params.tankId in tanks) {
+			return res.send([tanks[req.params.tankId]]);
+		} else {
+        	return res.send([{ "tankId" : "0", "location" : "unknown" }]);
+		}
+});
+
+app.get('/savetank/:tankId/:creationdate/:tanktype/:halotype', (req, res) => {
+		qrcodes[req.params.tankId] = { "type" : "tank", "id" : req.params.tankId }
+		tanks[req.params.tankId] = {
+			"tankId" : req.params.tankId,
+			"tankType" : req.params.tanktype,
+			"creationDate" : req.params.creationdate,
+			"haloType" : req.params.halotype,
+			"location" : "Dégazage",
+			"haloQty" : "",
+			"partialQty" : "0",
+			"fullDate" : "",
+			"disposalDate" : "",
+			"ticketId" : "",
+			"disposalEmployee" : "",
+			"provider" : ""
+		}
+        return res.send([{ "tankId" : req.params.tankId, "location" : "Dégazage" }]);
+});
+
+app.get('/savefulltank/:tankId/:fulldate/:haloqty', (req, res) => {
+		tanks[req.params.tankId].location = "Dégazage";
+		tanks[req.params.tankId].fullDate = req.params.fulldate;
+		tanks[req.params.tankId].haloQty = req.params.haloqty;
+        return res.send([{ "tankId" : req.params.tankId, "location" : "Dégazage" }]);
+});
+
+app.get('/savetankdisposal/:tankId/:disposaldate/:ticketid/:employee/:provider', (req, res) => {
+		tanks[req.params.tankId].location = "Disposition";
+		tanks[req.params.tankId].disposalDate = req.params.disposaldate;
+		tanks[req.params.tankId].ticketId = req.params.ticketid;
+		tanks[req.params.tankId].disposalEmployee = req.params.employee;
+		tanks[req.params.tankId].provider = req.params.provider;
+        return res.send([{ "tankId" : req.params.tankId, "location" : "Disposition" }]);
+});
+
+const bins = {
+	"6eeca4af-1636-4124-bf43-f5c7f041af23" : {
+		"binId" : "6eeca4af-1636-4124-bf43-f5c7f041af23",
+		"binType" : "Cuivre #3",
+		"creationDate" : "2021-01-15 15:08",
+		"location" : "Disposition",
+		"quantity" : "168.5",
+		"fullDate" : "2021-03-21 13:15",
+		"disposalDate" : "2021-03-29 8:15",
+		"ticketId" : "LSM-87654",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "Lac St-Jean Métal"
+		},
+	"5fd3824f-143d-42b1-9b31-32315d822e9f" : {
+		"binId" : "5fd3824f-143d-42b1-9b31-32315d822e9f",
+		"binType" : "Cuivre #3",
+		"creationDate" : "2021-01-15 15:08",
+		"location" : "Disposition",
+		"quantity" : "168.5",
+		"fullDate" : "2021-03-21 13:15",
+		"disposalDate" : "2021-03-29 8:15",
+		"ticketId" : "LSM-87654",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "Lac St-Jean Métal"
+		},
+	"7de7ef68-35bb-4e70-82a2-dd6736b5d92e" : {
+		"binId" : "7de7ef68-35bb-4e70-82a2-dd6736b5d92e",
+		"binType" : "Cuivre #3",
+		"creationDate" : "2021-01-15 15:08",
+		"location" : "Disposition",
+		"quantity" : "168.5",
+		"fullDate" : "2021-03-21 13:15",
+		"disposalDate" : "2021-03-29 8:15",
+		"ticketId" : "LSM-87654",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "Lac St-Jean Métal"
+		},
+	"a65e3667-5326-4789-9f8e-79cd50f40358" : {
+		"binId" : "a65e3667-5326-4789-9f8e-79cd50f40358",
+		"binType" : "Cuivre #3",
+		"creationDate" : "2021-01-15 15:08",
+		"location" : "Disposition",
+		"quantity" : "168.5",
+		"fullDate" : "2021-03-21 13:15",
+		"disposalDate" : "2021-03-29 8:15",
+		"ticketId" : "LSM-87654",
+		"disposalEmployee" : "Joel Tremblay",
+		"provider" : "Lac St-Jean Métal"
+		}
+};
+
+app.get('/bin/:binId', (req, res) => {
+		if (req.params.binId in bins) {
+			return res.send([bins[req.params.binId]]);
+		} else {
+        	return res.send([{ "binId" : "0", "location" : "unknown" }]);
+		}
+});
+
+app.get('/savebin/:binId/:creationdate/:bintype', (req, res) => {
+		qrcodes[req.params.binId] = { "type" : "bin", "id" : req.params.binId }
+		bins[req.params.binId] = {
+			"binId" : req.params.binId,
+			"binType" : req.params.bintype,
+			"creationDate" : req.params.creationdate,
+			"location" : "Démantèlement",
+			"quantity" : "",
+			"fullDate" : "",
+			"disposalDate" : "",
+			"ticketId" : "",
+			"disposalEmployee" : "",
+			"provider" : ""
+		}
+        return res.send([{ "binId" : req.params.binId, "location" : "Démantèlement" }]);
+});
+
+app.get('/savefullbin/:binId/:fulldate/:quantity', (req, res) => {
+		bins[req.params.binId].location = "Démantèlement";
+		bins[req.params.binId].fullDate = req.params.fulldate;
+		bins[req.params.binId].quantity = req.params.quantity;
+        return res.send([{ "binId" : req.params.binId, "location" : "Démantèlement" }]);
+});
+
+app.get('/savebindisposal/:binId/:disposaldate/:ticketid/:employee/:provider', (req, res) => {
+		bins[req.params.binId].location = "Disposition";
+		bins[req.params.binId].disposalDate = req.params.disposaldate;
+		bins[req.params.binId].ticketId = req.params.ticketid;
+		bins[req.params.binId].disposalEmployee = req.params.employee;
+		bins[req.params.binId].provider = req.params.provider;
+        return res.send([{ "binId" : req.params.binId, "location" : "Disposition" }]);
+});
+
+app.listen(8081);

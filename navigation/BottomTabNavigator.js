@@ -22,7 +22,7 @@ function getHeaderTitle(route, t) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Root':
+    case 'Scan':
       return t("scan:title");
     case 'BrandModel':
         return t("unit:brandModel");

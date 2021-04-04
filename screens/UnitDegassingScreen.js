@@ -29,6 +29,7 @@ import * as french from "../translations/fr";
 
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 class UnitDegassingScreen extends Component {
   state = {
@@ -36,6 +37,8 @@ class UnitDegassingScreen extends Component {
     haloQty: "",
     degassingDate: "",
     degassingEmployee: "Joel Tremblay",
+    scanned: false,
+    tankId: ""
   }
 
   componentDidMount() {
@@ -47,9 +50,9 @@ class UnitDegassingScreen extends Component {
 
   savedegassing = (navigation) => {
     //alert("http://18.190.29.217:8081/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
-    //+"/"+this.state.haloQty+"/"+this.state.degassingEmployee);
+    //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
     axios.get("http://18.190.29.217:8081/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
-    +"/"+this.state.haloQty+"/"+this.state.degassingEmployee
+    +"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee
     , {
       headers: {
         'Accept': 'application/json',
@@ -70,18 +73,47 @@ class UnitDegassingScreen extends Component {
     const { t } = this.props;
     const navigation = this.props.navigation;
 
+    const handleBarCodeScanned = ({ type, data }) => {
+      this.setState({scanned: true});
+
+      axios.get("http://18.190.29.217:8081/qrcode/"+data, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const answer = res.data[0];
+          //alert(JSON.stringify(answer));
+          if (answer.type == "tank") {
+            this.setState({tankId: answer.id});
+          } else {
+            alert(t("tank:error"));
+            this.setState({scanned: false});
+          }
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Scan Tank : "+error)
+        })
+    };
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
-            <Image style={styles.avatar}
-              source={require('../assets/images/newUnit.png')}
-            />
+          <BarCodeScanner
+            onBarCodeScanned={this.state.scanned ? undefined : handleBarCodeScanned}
+            style={styles.avatar}
+          />
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
                     <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:degassingDate")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.degassingDate}</NunitoBoldText>
+                    </View>
+                    <View style={styles.line2}>
+                        <NunitoText style={styles.label}>{t("tank:tankId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tankId}</NunitoBoldText>
                     </View>
 
                     <View>
@@ -99,7 +131,7 @@ class UnitDegassingScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.degassingEmployee}</NunitoBoldText>
                     </View>
 
-                  {this.state.haloQty.length > 0 && <TouchableOpacity
+                  {this.state.haloQty.length > 0 && this.state.tankId.length > 0 && !isNaN(this.state.haloQty) && <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -145,8 +177,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 140,
-    height: 140,
+    width: 220,
+    height: 220,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -155,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop:10
   },
   body:{
-    marginTop: 140,
+    marginTop: 230,
   },
   bodyContent: {
     padding:10,
@@ -171,6 +203,9 @@ const styles = StyleSheet.create({
   },
   line: {
     flexDirection:'row',
+  },
+  line2: {
+    flexDirection:'column',
   },
   label:{
     fontSize:16,

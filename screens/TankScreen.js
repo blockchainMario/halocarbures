@@ -98,7 +98,10 @@ class TankScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:haloQty")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.haloQty}</NunitoBoldText>
-                        <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:partialQty")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.partialQty}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:fullDate")} : </NunitoText>

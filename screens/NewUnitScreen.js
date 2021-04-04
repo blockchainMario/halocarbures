@@ -198,6 +198,10 @@ class NewUnitScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unit:brandModel")}</NunitoBoldText>
                       <DropDownPicker
                         items={[
+                          {label: 'Arctic King AP10SEWBA1RCM', value: 'Arctic King AP10SEWBA1RCM'},
+                          {label: 'Arctic King MWDUL10CRN1BCJ4', value: 'Arctic King MWDUL10CRN1BCJ4'},
+                          {label: 'Arctic King MWHUK10CRN8BCL0', value: 'Arctic King MWHUK10CRN8BCL0'},
+                          {label: 'Arctic King MWHUK12CRN8BCL0', value: 'Arctic King MWHUK12CRN8BCL0'},
                           {label: 'Danby DPA120B8WDB', value: 'Danby DPA120B8WDB'},
                           {label: 'Danby DPA140B8BDB', value: 'Danby DPA140B8BDB'},
                           {label: 'Danby DPTA090HEB1WDB', value: 'Danby DPTA090HEB1WDB'},
@@ -208,6 +212,11 @@ class NewUnitScreen extends Component {
                           {label: 'Koolatron WC24', value: 'Koolatron WC24'},
                           {label: 'Koolatron WC18', value: 'Koolatron WC18'},
                         ]}
+                        searchable={true}
+                        searchablePlaceholder={t("unit:searchbrandmodel")}
+                        searchablePlaceholderTextColor="gray"
+                        seachableStyle={{}}
+                        searchableError={() => <Text>{t("unit:notfound")}</Text>}
                         defaultValue={this.state.brandModel}
                         placeholder={t("unit:brandModel")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}

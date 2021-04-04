@@ -259,7 +259,7 @@ const MyStack = ({navigation}) => {
       name="Root" 
       component={BottomTabNavigator} 
       options={{
-        title: GLOBALS.T("infos:title"),
+        title: "Scan",
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,

@@ -32,10 +32,12 @@ class LoginScreen extends Component {
     //alert("Button pressed "+this.state.email);
     //await axios.get('http://18.190.29.217:8080/login')
     if (this.state.email.length < 3) {
-      Alert.alert("Halocarbures","Entrez une adresse courriel valide");
+      Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("login:emailerror"));
     } else if (this.state.password.length < 8) {
-      Alert.alert("Halocarbures","Entrez un mot de passe valide");
+      Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("login:passerror"));
     } else {
+      GLOBALS.USERNAME = this.state.email.toLowerCase();
+      navigation.dispatch(StackActions.replace('Root'));
       const setData = async () => {
         try {
               await AsyncStorage.setItem('@username', this.state.email.toLowerCase());
@@ -47,8 +49,6 @@ class LoginScreen extends Component {
         }
       }
     }
-        GLOBALS.USERNAME = this.state.email.toLowerCase();
-        navigation.dispatch(StackActions.replace('Root'));
   }
 
   render() {

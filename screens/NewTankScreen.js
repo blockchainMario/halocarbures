@@ -48,7 +48,7 @@ class NewTankScreen extends Component {
   }
 
   savetank = (navigation) => {
-    alert("http://18.190.29.217:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
+    //alert("http://18.190.29.217:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
     axios.get("http://18.190.29.217:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
       headers: {
         'Accept': 'application/json',
@@ -57,7 +57,7 @@ class NewTankScreen extends Component {
     })
       .then(res => {
         const tank = res.data[0];
-        alert(JSON.stringify(tank));
+        //alert(JSON.stringify(tank));
         navigation.navigate('Root');
       })
       .catch((error) => {

@@ -1,7 +1,8 @@
 import React from "react"
 
 export const app = {
-	name: "Proximity",
+	name: "RIVRA",
+	welcome: "Welcome to RIVRA",
 }
 
 export const login = {
@@ -9,6 +10,8 @@ export const login = {
 	email: "Email Address",
 	pass: "Password",
 	access: "Access",
+	emailerror: "Enter a valid email address",
+	passerror: "Enter a valid password",
 }
 
 export const register = {
@@ -20,8 +23,8 @@ export const register = {
 
 export const menu = {
 	profile: "My Profile",
-	about: "About Halocarbures",
-	howto: "How to use Halocarbures",
+	about: "About RIVRA",
+	howto: "How to use this app",
 	language: "Français",
 	logout: "Logout",
 }
@@ -46,7 +49,7 @@ export const unit = {
 	model: "Model",
 	year: "Year",
 	haloType: "Halocarbon",
-	haloQty: "Quantity",
+	haloQty: "Quantity (kg)",
 	weight: "Weight",
 	serialNumber: "Serial Number",
 	provenance: "Provenance",
@@ -58,7 +61,9 @@ export const unit = {
 	degassingDate : "Degassing Date",
 	degassingEmployee: "Degassing Employee",
 	storingDate : "Storage Date",
-	dismantlingDate : "Dismantling Date"
+	dismantlingDate : "Dismantling Date",
+	searchbrandmodel : "Type a few letters...",
+	notfound : "Not Found",
 }
 
 export const tank = {
@@ -69,12 +74,14 @@ export const tank = {
 	location: "Location",
 	creationDate: "Creation Date",
 	haloType: "Halocarbon",
-	haloQty: "Quantity",
+	haloQty: "Quantity (kg)",
+	partialQty: "Partial Total (kg)",
 	fullDate: "Fill-up Date",
 	disposalDate: "Departure Date",
 	ticketId: "Ticket Id",
 	disposalEmployee: "Employee",
-	provider: "Provider"
+	provider: "Provider",
+	error: "This is not a Tank",
 }
 
 export const bin = {
@@ -84,7 +91,7 @@ export const bin = {
 	binType: "Bin Type",
 	location: "Location",
 	creationDate: "Creation Date",
-	quantity: "Quantity",
+	quantity: "Quantity (kg)",
 	fullDate: "Fill-up Date",
 	disposalDate: "Departure Date",
 	ticketId: "Ticket Id",
@@ -100,7 +107,7 @@ export const unittype = {
 	serial: "Serial Number",
 	unitType: "Unit Type",
 	haloType: "Halocarbon",
-	quantity: "Category",
+	quantity: "Quantity (kg)",
 	weight: "Weight",
 }
 

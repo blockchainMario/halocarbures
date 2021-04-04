@@ -35,13 +35,15 @@ class ScanScreen extends Component {
     clearInput: false,
     scanned: false,
     type: "none",
+    theObject: null,
+    theObjectNotLocked: true,
   }
 
   componentDidMount() {
 
   if (GLOBALS.USERNAME) {
 
-      alert("Bienvenue dans Holocarbures")
+      Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("app:welcome"));
 
     } else {
 
@@ -62,7 +64,8 @@ class ScanScreen extends Component {
 
     const handleBarCodeScanned = ({ type, data }) => {
       this.setState({scanned: true});
-
+      this.setState({theObjectNotLocked: true});
+      
       axios.get("http://18.190.29.217:8081/qrcode/"+data, {
         headers: {
           'Accept': 'application/json',
@@ -72,12 +75,40 @@ class ScanScreen extends Component {
         .then(res => {
           const answer = res.data[0];
           //alert(JSON.stringify(answer));
-            this.setState({type: answer.type});
-            GLOBALS.TYPE = answer.type;
-            GLOBALS.UUID = data;
+          this.setState({type: answer.type});
+          GLOBALS.TYPE = answer.type;
+          GLOBALS.UUID = data;
+          if (answer.type != "unknown") {
+            axios.get("http://18.190.29.217:8081/"+answer.type+"/"+data, {
+              headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+              }
+            })
+              .then(res => {
+                const theObject = res.data[0];
+                //alert(JSON.stringify(theObject));
+                this.setState({theObject: theObject});
+                if (answer.type == "unit") {
+                  //alert(JSON.stringify(theObject));
+                  if (theObject.dismantlingDate.length > 0) this.setState({theObjectNotLocked: false});
+                }
+                if (answer.type == "tank") {
+                  //alert(JSON.stringify(theObject));
+                  if (theObject.disposalDate.length > 0) this.setState({theObjectNotLocked: false});
+                }
+                if (answer.type == "bin") {
+                  //alert(JSON.stringify(theObject));
+                  if (theObject.disposalDate.length > 0) this.setState({theObjectNotLocked: false});
+                }
+              })
+              .catch((error) => {
+                alert("Erreur de connexion QR Code Object : "+error)
+              })
+          }
         })
         .catch((error) => {
-          alert("Erreur de connexion Unit : "+error)
+          alert("Erreur de connexion QR Code : "+error)
         })
 
 /*
@@ -194,7 +225,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:viewtank")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "unit" && <TouchableOpacity
+          {this.state.type == "unit" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
@@ -207,7 +238,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:degassing")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "unit" && <TouchableOpacity
+          {this.state.type == "unit" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
@@ -220,7 +251,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:storing")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "unit" && <TouchableOpacity
+          {this.state.type == "unit" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
@@ -233,7 +264,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:dismantling")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "tank" && <TouchableOpacity
+          {this.state.type == "tank" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
@@ -246,7 +277,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:tankfull")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "tank" && <TouchableOpacity
+          {this.state.type == "tank" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
@@ -272,7 +303,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:viewbin")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "bin" && <TouchableOpacity
+          {this.state.type == "bin" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,
@@ -285,7 +316,7 @@ class ScanScreen extends Component {
             <NunitoBoldText style={styles.textStyle}>{t("process:binfull")}</NunitoBoldText>
           </TouchableOpacity>}
 
-          {this.state.type == "bin" && <TouchableOpacity
+          {this.state.type == "bin" && this.state.theObjectNotLocked && <TouchableOpacity
                 style={{
                   margin: 5,
                   borderRadius: 10,

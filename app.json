@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "halocarbures",
-    "slug": "halocarbures",
+    "name": "RIVRA",
+    "slug": "RIVRA",
     "platforms": [
       "ios",
       "android",
@@ -23,12 +23,12 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.semiosis.halocarbures",
+      "bundleIdentifier": "com.semiosis.rivrav1",
       "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.semiosis.halocarbures",
+      "package": "com.semiosis.rivrav1",
       "versionCode": 1
     },
     "description": ""

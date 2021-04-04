@@ -1,7 +1,8 @@
 import React from "react"
 
 export const app = {
-	name: "Proximité",
+	name: "RIVRA",
+	welcome: "Bienvenue dans RIVRA",
 }
 
 export const login = {
@@ -9,6 +10,8 @@ export const login = {
 	email: "Adresse courriel",
 	pass: "Mot de passe",
 	access: "Accéder",
+	emailerror: "Entrez une adresse courriel valide",
+	passerror: "Entrez un mot de passe valide",
 }
 
 export const register = {
@@ -20,8 +23,8 @@ export const register = {
 
 export const menu = {
 	profile: "Mon profil",
-	about: "À propos de Halocarbures",
-	howto: "Comment utiliser Halocarbures",
+	about: "À propos de RIVRA",
+	howto: "Comment utiliser cette app",
 	language: "English",
 	logout: "Déconnexion",
 }
@@ -46,7 +49,7 @@ export const unit = {
 	model: "Modèle",
 	year: "Année",
 	haloType: "Halocarbure",
-	haloQty: "Quantité",
+	haloQty: "Quantité (kg)",
 	weight: "Poids de l'unité",
 	serialNumber: "Numéro de série",
 	provenance: "Provenance",
@@ -58,7 +61,9 @@ export const unit = {
 	degassingDate : "Date de dégazage",
 	degassingEmployee: "Employé au dégazage",
 	storingDate : "Date d'entreposage",
-	dismantlingDate : "Début du démantèlement"
+	dismantlingDate : "Début du démantèlement",
+	searchbrandmodel : "Taper quelques lettres...",
+	notfound : "Introuvable",
 }
 
 export const tank = {
@@ -69,12 +74,14 @@ export const tank = {
 	location: "Localisation",
 	creationDate: "Date de création",
 	haloType: "Halocarbure",
-	haloQty: "Quantité",
+	haloQty: "Quantité (kg)",
+	partialQty: "Total partiel (kg)",
 	fullDate: "Date de remplissage",
 	disposalDate: "Date de départ",
 	ticketId: "Numéro de ticket",
 	disposalEmployee: "Employé",
-	provider: "Fournisseur"
+	provider: "Fournisseur",
+	error: "Ceci n'est pas une bonbonne",
 }
 
 export const bin = {
@@ -84,7 +91,7 @@ export const bin = {
 	binType: "Type de bac",
 	location: "Localisation",
 	creationDate: "Date de création",
-	quantity: "Quantité",
+	quantity: "Quantité (kg)",
 	fullDate: "Date de remplissage",
 	disposalDate: "Date de départ",
 	ticketId: "Numéro de ticket",
@@ -100,7 +107,7 @@ export const unittype = {
 	serial: "Numéro de série",
 	unitType: "Type d'unité",
 	haloType: "Halocarbure",
-	quantity: "Quantité",
+	quantity: "Quantité (kg)",
 	weight: "Poids",
 }
 
@@ -120,7 +127,7 @@ export const overview = {
 }
 
 export const settings = {
-	title: "Settings",
+	title: "Paramètres",
 	section1: "TABLES",
 	organization: "Organization",
 	location: "Localisation",
