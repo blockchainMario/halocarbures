@@ -41,15 +41,15 @@ class BinScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const bin = res.data[0];
+        const bin = res.data;
         this.setState({ bin: bin });
         //alert(JSON.stringify(bin));
       })
@@ -84,7 +84,7 @@ class BinScreen extends Component {
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:location")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.bin.location}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.bin.processLoc}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:creationDate")} : </NunitoText>

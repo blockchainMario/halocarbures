@@ -35,6 +35,7 @@ class NewBinScreen extends Component {
     bin: null,
     creationDate: "",
     binType: "",
+    binTypeTable: [],
   }
 
   componentDidMount() {
@@ -42,18 +43,37 @@ class NewBinScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
+    this.setState({binTypeTable: [
+      {label: 'Aluminium cuivre', value: 'Aluminium cuivre'},
+      {label: 'Aluminium domestique', value: 'Aluminium domestique'},
+      {label: 'Aluminium mixte', value: 'Aluminium mixte'},
+      {label: 'Brasse jaune', value: 'Brasse jaune'},
+      {label: 'Carte électronique', value: 'Carte électronique'},
+      {label: 'Compresseurs', value: 'Compresseurs'},
+      {label: 'Cuivre #2', value: 'Cuivre #2'},
+      {label: 'Cuivre #3', value: 'Cuivre #3'},
+      {label: 'Fils gainés #2', value: 'Fils gainés #2'},
+      {label: 'Fils gainés #3', value: 'Fils gainés #3'},
+      {label: 'Huiles', value: 'Huiles'},
+      {label: 'Plastique de couleur', value: 'Plastique de couleur'},
+      {label: 'Plastique noir', value: 'Plastique noir'},
+      {label: 'Rebuts', value: 'Rebuts'},
+      {label: 's/s 304', value: 's/s 304'},
+      {label: 'Solides huileux', value: 'Solides huileux'},
+      {label: 'Thermomètres', value: 'Thermomètres'},
+    ]});
   }
 
   savebin = (navigation) => {
-    //alert("http://18.190.29.217:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);
-    axios.get("http://18.190.29.217:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType, {
+    //alert("http://10.0.0.81:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);
+    axios.get("http://10.0.0.81:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const bin = res.data[0];
+        const bin = res.data;
         //alert(JSON.stringify(bin));
         navigation.navigate('Root');
       })
@@ -83,25 +103,7 @@ class NewBinScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
                       <NunitoBoldText style={styles.label}>{t("bin:binType")}</NunitoBoldText>
                       <DropDownPicker
-                        items={[
-                          {label: 'Aluminium cuivre', value: 'Aluminium cuivre'},
-                          {label: 'Aluminium domestique', value: 'Aluminium domestique'},
-                          {label: 'Aluminium mixte', value: 'Aluminium mixte'},
-                          {label: 'Brasse jaune', value: 'Brasse jaune'},
-                          {label: 'Carte électronique', value: 'Carte électronique'},
-                          {label: 'Compresseurs', value: 'Compresseurs'},
-                          {label: 'Cuivre #2', value: 'Cuivre #2'},
-                          {label: 'Cuivre #3', value: 'Cuivre #3'},
-                          {label: 'Fils gainés #2', value: 'Fils gainés #2'},
-                          {label: 'Fils gainés #3', value: 'Fils gainés #3'},
-                          {label: 'Huiles', value: 'Huiles'},
-                          {label: 'Plastique de couleur', value: 'Plastique de couleur'},
-                          {label: 'Plastique noir', value: 'Plastique noir'},
-                          {label: 'Rebuts', value: 'Rebuts'},
-                          {label: 's/s 304', value: 's/s 304'},
-                          {label: 'Solides huileux', value: 'Solides huileux'},
-                          {label: 'Thermomètres', value: 'Thermomètres'},
-                        ]}
+                        items={this.state.binTypeTable}
                         defaultValue={this.state.binType}
                         placeholder={t("bin:binType")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}

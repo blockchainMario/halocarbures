@@ -49,9 +49,9 @@ class UnitDegassingScreen extends Component {
   }
 
   savedegassing = (navigation) => {
-    //alert("http://18.190.29.217:8081/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    //alert("http://10.0.0.81:8081/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
     //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
-    axios.get("http://18.190.29.217:8081/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    axios.get("http://10.0.0.81:8081/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
     +"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee
     , {
       headers: {
@@ -60,7 +60,7 @@ class UnitDegassingScreen extends Component {
       }
     })
       .then(res => {
-        const unit = res.data[0];
+        const unit = res.data;
         //alert(JSON.stringify(unit));
         navigation.navigate('Root');
       })
@@ -76,14 +76,14 @@ class UnitDegassingScreen extends Component {
     const handleBarCodeScanned = ({ type, data }) => {
       this.setState({scanned: true});
 
-      axios.get("http://18.190.29.217:8081/qrcode/"+data, {
+      axios.get("http://10.0.0.81:8081/qrcode/"+data, {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
         }
       })
         .then(res => {
-          const answer = res.data[0];
+          const answer = res.data;
           //alert(JSON.stringify(answer));
           if (answer.type == "tank") {
             this.setState({tankId: answer.id});

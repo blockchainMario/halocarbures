@@ -66,27 +66,29 @@ class ScanScreen extends Component {
       this.setState({scanned: true});
       this.setState({theObjectNotLocked: true});
       
-      axios.get("http://18.190.29.217:8081/qrcode/"+data, {
+      //axios.get("http://10.0.0.81:8081/qrcode/"+data, {
+      axios.get("http://10.0.0.81:8081/qrcode/"+data, {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
         }
       })
         .then(res => {
-          const answer = res.data[0];
+          const answer = res.data;
           //alert(JSON.stringify(answer));
           this.setState({type: answer.type});
           GLOBALS.TYPE = answer.type;
           GLOBALS.UUID = data;
           if (answer.type != "unknown") {
-            axios.get("http://18.190.29.217:8081/"+answer.type+"/"+data, {
+            //axios.get("http://10.0.0.81:8081/"+answer.type+"/"+data, {
+            axios.get("http://10.0.0.81:8081/"+answer.type+"/"+data, {
               headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
               }
             })
               .then(res => {
-                const theObject = res.data[0];
+                const theObject = res.data;
                 //alert(JSON.stringify(theObject));
                 this.setState({theObject: theObject});
                 if (answer.type == "unit") {

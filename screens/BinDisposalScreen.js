@@ -37,6 +37,7 @@ class BinDisposalScreen extends Component {
     ticketId: "",
     disposalEmployee: "Joel Tremblay",
     provider: "",
+    providerTable: [],
   }
 
   componentDidMount() {
@@ -44,12 +45,19 @@ class BinDisposalScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({disposalDate: today});
+    this.setState({providerTable: [
+      {label: 'Berga Recycling', value: 'Berga Recycling'},
+      {label: 'Centrem', value: 'Centrem'},
+      {label: 'Lac St-Jean Métal', value: 'Lac St-Jean Métal'},
+      {label: "Plein d'huiles usagées", value: "Plein d'huiles usagées"},
+      {label: 'PureSphéra', value: 'PureSphéra'},
+    ]});
   }
 
   savebindisposal = (navigation) => {
-    //alert("http://18.190.29.217:8081/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+    //alert("http://10.0.0.81:8081/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
     //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
-    axios.get("http://18.190.29.217:8081/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+    axios.get("http://10.0.0.81:8081/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
     +"/"+this.state.disposalEmployee+"/"+this.state.provider
     , {
       headers: {
@@ -58,7 +66,7 @@ class BinDisposalScreen extends Component {
       }
     })
       .then(res => {
-        const unit = res.data[0];
+        const unit = res.data;
         //alert(JSON.stringify(unit));
         navigation.navigate('Root');
       })
@@ -103,13 +111,7 @@ class BinDisposalScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
                       <NunitoBoldText style={styles.label}>{t("bin:provider")}</NunitoBoldText>
                       <DropDownPicker
-                        items={[
-                          {label: 'Berga Recycling', value: 'Berga Recycling'},
-                          {label: 'Centrem', value: 'Centrem'},
-                          {label: 'Lac St-Jean Métal', value: 'Lac St-Jean Métal'},
-                          {label: "Plein d'huiles usagées", value: "Plein d'huiles usagées"},
-                          {label: 'PureSphéra', value: 'PureSphéra'},
-                        ]}
+                        items={this.state.providerTable}
                         defaultValue={this.state.provider}
                         placeholder={t("bin:provider")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}

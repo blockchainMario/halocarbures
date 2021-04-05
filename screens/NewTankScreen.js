@@ -36,8 +36,8 @@ class NewTankScreen extends Component {
     creationDate: "",
     tankType: "",
     haloType: "",
-    show: false,
-    position: {},
+    tankTypeTable: [],
+    haloTypeTable: [],
   }
 
   componentDidMount() {
@@ -45,18 +45,29 @@ class NewTankScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
+    this.setState({tankTypeTable: [
+      {label: 'Petite', value: 'Petite'},
+      {label: 'Moyenne', value: 'Moyenne'},
+      {label: 'Grande', value: 'Grande'},
+    ]});
+    this.setState({haloTypeTable: [
+      {label: 'R22', value: 'R22'},
+      {label: 'R134a', value: 'R134a'},
+      {label: 'R12 et autres', value: 'R12 et autres'},
+      {label: 'R410', value: 'R410'},
+    ]});
   }
 
   savetank = (navigation) => {
-    //alert("http://18.190.29.217:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
-    axios.get("http://18.190.29.217:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
+    //alert("http://10.0.0.81:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
+    axios.get("http://10.0.0.81:8081/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const tank = res.data[0];
+        const tank = res.data;
         //alert(JSON.stringify(tank));
         navigation.navigate('Root');
       })
@@ -86,11 +97,7 @@ class NewTankScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 20 }) }}>
                       <NunitoBoldText style={styles.label}>{t("tank:tankType")}</NunitoBoldText>
                       <DropDownPicker
-                        items={[
-                          {label: 'Petite', value: 'Petite'},
-                          {label: 'Moyenne', value: 'Moyenne'},
-                          {label: 'Grande', value: 'Grande'},
-                        ]}
+                        items={this.state.tankTypeTable}
                         defaultValue={this.state.tankType}
                         placeholder={t("tank:tankType")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}
@@ -112,12 +119,7 @@ class NewTankScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
                       <NunitoBoldText style={styles.label}>{t("tank:haloType")}</NunitoBoldText>
                       <DropDownPicker
-                        items={[
-                          {label: 'R22', value: 'R22'},
-                          {label: 'R134a', value: 'R134a'},
-                          {label: 'R12 et autres', value: 'R12 et autres'},
-                          {label: 'R410', value: 'R410'},
-                        ]}
+                        items={this.state.haloTypeTable}
                         defaultValue={this.state.haloType}
                         placeholder={t("tank:haloType")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}

@@ -44,8 +44,8 @@ class UnitDismantlingScreen extends Component {
   }
 
   savedismantling = (navigation) => {
-    //alert("http://18.190.29.217:8081/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
-    axios.get("http://18.190.29.217:8081/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
+    //alert("http://10.0.0.81:8081/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
+    axios.get("http://10.0.0.81:8081/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
     , {
       headers: {
         'Accept': 'application/json',
@@ -53,7 +53,7 @@ class UnitDismantlingScreen extends Component {
       }
     })
       .then(res => {
-        const unit = res.data[0];
+        const unit = res.data;
         //alert(JSON.stringify(unit));
         navigation.navigate('Root');
       })

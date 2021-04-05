@@ -42,15 +42,15 @@ class TankScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const tank = res.data[0];
+        const tank = res.data;
         this.setState({ tank: tank });
         //alert(JSON.stringify(unit));
       })
@@ -89,7 +89,7 @@ class TankScreen extends Component {
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:location")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tank.location}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.processLoc}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:creationDate")} : </NunitoText>

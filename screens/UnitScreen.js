@@ -52,15 +52,15 @@ class UnitScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const unit = res.data[0];
+        const unit = res.data;
         this.setState({ unit: unit });
         //alert(JSON.stringify(unit));
       })
@@ -95,7 +95,7 @@ class UnitScreen extends Component {
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:location")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.location}</NunitoBoldText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.processLoc}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionDate")} : </NunitoText>
