@@ -43,25 +43,26 @@ class NewBinScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
-    this.setState({binTypeTable: [
-      {label: 'Aluminium cuivre', value: 'Aluminium cuivre'},
-      {label: 'Aluminium domestique', value: 'Aluminium domestique'},
-      {label: 'Aluminium mixte', value: 'Aluminium mixte'},
-      {label: 'Brasse jaune', value: 'Brasse jaune'},
-      {label: 'Carte électronique', value: 'Carte électronique'},
-      {label: 'Compresseurs', value: 'Compresseurs'},
-      {label: 'Cuivre #2', value: 'Cuivre #2'},
-      {label: 'Cuivre #3', value: 'Cuivre #3'},
-      {label: 'Fils gainés #2', value: 'Fils gainés #2'},
-      {label: 'Fils gainés #3', value: 'Fils gainés #3'},
-      {label: 'Huiles', value: 'Huiles'},
-      {label: 'Plastique de couleur', value: 'Plastique de couleur'},
-      {label: 'Plastique noir', value: 'Plastique noir'},
-      {label: 'Rebuts', value: 'Rebuts'},
-      {label: 's/s 304', value: 's/s 304'},
-      {label: 'Solides huileux', value: 'Solides huileux'},
-      {label: 'Thermomètres', value: 'Thermomètres'},
-    ]});
+
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/list/binTypeTable", {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const aList = res.data.listContent.sort();
+          var binTypeTable = [];
+          aList.forEach(function(entry) {
+            binTypeTable.push({label: entry, value: entry})
+          });
+          //alert(JSON.stringify(binTypeTable));
+          this.setState({binTypeTable: binTypeTable});
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Lists : "+error)
+        })
   }
 
   savebin = (navigation) => {

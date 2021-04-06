@@ -45,13 +45,26 @@ class TankDisposalScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({disposalDate: today});
-    this.setState({providerTable: [
-      {label: 'Berga Recycling', value: 'Berga Recycling'},
-      {label: 'Centrem', value: 'Centrem'},
-      {label: 'Lac St-Jean Métal', value: 'Lac St-Jean Métal'},
-      {label: "Plein d'huiles usagées", value: "Plein d'huiles usagées"},
-      {label: 'PureSphéra', value: 'PureSphéra'},
-    ]});
+
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/list/providerTable", {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const aList = res.data.listContent.sort();
+        var providerTable = [];
+        aList.forEach(function(entry) {
+          providerTable.push({label: entry, value: entry})
+        });
+        //alert(JSON.stringify(providerTable));
+        this.setState({providerTable: providerTable});
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Lists : "+error)
+      })
   }
 
   savetankdisposal = (navigation) => {

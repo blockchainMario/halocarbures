@@ -45,17 +45,46 @@ class NewTankScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
-    this.setState({tankTypeTable: [
-      {label: 'Petite', value: 'Petite'},
-      {label: 'Moyenne', value: 'Moyenne'},
-      {label: 'Grande', value: 'Grande'},
-    ]});
-    this.setState({haloTypeTable: [
-      {label: 'R22', value: 'R22'},
-      {label: 'R134a', value: 'R134a'},
-      {label: 'R12 et autres', value: 'R12 et autres'},
-      {label: 'R410', value: 'R410'},
-    ]});
+
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/list/tankTypeTable", {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const aList = res.data.listContent.sort();
+          var tankTypeTable = [];
+          aList.forEach(function(entry) {
+            tankTypeTable.push({label: entry, value: entry})
+          });
+          //alert(JSON.stringify(tankTypeTable));
+          this.setState({tankTypeTable: tankTypeTable});
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Lists : "+error)
+        })
+
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/list/haloTypeTable", {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const aList = res.data.listContent.sort();
+          var haloTypeTable = [];
+          aList.forEach(function(entry) {
+            haloTypeTable.push({label: entry, value: entry})
+          });
+          //alert(JSON.stringify(haloTypeTable));
+          this.setState({haloTypeTable: haloTypeTable});
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Lists : "+error)
+        })
   }
 
   savetank = (navigation) => {

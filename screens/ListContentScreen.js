@@ -16,12 +16,32 @@ import { withTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator()
 
-class MoreOptionsScreen extends Component {
+class ListContentScreen extends Component {
   state = {
-    
+    listContent: []
   }
 
   componentDidMount() {
+
+    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://10.0.0.81:8081/list/"+GLOBALS.TABLE, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const aList = res.data.listContent.sort();
+        var listContent = [];
+        aList.forEach(function(entry) {
+            listContent.push({title: entry, icon: "", screen: "EditContent"})
+        });
+        //alert(JSON.stringify(providerTable));
+        this.setState({listContent: listContent});
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Lists : "+error)
+      })
   }
 
   render() {
@@ -29,111 +49,23 @@ class MoreOptionsScreen extends Component {
 
     const navigation = this.props.navigation;
     
-    const list1 = [
-        {
-          title: t("settings:brandModel"),
-          icon: 'grid-on',
-          screen: 'Table'
-        },
-    ]
-
-    const list2 = [
-        {
-            title: t("settings:halocarbon"),
-            icon: 'grid-on',
-            table: 'haloTypeTable'
-        },
-        {
-            title: t("settings:unitType"),
-            icon: 'grid-on',
-            table: 'unitTypeTable'
-        },
-        {
-            title: t("settings:tankType"),
-            icon: 'grid-on',
-            table: 'tankTypeTable'
-        },
-        {
-            title: t("settings:binType"),
-            icon: 'grid-on',
-            table: 'binTypeTable'
-        },
-        {
-            title: t("settings:provenance"),
-            icon: 'grid-on',
-            table: 'provenanceTable'
-        },
-        {
-            title: t("settings:transporter"),
-            icon: 'grid-on',
-            table: 'transporterTable'
-        },
-        {
-            title: t("settings:provider"),
-            icon: 'grid-on',
-            table: 'providerTable'
-        },
-    ]
-    
-    const list3 = [
-        {
-            title: t("settings:scale"),
-            icon: 'av-timer',
-            screen: 'Scale'
-        },
-    ]
-    
   return (
     <View style={styles.container}>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <NunitoText style={styles.subSection}>{t("settings:section1")}</NunitoText>
+        <NunitoText style={styles.subSection}>{GLOBALS.TABLENAME.toUpperCase()}</NunitoText>
 
         <View>
         {
-            list1.map((item, i) => (
+            this.state.listContent.map((item, i) => (
             <ListItem
                 key={i}
                 title={item.title}
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => alert(item.screen)}
-            />
-            ))
-        }
-        </View>
-
-        <NunitoText style={styles.subSection}>{t("settings:section2")}</NunitoText>
-
-        <View>
-        {
-            list2.map((item, i) => (
-            <ListItem
-                key={i}
-                title={item.title}
-                leftIcon={{ name: item.icon }}
-                bottomDivider
-                chevron
-                onPress={() => {GLOBALS.TABLENAME = item.title; GLOBALS.TABLE = item.table; navigation.navigate('ListContent')}}
-            />
-            ))
-        }
-        </View>
-
-        <NunitoText style={styles.subSection}>{t("settings:section3")}</NunitoText>
-
-        <View>
-        {
-            list3.map((item, i) => (
-            <ListItem
-                key={i}
-                title={item.title}
-                leftIcon={{ name: item.icon }}
-                bottomDivider
-                chevron
-                onPress={() => alert(item.screen)}
+                onPress={() => alert(item.title)}
             />
             ))
         }
@@ -145,7 +77,7 @@ class MoreOptionsScreen extends Component {
 }
 }
 
-MoreOptionsScreen.navigationOptions = {
+ListContentScreen.navigationOptions = {
   header: null,
 };
 
@@ -247,4 +179,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(MoreOptionsScreen);
+export default withTranslation()(ListContentScreen);
