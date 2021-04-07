@@ -44,8 +44,8 @@ class NewBinScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
 
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/list/binTypeTable", {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/binTypeTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -66,8 +66,8 @@ class NewBinScreen extends Component {
   }
 
   savebin = (navigation) => {
-    //alert("http://10.0.0.81:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);
-    axios.get("http://10.0.0.81:8081/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType, {
+    //alert("http://18.190.29.217:8080/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);
+    axios.get("http://18.190.29.217:8080/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

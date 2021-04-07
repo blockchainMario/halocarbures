@@ -52,8 +52,8 @@ class UnitScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -85,13 +85,17 @@ class UnitScreen extends Component {
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line2}>
-                        <NunitoText style={styles.label}>{t("unit:unitId")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.unitId}</NunitoBoldText>
-                      </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:unitType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.unitType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:brandModel")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.brandModel}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:year")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.year}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:location")} : </NunitoText>
@@ -106,26 +110,16 @@ class UnitScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.unit.destination}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:brandModel")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.brandModel}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unit:year")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.unit.year}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:haloType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.haloType}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:haloQty")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.haloQty}</NunitoBoldText>
-                        <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:weight")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.weight}</NunitoBoldText>
-                        <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:serialNumber")} : </NunitoText>
@@ -166,6 +160,10 @@ class UnitScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:dismantlingDate")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.dismantlingDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line2}>
+                        <NunitoText style={styles.label}>{t("unit:unitId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.unitId}</NunitoBoldText>
                       </View>
                   </View>
               </View>

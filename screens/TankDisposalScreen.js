@@ -46,8 +46,8 @@ class TankDisposalScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({disposalDate: today});
 
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/list/providerTable", {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/providerTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -68,9 +68,9 @@ class TankDisposalScreen extends Component {
   }
 
   savetankdisposal = (navigation) => {
-    //alert("http://10.0.0.81:8081/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+    //alert("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
     //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
-    axios.get("http://10.0.0.81:8081/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+    axios.get("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
     +"/"+this.state.disposalEmployee+"/"+this.state.provider
     , {
       headers: {

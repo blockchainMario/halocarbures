@@ -26,6 +26,8 @@ import TankDisposalScreen from './screens/TankDisposalScreen';
 import BinFullScreen from './screens/BinFullScreen';
 import BinDisposalScreen from './screens/BinDisposalScreen';
 import ListContentScreen from './screens/ListContentScreen';
+import BrandModelsScreen from './screens/BrandModelsScreen';
+import NewBrandModelScreen from './screens/NewBrandModelScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -528,6 +530,44 @@ const MyStack = ({navigation}) => {
     <Stack.Screen name='ListContent' component={ListContentScreen}
       options={{
         title: GLOBALS.T("settings:listcontent"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='BrandModels' component={BrandModelsScreen}
+      options={{
+        title: GLOBALS.T("settings:brandModel"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='NewBrandModel' component={NewBrandModelScreen}
+      options={{
+        title: GLOBALS.T("settings:brandModel"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,

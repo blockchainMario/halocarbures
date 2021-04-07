@@ -56,8 +56,8 @@ class NewUnitScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({receptionDate: today});
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/list/provenanceTable", {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/provenanceTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -76,8 +76,8 @@ class NewUnitScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/list/transporterTable", {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/transporterTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -96,8 +96,8 @@ class NewUnitScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-      //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-      axios.get("http://10.0.0.81:8081/list/unitTypeTable", {
+      //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+      axios.get("http://18.190.29.217:8080/list/unitTypeTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -115,7 +115,7 @@ class NewUnitScreen extends Component {
         .catch((error) => {
           alert("Erreur de connexion Lists : "+error)
         })
-
+/*
     this.setState({brandModelTable: [
       {label: 'Arctic King AP10SEWBA1RCM', value: 'Arctic King AP10SEWBA1RCM'},
       {label: 'Arctic King MWDUL10CRN1BCJ4', value: 'Arctic King MWDUL10CRN1BCJ4'},
@@ -131,9 +131,30 @@ class NewUnitScreen extends Component {
       {label: 'Koolatron WC24', value: 'Koolatron WC24'},
       {label: 'Koolatron WC18', value: 'Koolatron WC18'},
     ]});
+*/
 
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/list/yearTable", {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/brandModels", {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const aList = res.data.listContent.sort();
+          var brandModelTable = [];
+          aList.forEach(function(entry) {
+            brandModelTable.push({label: entry, value: entry})
+          });
+          //alert(JSON.stringify(haloTypeTable));
+          this.setState({brandModelTable: brandModelTable});
+        })
+        .catch((error) => {
+          alert("Erreur de connexion brandModelTable : "+error)
+        })
+
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/yearTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -152,8 +173,8 @@ class NewUnitScreen extends Component {
           alert("Erreur de connexion Lists : "+error)
         })
 
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/list/haloTypeTable", {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/haloTypeTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -174,11 +195,11 @@ class NewUnitScreen extends Component {
   }
 
   saveunit = (navigation) => {
-    //alert("http://10.0.0.81:8081/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
+    //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
     //+"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.haloType+"/"+this.state.haloQty
     //+"/"+this.state.serialNumber+"/"+this.state.weight
     //+"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee);
-    axios.get("http://10.0.0.81:8081/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
+    axios.get("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
     +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.haloType+"/"+this.state.haloQty
     +"/"+this.state.serialNumber+"/"+this.state.weight
     +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee

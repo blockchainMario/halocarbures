@@ -44,8 +44,8 @@ class UnitDismantlingScreen extends Component {
   }
 
   savedismantling = (navigation) => {
-    //alert("http://10.0.0.81:8081/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
-    axios.get("http://10.0.0.81:8081/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
+    //alert("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
+    axios.get("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
     , {
       headers: {
         'Accept': 'application/json',

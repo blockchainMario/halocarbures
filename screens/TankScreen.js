@@ -42,8 +42,8 @@ class TankScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -75,10 +75,6 @@ class TankScreen extends Component {
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line2}>
-                        <NunitoText style={styles.label}>{t("tank:tankId")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tank.tankId}</NunitoBoldText>
-                      </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:tankType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.tankType}</NunitoBoldText>
@@ -96,16 +92,16 @@ class TankScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.tank.creationDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("tank:haloQty")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tank.haloQty}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:partialQty")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.partialQty}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:fullDate")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.fullDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:haloQty")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.haloQty}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:disposalDate")} : </NunitoText>
@@ -122,6 +118,10 @@ class TankScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:provider")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.tank.provider}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line2}>
+                        <NunitoText style={styles.label}>{t("tank:tankId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.tankId}</NunitoBoldText>
                       </View>
                   </View>
               </View>

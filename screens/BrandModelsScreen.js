@@ -16,12 +16,32 @@ import { withTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator()
 
-class MoreOptionsScreen extends Component {
+class BrandModelsScreen extends Component {
   state = {
-    
+    brandModels: []
   }
 
   componentDidMount() {
+
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/brandmodels/", {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const aList = res.data.listContent.sort();
+        var brandModels = [];
+        aList.forEach(function(entry) {
+          brandModels.push({title: entry, icon: "", screen: "EditBrandModel"})
+        });
+        //alert(JSON.stringify(providerTable));
+        this.setState({brandModels: brandModels});
+      })
+      .catch((error) => {
+        alert("Erreur de connexion BrandModels : "+error)
+      })
   }
 
   render() {
@@ -29,111 +49,23 @@ class MoreOptionsScreen extends Component {
 
     const navigation = this.props.navigation;
     
-    const list1 = [
-        {
-          title: t("settings:brandModel"),
-          icon: 'grid-on',
-          screen: 'BrandModels'
-        },
-    ]
-
-    const list2 = [
-        {
-            title: t("settings:halocarbon"),
-            icon: 'grid-on',
-            table: 'haloTypeTable'
-        },
-        {
-            title: t("settings:unitType"),
-            icon: 'grid-on',
-            table: 'unitTypeTable'
-        },
-        {
-            title: t("settings:tankType"),
-            icon: 'grid-on',
-            table: 'tankTypeTable'
-        },
-        {
-            title: t("settings:binType"),
-            icon: 'grid-on',
-            table: 'binTypeTable'
-        },
-        {
-            title: t("settings:provenance"),
-            icon: 'grid-on',
-            table: 'provenanceTable'
-        },
-        {
-            title: t("settings:transporter"),
-            icon: 'grid-on',
-            table: 'transporterTable'
-        },
-        {
-            title: t("settings:provider"),
-            icon: 'grid-on',
-            table: 'providerTable'
-        },
-    ]
-    
-    const list3 = [
-        {
-            title: t("settings:scale"),
-            icon: 'av-timer',
-            screen: 'Scale'
-        },
-    ]
-    
   return (
     <View style={styles.container}>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <NunitoText style={styles.subSection}>{t("settings:section1")}</NunitoText>
+        <NunitoText style={styles.subSection}>{t("unit:brandModel").toUpperCase()}</NunitoText>
 
         <View>
         {
-            list1.map((item, i) => (
+            this.state.brandModels.map((item, i) => (
             <ListItem
                 key={i}
                 title={item.title}
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => navigation.navigate('BrandModels')}
-            />
-            ))
-        }
-        </View>
-
-        <NunitoText style={styles.subSection}>{t("settings:section2")}</NunitoText>
-
-        <View>
-        {
-            list2.map((item, i) => (
-            <ListItem
-                key={i}
-                title={item.title}
-                leftIcon={{ name: item.icon }}
-                bottomDivider
-                chevron
-                onPress={() => {GLOBALS.TABLENAME = item.title; GLOBALS.TABLE = item.table; navigation.navigate('ListContent')}}
-            />
-            ))
-        }
-        </View>
-
-        <NunitoText style={styles.subSection}>{t("settings:section3")}</NunitoText>
-
-        <View>
-        {
-            list3.map((item, i) => (
-            <ListItem
-                key={i}
-                title={item.title}
-                leftIcon={{ name: item.icon }}
-                bottomDivider
-                chevron
-                onPress={() => alert(item.screen)}
+                onPress={() => alert(item.title)}
             />
             ))
         }
@@ -145,7 +77,7 @@ class MoreOptionsScreen extends Component {
 }
 }
 
-MoreOptionsScreen.navigationOptions = {
+BrandModelsScreen.navigationOptions = {
   header: null,
 };
 
@@ -247,4 +179,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(MoreOptionsScreen);
+export default withTranslation()(BrandModelsScreen);

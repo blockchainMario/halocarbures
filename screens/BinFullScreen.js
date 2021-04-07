@@ -45,8 +45,8 @@ class BinFullScreen extends Component {
   }
 
   savebinfull = (navigation) => {
-    //alert("http://10.0.0.81:8081/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity);
-    axios.get("http://10.0.0.81:8081/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity
+    //alert("http://18.190.29.217:8080/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity);
+    axios.get("http://18.190.29.217:8080/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity
     , {
       headers: {
         'Accept': 'application/json',

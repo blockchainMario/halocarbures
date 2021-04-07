@@ -8,7 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import AgendaScreen from '../screens/AgendaScreen';
 //import LoginScreen from '../screens/LoginScreen';
 import UnitScreen from '../screens/UnitScreen';
-import NotesFeedScreen from '../screens/NotesFeedScreen';
+import NewBrandModelScreen from '../screens/NewBrandModelScreen';
 import ScanScreen from '../screens/ScanScreen';
 import OverviewScreen from '../screens/OverviewScreen';
 import MoreOptionsScreen from '../screens/MoreOptionsScreen';
@@ -16,7 +16,6 @@ import { NunitoBoldText } from '../components/StyledText';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Unit';
-
 
 function getHeaderTitle(route, t) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;

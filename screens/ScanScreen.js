@@ -66,8 +66,8 @@ class ScanScreen extends Component {
       this.setState({scanned: true});
       this.setState({theObjectNotLocked: true});
       
-      //axios.get("http://10.0.0.81:8081/qrcode/"+data, {
-      axios.get("http://10.0.0.81:8081/qrcode/"+data, {
+      //axios.get("http://18.190.29.217:8080/qrcode/"+data, {
+      axios.get("http://18.190.29.217:8080/qrcode/"+data, {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -80,8 +80,8 @@ class ScanScreen extends Component {
           GLOBALS.TYPE = answer.type;
           GLOBALS.UUID = data;
           if (answer.type != "unknown") {
-            //axios.get("http://10.0.0.81:8081/"+answer.type+"/"+data, {
-            axios.get("http://10.0.0.81:8081/"+answer.type+"/"+data, {
+            //axios.get("http://18.190.29.217:8080/"+answer.type+"/"+data, {
+            axios.get("http://18.190.29.217:8080/"+answer.type+"/"+data, {
               headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

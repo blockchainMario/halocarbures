@@ -41,8 +41,8 @@ class BinScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://10.0.0.81:8081/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -74,10 +74,6 @@ class BinScreen extends Component {
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line2}>
-                        <NunitoText style={styles.label}>{t("bin:binId")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.bin.binId}</NunitoBoldText>
-                      </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:binType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.bin.binType}</NunitoBoldText>
@@ -91,13 +87,12 @@ class BinScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.bin.creationDate}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("bin:quantity")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.bin.quantity}</NunitoBoldText>
-                        <NunitoText style={styles.label}> {t("measure:kg")}</NunitoText>
-                      </View>
-                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:fullDate")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.bin.fullDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("bin:quantity")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.bin.quantity}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:disposalDate")} : </NunitoText>
@@ -114,6 +109,10 @@ class BinScreen extends Component {
                       <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("bin:provider")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.bin.provider}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line2}>
+                        <NunitoText style={styles.label}>{t("bin:binId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.bin.binId}</NunitoBoldText>
                       </View>
                   </View>
               </View>

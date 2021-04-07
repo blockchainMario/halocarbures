@@ -45,8 +45,8 @@ class TankFullScreen extends Component {
   }
 
   savetankfull = (navigation) => {
-    //alert("http://10.0.0.81:8081/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty);
-    axios.get("http://10.0.0.81:8081/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty
+    //alert("http://18.190.29.217:8080/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty);
+    axios.get("http://18.190.29.217:8080/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty
     , {
       headers: {
         'Accept': 'application/json',
