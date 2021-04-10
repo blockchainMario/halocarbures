@@ -20,5 +20,6 @@ export default {
     UUID : '',
     TYPE : '',
     TABLE : '',
-    TABLENAME : ''
+    TABLENAME : '',
+    BRANDMODEL : ''
 }

@@ -27,6 +27,7 @@ import BinFullScreen from './screens/BinFullScreen';
 import BinDisposalScreen from './screens/BinDisposalScreen';
 import ListContentScreen from './screens/ListContentScreen';
 import BrandModelsScreen from './screens/BrandModelsScreen';
+import BrandModelScreen from './screens/BrandModelScreen';
 import NewBrandModelScreen from './screens/NewBrandModelScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -547,6 +548,25 @@ const MyStack = ({navigation}) => {
       }}
     />
     <Stack.Screen name='BrandModels' component={BrandModelsScreen}
+      options={{
+        title: GLOBALS.T("settings:brandModel"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='BrandModel' component={BrandModelScreen}
       options={{
         title: GLOBALS.T("settings:brandModel"),
         headerStyle: {

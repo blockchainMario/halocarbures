@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import React, { Component } from 'react';
-import { Button, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Card, Divider, ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,7 +18,8 @@ const Stack = createStackNavigator()
 
 class ListContentScreen extends Component {
   state = {
-    listContent: []
+    listContent: [],
+    newItem : "",
   }
 
   componentDidMount() {
@@ -41,6 +42,29 @@ class ListContentScreen extends Component {
       })
       .catch((error) => {
         alert("Erreur de connexion Lists : "+error)
+      })
+  }
+
+  saveitem = (navigation) => {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TABLE+"/"+this.state.newItem);
+    axios.get("http://18.190.29.217:8080/newitem/"+GLOBALS.TABLE+"/"+this.state.newItem
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const aList = res.data.listContent.sort();
+        var listContent = [];
+        aList.forEach(function(entry) {
+            listContent.push({title: entry, icon: "", screen: "EditContent"})
+        });
+        //alert(JSON.stringify(providerTable));
+        this.setState({listContent: listContent});
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Add New Item : "+error)
       })
   }
 
@@ -71,6 +95,29 @@ class ListContentScreen extends Component {
         }
         </View>
 
+        <View>
+          <NunitoBoldText style={styles.label}>{t("settings:newitem")}</NunitoBoldText>
+          <TextInput style={styles.field}
+            placeholder={t("settings:newitem")}
+            placeholderTextColor = "#3e444c"
+            underlineColorAndroid='transparent'
+            onChangeText={(newItem) => this.setState({newItem})}
+          />
+        </View>
+
+        <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => this.saveitem(navigation)}
+                    >
+          <NunitoBoldText style={styles.textStyle}>{t("settings:additem")}</NunitoBoldText>
+        </TouchableOpacity>
+
       </ScrollView>
     </View>
   );
@@ -82,6 +129,25 @@ ListContentScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  textStyle: {
+    textAlign: "center",
+    padding: 5,
+    fontSize: 20,
+    color: "white"
+  },
+  label:{
+    fontSize:16,
+    color: "#3e444c",
+    marginTop:10,
+    marginLeft:10
+  },
+  field:{
+    margin: 10,
+    height: 40,
+    padding: 10,
+    borderColor: '#3e444c',
+    borderWidth: 1
+  },
   container: {
     flex: 1,
     backgroundColor: '#e9e9e9',

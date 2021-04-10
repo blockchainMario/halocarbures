@@ -3,6 +3,7 @@ import {
   AsyncStorage,
   StyleSheet,
   Text,
+  TextInput,
   View,
   ScrollView,
   Image,
@@ -24,125 +25,478 @@ import { withTranslation } from 'react-i18next';
 import * as english from "../translations/en";
 import * as french from "../translations/fr";
 
-class NewBrandModelScreen extends Component {
+import DropDownPicker from 'react-native-dropdown-picker';
+import { Platform } from 'react-native';
+
+class BrandModelScreen extends Component {
   state = {
-    comments: null
+    brandModel: null,
+    brand: "",
+    model: "",
+    unitType: "",
+    fromYear: "",
+    toYear: "",
+    haloType: "",
+    quantity: "0",
+    weight: "0",
+    alum1: "0",
+    alum2: "0",
+    alum3: "0",
+    brass: "0",
+    card: "0",
+    comp: "0",
+    copper2: "0",
+    copper3: "0",
+    wire2: "0",
+    wire3: "0",
+    oils: "0",
+    plas1: "0",
+    plas2: "0",
+    waste: "0",
+    solids: "0",
+    thermo: "0",
+    ss304: "0",
+    unitTypeTable: [],
+    yearTable: [],
+    haloTypeTable: [],
+  }
+
+  componentDidMount() {
+
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/unitTypeTable", {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const aList = res.data.listContent.sort();
+        var unitTypeTable = [];
+        aList.forEach(function(entry) {
+          unitTypeTable.push({label: entry, value: entry})
+        });
+        //alert(JSON.stringify(unitTypeTable));
+        this.setState({unitTypeTable: unitTypeTable});
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Lists : "+error)
+      })
+
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/list/yearTable", {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const aList = res.data.listContent.sort().reverse();
+          var yearTable = [];
+          aList.forEach(function(entry) {
+            yearTable.push({label: entry, value: entry})
+          });
+          //alert(JSON.stringify(yearTable));
+          this.setState({yearTable: yearTable});
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Lists : "+error)
+        })
+
+        //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get("http://18.190.29.217:8080/list/haloTypeTable", {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+            }
+          })
+            .then(res => {
+              const aList = res.data.listContent.sort();
+              var haloTypeTable = [];
+              aList.forEach(function(entry) {
+                haloTypeTable.push({label: entry, value: entry})
+              });
+              //alert(JSON.stringify(haloTypeTable));
+              this.setState({haloTypeTable: haloTypeTable});
+            })
+            .catch((error) => {
+              alert("Erreur de connexion Lists : "+error)
+            })
+  }
+
+  savebrandmodel = (navigation) => {
+    //alert("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model);
+    axios.get("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model
+    +"/"+this.state.unitType+"/"+this.state.fromYear+"/"+this.state.toYear
+    +"/"+this.state.haloType+"/"+this.state.quantity+"/"+this.state.weight
+    +"/"+this.state.alum1+"/"+this.state.alum2+"/"+this.state.alum3
+    +"/"+this.state.brass+"/"+this.state.card+"/"+this.state.comp
+    +"/"+this.state.copper2+"/"+this.state.copper3+"/"+this.state.wire2+"/"+this.state.wire3
+    +"/"+this.state.oils+"/"+this.state.plas1+"/"+this.state.plas2
+    +"/"+this.state.waste+"/"+this.state.solids+"/"+this.state.thermo+"/"+this.state.ss304
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const brandModel = res.data;
+        //alert(JSON.stringify(brandModel));
+        navigation.navigate('MoreOptions');
+      })
+      .catch((error) => {
+        alert("Erreur de connexion New BrandModel : "+error)
+      })
   }
 
   render() {
     const { t } = this.props;
+    const navigation = this.props.navigation;
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
             <Image style={styles.avatar}
-              source={require('../assets/images/DPA140B8BDB.jpg')}
+              source={require('../assets/images/newUnit.png')}
             />
               <View style={styles.body}>
                   <View style={styles.bodyContent}>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:company")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"Danby"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:model")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"DPA140B8BDB"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:years")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"1998"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:years")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"2014"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:unitType")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"Cellier réfrigérant"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:haloType")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"R134a"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:quantity")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0,145"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:weight")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{""}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Aluminium cuivre"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Aluminium domestique"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Aluminium mixte"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Brasse jaune"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Carte électronique"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Compresseurs"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Cuivre #2"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Cuivre #3"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Fils gainés #2"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Fils gainés #3"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Huiles"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Plastique de couleur"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Plastique noir"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Rebuts"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Solides huileux"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"Thermomètres"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"s-s 304"} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{"0.123"}</NunitoBoldText>
-                      </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:brand")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          placeholder={t("unittype:brand")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(brand) => this.setState({brand})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:model")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          placeholder={t("unittype:model")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(model) => this.setState({model})}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 70 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:unitType")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={this.state.unitTypeTable}
+                        defaultValue={this.state.unitType}
+                        placeholder={t("unit:unitType")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          unitType: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unittype:fromyear")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={this.state.yearTable}
+                        defaultValue={this.state.fromYear}
+                        placeholder={t("unittype:fromyear")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          fromYear: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 50 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unittype:toyear")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={this.state.yearTable}
+                        defaultValue={this.state.toYear}
+                        placeholder={t("unittype:toyear")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          toYear: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 40 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:haloType")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={this.state.haloTypeTable}
+                        defaultValue={this.state.haloType}
+                        placeholder={t("unit:haloType")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          haloType: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:quantity")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:quantity")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(quantity) => this.setState({quantity})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:weight")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:weight")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(weight) => this.setState({weight})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:alum1")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:alum1")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(alum1) => this.setState({alum1})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:alum2")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:alum2")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(alum2) => this.setState({alum2})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:alum3")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:alum3")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(alum3) => this.setState({alum3})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:brass")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:brass")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(brass) => this.setState({brass})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:card")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:card")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(card) => this.setState({card})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:comp")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:comp")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(comp) => this.setState({comp})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:copper2")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:copper2")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(copper2) => this.setState({copper2})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:copper3")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:copper3")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(copper3) => this.setState({copper3})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:wire2")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:wire2")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(wire2) => this.setState({wire2})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:wire3")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:wire3")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(wire3) => this.setState({wire3})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:oils")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:oils")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(oils) => this.setState({oils})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:plas1")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:plas1")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(plas1) => this.setState({plas1})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:plas2")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:plas2")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(plas2) => this.setState({plas2})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:waste")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:waste")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(waste) => this.setState({waste})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:solids")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:solids")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(solids) => this.setState({solids})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:thermo")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:thermo")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(thermo) => this.setState({thermo})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("unittype:ss304")}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          placeholder={t("unittype:ss304")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(ss304) => this.setState({ss304})}
+                      />
+                    </View>
+
+                  {this.state.weight.length > 0 && <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => this.savebrandmodel(navigation)}
+                    >
+                        <NunitoBoldText style={styles.textStyle}>{t("unittype:savemodel")}</NunitoBoldText>
+                  </TouchableOpacity>}
+
+                    </View>
                 </View>
               </View>
-          </View>
        </ScrollView>
       </View>
     );
@@ -150,6 +504,12 @@ class NewBrandModelScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    textStyle: {
+      textAlign: "center",
+      padding: 5,
+      fontSize: 20,
+      color: "white"
+    },
   container: {
     flex: 1,
     backgroundColor: '#e9e9e9',
@@ -168,8 +528,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     flex: 1,
-    width: 200,
-    height: 280,
+    width: 140,
+    height: 140,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -178,7 +538,7 @@ const styles = StyleSheet.create({
     marginTop:0
   },
   body:{
-    marginTop: 270,
+    marginTop: 140,
   },
   bodyContent: {
     padding:10,
@@ -200,6 +560,19 @@ const styles = StyleSheet.create({
     color: "#3e444c",
     marginTop:10
   },
+  label2:{
+    fontSize:14,
+    color: "black",
+    marginTop:5,
+    marginLeft:15
+  },
+  field:{
+    margin: 10,
+    height: 40,
+    padding: 10,
+    borderColor: '#3e444c',
+    borderWidth: 1
+  },
   info:{
     fontSize:16,
     color: "black",
@@ -219,4 +592,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(NewBrandModelScreen);
+export default withTranslation()(BrandModelScreen);

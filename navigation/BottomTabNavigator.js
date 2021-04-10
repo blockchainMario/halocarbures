@@ -8,7 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import AgendaScreen from '../screens/AgendaScreen';
 //import LoginScreen from '../screens/LoginScreen';
 import UnitScreen from '../screens/UnitScreen';
-import NewBrandModelScreen from '../screens/NewBrandModelScreen';
+import BrandModelScreen from '../screens/BrandModelScreen';
 import ScanScreen from '../screens/ScanScreen';
 import OverviewScreen from '../screens/OverviewScreen';
 import MoreOptionsScreen from '../screens/MoreOptionsScreen';

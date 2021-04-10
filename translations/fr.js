@@ -101,14 +101,34 @@ export const bin = {
 
 export const unittype = {
 	title: "Types d'unités",
-	company: "Compagnie",
+	brand: "Marque",
 	model: "Modèle",
 	years: "Période",
+	fromyear: "De l'année",
+	toyear: "À l'année",
 	serial: "Numéro de série",
 	unitType: "Type d'unité",
 	haloType: "Halocarbure",
 	quantity: "Quantité (kg)",
 	weight: "Poids (kg)",
+	alum1: "Aluminium cuivre (kg)",
+	alum2: "Aluminium domestique (kg)",
+	alum3: "Aluminium mixte (kg)",
+	brass: "Brasse jaune (kg)",
+	card: "Carte électronique (kg)",
+	comp: "Compresseurs (kg)",
+	copper2: "Cuivre #2 (kg)",
+	copper3: "Cuivre #3 (kg)",
+	wire2: "Fils gainés #2 (kg)",
+	wire3: "Fils gainés #3 (kg)",
+	oils: "Huiles (kg)",
+	plas1: "Plastique de couleur (kg)",
+	plas2: "Plastique noir (kg)",
+	waste: "Rebuts (kg)",
+	solids: "Solides huileux (kg)",
+	thermo: "Thermomètres (kg)",
+	ss304: "s-s 304 (kg)",
+	savemodel: "Sauvegarder le modèle",
 }
 
 export const measure = {
@@ -145,6 +165,9 @@ export const settings = {
 	section3: "MESURES",
 	scale: "Balances",
 	listcontent: "Table",
+	newitem: "Nouvel item",
+	additem: "Ajouter l'item ci-dessus",
+	addbrandmodel: "Ajouter un nouveau modèle",
 }
 
 export const process = {
@@ -169,4 +192,6 @@ export const process = {
 	viewbin: "Voir la description",
 	binfull: "Marquer comme plein",
 	bindisposal: "Disposer de ces matières",
+
+	savemodel: "Sauvegarder le type d'unité",
 }

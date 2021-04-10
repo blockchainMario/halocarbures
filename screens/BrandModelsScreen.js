@@ -54,7 +54,20 @@ class BrandModelsScreen extends Component {
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <NunitoText style={styles.subSection}>{t("unit:brandModel").toUpperCase()}</NunitoText>
+        <NunitoText style={styles.subSection}>{t("settings:brandModel").toUpperCase()}</NunitoText>
+
+        <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => navigation.navigate('NewBrandModel')}
+                    >
+          <NunitoBoldText style={styles.textStyle}>{t("settings:addbrandmodel")}</NunitoBoldText>
+        </TouchableOpacity>
 
         <View>
         {
@@ -66,6 +79,7 @@ class BrandModelsScreen extends Component {
                 bottomDivider
                 chevron
                 onPress={() => alert(item.title)}
+                onPress={() => {GLOBALS.BRANDMODEL = item.title; navigation.navigate('BrandModel')}}
             />
             ))
         }
@@ -82,6 +96,12 @@ BrandModelsScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  textStyle: {
+    textAlign: "center",
+    padding: 5,
+    fontSize: 20,
+    color: "white"
+  },
   container: {
     flex: 1,
     backgroundColor: '#e9e9e9',

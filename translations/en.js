@@ -101,14 +101,34 @@ export const bin = {
 
 export const unittype = {
 	title: "Unit Types",
-	company: "Company",
+	brand: "Brand",
 	model: "Model",
 	years: "Period",
+	fromyear: "From Year",
+	toyear: "To Year",
 	serial: "Serial Number",
 	unitType: "Unit Type",
 	haloType: "Halocarbon",
 	quantity: "Quantity (kg)",
 	weight: "Weight (kg)",
+	alum1: "Aluminium Copper (kg)",
+	alum2: "Aluminium Domestic (kg)",
+	alum3: "Aluminium Mix (kg)",
+	brass: "Yellow Brass (kg)",
+	card: "Electronic Card (kg)",
+	comp: "Compressors (kg)",
+	copper2: "Copper #2 (kg)",
+	copper3: "Copper #3 (kg)",
+	wire2: "Wire #2 (kg)",
+	wire3: "Wire #3 (kg)",
+	oils: "Oils (kg)",
+	plas1: "Colored Plastic (kg)",
+	plas2: "Black Plastic (kg)",
+	waste: "Waste (kg)",
+	solids: "Oily Solids (kg)",
+	thermo: "Thermometers (kg)",
+	ss304: "s-s 304 (kg)",
+	savemodel: "Save the Model",
 }
 
 export const measure = {
@@ -145,6 +165,9 @@ export const settings = {
 	section3: "MESURES",
 	scale: "Weight Scales",
 	listcontent: "Table Content",
+	newitem: "New Item",
+	additem: "Add the item above",
+	addbrandmodel: "Add a New Model",
 }
 
 export const process = {
@@ -169,4 +192,6 @@ export const process = {
 	savebin: "Save the Bin",
 	binfull: "Mark as Full",
 	bindisposal: "Dispose of this Bin",
+
+	savemodel: "Save the Unit Type",
 }
