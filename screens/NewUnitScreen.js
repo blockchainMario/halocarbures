@@ -35,10 +35,13 @@ class NewUnitScreen extends Component {
     unit: null,
     unitType: "",
     brandModel: "",
+    brand: "",
+    model: "",
     serialNumber: "",
-    weight: "",
     year: "",
     haloType: "",
+    haloQty: "",
+    weight: "",
     provenance: "",
     receptionDate: "",
     transporter: "",
@@ -96,43 +99,6 @@ class NewUnitScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-      //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-      axios.get("http://18.190.29.217:8080/list/unitTypeTable", {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const aList = res.data.listContent.sort();
-          var unitTypeTable = [];
-          aList.forEach(function(entry) {
-            unitTypeTable.push({label: entry, value: entry})
-          });
-          //alert(JSON.stringify(unitTypeTable));
-          this.setState({unitTypeTable: unitTypeTable});
-        })
-        .catch((error) => {
-          alert("Erreur de connexion Lists : "+error)
-        })
-/*
-    this.setState({brandModelTable: [
-      {label: 'Arctic King AP10SEWBA1RCM', value: 'Arctic King AP10SEWBA1RCM'},
-      {label: 'Arctic King MWDUL10CRN1BCJ4', value: 'Arctic King MWDUL10CRN1BCJ4'},
-      {label: 'Arctic King MWHUK10CRN8BCL0', value: 'Arctic King MWHUK10CRN8BCL0'},
-      {label: 'Arctic King MWHUK12CRN8BCL0', value: 'Arctic King MWHUK12CRN8BCL0'},
-      {label: 'Danby DPA120B8WDB', value: 'Danby DPA120B8WDB'},
-      {label: 'Danby DPA140B8BDB', value: 'Danby DPA140B8BDB'},
-      {label: 'Danby DPTA090HEB1WDB', value: 'Danby DPTA090HEB1WDB'},
-      {label: 'Danby DPTA120HEB1WDB', value: 'Danby DPTA120HEB1WDB'},
-      {label: 'Danby DPTA150HEB1WDB', value: 'Danby DPTA150HEB1WDB'},
-      {label: 'Koolatron WC12', value: 'Koolatron WC12'},
-      {label: 'Koolatron WC12-35D', value: 'Koolatron WC12-35D'},
-      {label: 'Koolatron WC24', value: 'Koolatron WC24'},
-      {label: 'Koolatron WC18', value: 'Koolatron WC18'},
-    ]});
-*/
-
     //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
     axios.get("http://18.190.29.217:8080/brandModels", {
         headers: {
@@ -172,36 +138,12 @@ class NewUnitScreen extends Component {
         .catch((error) => {
           alert("Erreur de connexion Lists : "+error)
         })
-
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/haloTypeTable", {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const aList = res.data.listContent.sort();
-          var haloTypeTable = [];
-          aList.forEach(function(entry) {
-            haloTypeTable.push({label: entry, value: entry})
-          });
-          //alert(JSON.stringify(haloTypeTable));
-          this.setState({haloTypeTable: haloTypeTable});
-        })
-        .catch((error) => {
-          alert("Erreur de connexion Lists : "+error)
-        })
   }
 
   saveunit = (navigation) => {
-    //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
-    //+"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.haloType+"/"+this.state.haloQty
-    //+"/"+this.state.serialNumber+"/"+this.state.weight
-    //+"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee);
-    axios.get("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate+"/"+this.state.unitType
-    +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.haloType+"/"+this.state.haloQty
-    +"/"+this.state.serialNumber+"/"+this.state.weight
+    //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate);
+    axios.get("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
+    +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
     +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee
     , {
       headers: {
@@ -222,6 +164,31 @@ class NewUnitScreen extends Component {
   render() {
     const { t } = this.props;
     const navigation = this.props.navigation;
+
+    const getbrandmodel = (selection) => {
+      this.setState({ brandModel: selection });
+      //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+      axios.get("http://18.190.29.217:8080/brandModel/"+selection, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
+      })
+        .then(res => {
+          const selBrandModel = res.data;
+          //alert(JSON.stringify(selBrandModel));
+          this.setState({ brand: selBrandModel.brand });
+          this.setState({ model: selBrandModel.model });
+          this.setState({ unitType: selBrandModel.unitType });
+          this.setState({ haloType: selBrandModel.haloType });
+          this.setState({ haloQty: selBrandModel.quantity });
+          this.setState({ weight: selBrandModel.weight });
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Unit : "+error)
+        })
+  
+    }
 
     return (
       <View style={styles.container}>
@@ -281,28 +248,6 @@ class NewUnitScreen extends Component {
                       />
                     </View>
 
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 70 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:unitType")}</NunitoBoldText>
-                      <DropDownPicker
-                        items={this.state.unitTypeTable}
-                        defaultValue={this.state.tankType}
-                        placeholder={t("unit:unitType")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          unitType: item.value
-                        })}
-                      />
-                    </View>
-
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:brandModel")}</NunitoBoldText>
                       <DropDownPicker
@@ -324,11 +269,36 @@ class NewUnitScreen extends Component {
                           justifyContent: 'flex-start', marginLeft:0
                         }}
                         dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          brandModel: item.value
-                        })}
+                        onChangeItem={item => getbrandmodel(item.value)}
                       />
                     </View>
+
+                    {this.state.brandModel.length > 0 && <View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unittype:brand")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.brand}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unittype:model")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.model}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unittype:unitType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unitType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unittype:haloType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.haloType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unittype:quantity")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.haloQty}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unittype:weight")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.weight}</NunitoBoldText>
+                      </View>
+                    </View>}
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 50 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:year")}</NunitoBoldText>
@@ -352,38 +322,6 @@ class NewUnitScreen extends Component {
                       />
                     </View>
 
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 40 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:haloType")}</NunitoBoldText>
-                      <DropDownPicker
-                        items={this.state.haloTypeTable}
-                        defaultValue={this.state.haloType}
-                        placeholder={t("unit:haloType")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          haloType: item.value
-                        })}
-                      />
-                    </View>
-
-                    <View>
-                      <NunitoBoldText style={styles.label}>{t("unit:haloQty")}</NunitoBoldText>
-                      <TextInput style={styles.field}
-                          placeholder={t("unit:haloQty")}
-                          placeholderTextColor = "#3e444c"
-                          underlineColorAndroid='transparent'
-                          onChangeText={(haloQty) => this.setState({haloQty})}
-                      />
-                    </View>
-
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unit:serialNumber")}</NunitoBoldText>
                       <TextInput style={styles.field}
@@ -393,22 +331,13 @@ class NewUnitScreen extends Component {
                           onChangeText={(serialNumber) => this.setState({serialNumber})}
                       />
                     </View>
-                    <View>
-                      <NunitoBoldText style={styles.label}>{t("unit:weight")}</NunitoBoldText>
-                      <TextInput style={styles.field}
-                          placeholder={t("unit:weight")}
-                          placeholderTextColor = "#3e444c"
-                          underlineColorAndroid='transparent'
-                          onChangeText={(weight) => this.setState({weight})}
-                      />
-                    </View>
 
                     <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.receptionEmployee}</NunitoBoldText>
                     </View>
 
-                  {this.state.weight.length > 0 && <TouchableOpacity
+                  {this.state.serialNumber.length > 0 && <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
