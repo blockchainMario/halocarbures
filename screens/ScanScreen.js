@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { Card, Divider } from 'react-native-elements';
 import { useScrollToTop, useTheme } from '@react-navigation/native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -49,7 +50,7 @@ class ScanScreen extends Component {
 
       //alert("Need to login!");
       const navigation = this.props.navigation;
-      navigation.navigate('Login');
+      navigation.dispatch(StackActions.replace('Login'));
         
     }
   }

@@ -25,19 +25,39 @@ import { withTranslation } from 'react-i18next';
 class LoginScreen extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    profile: null,
   }
 
   onClickListener = (navigation) => {
-    //alert("Button pressed "+this.state.email);
-    //await axios.get('http://18.190.29.217:8080/login')
-    if (this.state.email.length < 3) {
-      Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("login:emailerror"));
-    } else if (this.state.password.length < 8) {
-      Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("login:passerror"));
-    } else {
-      GLOBALS.USERNAME = this.state.email.toLowerCase();
-      navigation.dispatch(StackActions.replace('Root'));
+    
+        //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get("http://18.190.29.217:8080/profile/"+this.state.email.toLowerCase(), {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+          }
+        })
+          .then(res => {
+            const profile = res.data;
+            this.setState({ profile: profile });
+            //alert(JSON.stringify(profile));
+            if (this.state.profile.userName == "unknown") {
+              alert(GLOBALS.T("login:unknown"));
+            } else {
+              if (this.state.profile.password == this.state.password) {
+              GLOBALS.USERNAME = this.state.profile.userName;
+              GLOBALS.FULLNAME = this.state.profile.firstName+" "+this.state.profile.lastName;
+              navigation.navigate('Root');
+              } else {
+                alert(GLOBALS.T("login:unknown"));
+              }
+            }
+          })
+          .catch((error) => {
+            alert("Erreur de connexion Profile : "+error)
+          })
+/*
       const setData = async () => {
         try {
               await AsyncStorage.setItem('@username', this.state.email.toLowerCase());
@@ -48,8 +68,9 @@ class LoginScreen extends Component {
               alert('CANNOT WRITE ASYNC')
         }
       }
+      */
     }
-  }
+  
 
   render() {
     const navigation = this.props.navigation;

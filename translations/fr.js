@@ -12,6 +12,7 @@ export const login = {
 	access: "Accéder",
 	emailerror: "Entrez une adresse courriel valide",
 	passerror: "Entrez un mot de passe valide",
+	unknown: "Usager ou mot de passe inconnu",
 }
 
 export const register = {

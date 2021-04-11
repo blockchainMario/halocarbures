@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -7,32 +8,69 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
+//import { AsyncStorage } from '@react-native-community/async-storage';
 
+import axios from 'axios';
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
+import { LinearGradient } from 'expo-linear-gradient';
 
-import GLOBALS from '../constants/Globals'
+import GLOBALS from '../constants/Globals';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { withTranslation } from 'react-i18next';
+import * as english from "../translations/en";
+import * as french from "../translations/fr";
 
 export default class ProfileScreen extends Component {
+  state = {
+    profile: null,
+  }
+
+  componentDidMount() {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/profile/"+GLOBALS.USERNAME, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const profile = res.data;
+        this.setState({ profile: profile });
+        //alert(JSON.stringify(profile));
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Profile : "+error)
+      })
+  }
 
   render() {
+    const { t } = this.props;
     return (
+      (this.state.profile == null) ? (
+        <View style={styles.container}>
+          <NunitoText style={styles.info}>Loading...</NunitoText>
+        </View>
+      ) : (
         <View style={styles.container}>
           <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
             <View style={styles.container}>
                 <Image style={styles.avatar} source={require('../assets/images/avatar.jpg')}/>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
-                        <NunitoText style={styles.name}>{"Joel Tremblay"}</NunitoText>
-                        <NunitoText style={styles.info}>{"joeltremblay@coderr.ca"}</NunitoText>
-                        <NunitoText style={styles.description}>Jack of all trade</NunitoText>
-                        <NunitoText style={styles.description}>de1a8a4e-ab8b-4ebc-937b-455bbb8ea50e</NunitoText>
+                        <NunitoText style={styles.name}>{this.state.profile.firstName+" "+this.state.profile.lastName}</NunitoText>
+                        <NunitoText style={styles.info}>{this.state.profile.userName}</NunitoText>
+                        <NunitoText style={styles.description}>{this.state.profile.jobName}</NunitoText>
+                        <NunitoText style={styles.description}>{this.state.profile.userId}</NunitoText>
                     </View>
                 </View>
             </View>
          </ScrollView>
         </View>
+      )
     );
   }
 }
