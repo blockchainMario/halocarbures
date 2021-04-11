@@ -71,7 +71,7 @@ function switchLanguage(navigation,screen,lang) {
 function renderFullname(aComp) {
   //alert("renderFullname "+GLOBALS.USERNAME);
   //return GLOBALS.FULLNAME;
-  return "Joel Tremblay";
+  return GLOBALS.FULLNAME;
 }
 
 function DrawerContent({navigation}) {

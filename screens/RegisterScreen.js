@@ -12,15 +12,23 @@ import {
   Alert
 } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import axios from 'axios';
 
 import { NunitoExtraText } from '../components/StyledText';
 import { NunitoText } from '../components/StyledText';
 import { NunitoBoldText } from '../components/StyledText';
 
-export default class RegisterScreen extends Component {
+import GLOBALS from '../constants/Globals';
+import { withTranslation } from 'react-i18next';
+
+class RegisterScreen extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    firstName: "",
+    lastName: "",
+    jobName: "",
   }
 
   onClickListener = (navigation, viewId) => {
@@ -29,7 +37,12 @@ export default class RegisterScreen extends Component {
       try {
             await AsyncStorage.setItem('@username', this.state.email.toLowerCase());
             await AsyncStorage.setItem('@password', this.state.password);
-            alert('SUCCESSFULLY WRITTEN');
+            GLOBALS.USERNAME = this.state.email.toLowerCase();
+            GLOBALS.FULLNAME = this.state.firstName+" "+this.state.lastName;
+            //alert(this.state.email+"/"+this.state.password
+            //+"/"+this.state.firstName+"/"+this.state.lastName+"/"+this.state.jobName);
+            //alert('SUCCESSFULLY WRITTEN');
+            navigation.dispatch(StackActions.replace('Root'));
       } catch(e) {
             // save error
             alert('CANNOT WRITE ASYNC')
@@ -37,25 +50,25 @@ export default class RegisterScreen extends Component {
     }
     //Alert.alert("Alert", "Button pressed "+viewId);
     setData();
-    navigation.dispatch(StackActions.replace('Root'));
+  
   }
 
   render() {
     
     const navigation = this.props.navigation;
+    const { t } = this.props;
 
     return (
       <View style={styles.container}>
       <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
-        <View style={styles.container3}>
-          <Image style={styles.avatar} source={require('../assets/images/logoBlackongray.png')}/>
-          <NunitoText style={styles.title}>proximité</NunitoText>
+        <View  style={styles.container3}>
+          <Image style={styles.avatar} source={require('../assets/images/rivraLogo.png')}/>
         </View>
         <View>
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
-              placeholderTextColor = "#A071B1"
+              placeholderTextColor = "#3e444c"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -66,7 +79,7 @@ export default class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#A071B1"
+              placeholderTextColor = "#3e444c"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -77,10 +90,40 @@ export default class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Confirmation du mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#A071B1"
+              placeholderTextColor = "#3e444c"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
+            />
+        </View>
+
+        <View>
+          <NunitoBoldText style={styles.label}>Prénom</NunitoBoldText>
+          <TextInput style={styles.field}
+              placeholder="Prénom"
+              placeholderTextColor = "#3e444c"
+              underlineColorAndroid='transparent'
+              onChangeText={(firstName) => this.setState({firstName})}
+            />
+        </View>
+
+        <View>
+          <NunitoBoldText style={styles.label}>Nom de famille</NunitoBoldText>
+          <TextInput style={styles.field}
+              placeholder="Nom de famille"
+              placeholderTextColor = "#3e444c"
+              underlineColorAndroid='transparent'
+              onChangeText={(lastName) => this.setState({lastName})}
+            />
+        </View>
+
+        <View>
+          <NunitoBoldText style={styles.label}>Poste de travail</NunitoBoldText>
+          <TextInput style={styles.field}
+              placeholder="Poste de travail"
+              placeholderTextColor = "#3e444c"
+              underlineColorAndroid='transparent'
+              onChangeText={(jobName) => this.setState({jobName})}
             />
         </View>
 
@@ -89,12 +132,11 @@ export default class RegisterScreen extends Component {
                   margin: 10,
                   borderRadius: 10,
                   borderWidth: 0,
-                  backgroundColor: '#A071B1'
+                  backgroundColor: '#57b0e3'
                 }}
-                //onPress={() => this.onClickListener('login')}
                 onPress={() => this.onClickListener(navigation)}
           >
-            <NunitoBoldText style={styles.textStyle}>S'inscrire</NunitoBoldText>
+            <NunitoBoldText style={styles.textStyle}>{t("register:confirm")}</NunitoBoldText>
           </TouchableHighlight>
       </ScrollView>
       </View>
@@ -134,14 +176,14 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     padding: 10,
-    borderColor: '#8B4B9D',
+    borderColor: '#3e444c',
     borderWidth: 1
 	},
   container: {
     flex: 1,
     backgroundColor: '#e9e9e9',
     marginTop: 0,
-    padding: 20,
+    padding: 0,
   },
   container2: {
     flex: 1,
@@ -155,11 +197,12 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 320,
+    height: 196,
     alignSelf:'center',
     marginTop: 30,
     marginBottom: 30,
   },
 });
- 
+
+export default withTranslation()(RegisterScreen);

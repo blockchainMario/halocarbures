@@ -115,6 +115,18 @@ class LoginScreen extends Component {
           >
             <NunitoBoldText style={styles.textStyle}>{t("login:access")}</NunitoBoldText>
           </TouchableHighlight>
+
+        <TouchableHighlight
+                style={{
+                  margin: 10,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#57b0e3'
+                }}
+                onPress={() => navigation.navigate('Register')}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("login:register")}</NunitoBoldText>
+          </TouchableHighlight>
       </ScrollView>
       </View>
     );

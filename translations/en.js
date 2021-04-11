@@ -13,6 +13,7 @@ export const login = {
 	emailerror: "Enter a valid email address",
 	passerror: "Enter a valid password",
 	unknown: "Unknown User or Password",
+	register: "Register a New User",
 }
 
 export const register = {
@@ -20,6 +21,7 @@ export const register = {
 	email: "Email Address",
 	pass: "Password",
 	access: "Access",
+	confirm: "Confirm Registration",
 }
 
 export const menu = {
