@@ -22,8 +22,12 @@ import { NunitoBoldText } from '../components/StyledText';
 import GLOBALS from '../constants/Globals';
 import { withTranslation } from 'react-i18next';
 
+import DropDownPicker from 'react-native-dropdown-picker';
+import { Platform } from 'react-native';
+
 class RegisterScreen extends Component {
   state = {
+    organization: "",
     email: "",
     password: "",
     firstName: "",
@@ -37,12 +41,28 @@ class RegisterScreen extends Component {
       try {
             await AsyncStorage.setItem('@username', this.state.email.toLowerCase());
             await AsyncStorage.setItem('@password', this.state.password);
+            GLOBALS.ORGANIZATION = this.state.organization;
             GLOBALS.USERNAME = this.state.email.toLowerCase();
             GLOBALS.FULLNAME = this.state.firstName+" "+this.state.lastName;
-            //alert(this.state.email+"/"+this.state.password
+            //alert(this.state.organization+"/"+this.state.email+"/"+this.state.password
             //+"/"+this.state.firstName+"/"+this.state.lastName+"/"+this.state.jobName);
             //alert('SUCCESSFULLY WRITTEN');
-            navigation.dispatch(StackActions.replace('Root'));
+            axios.get("http://18.190.29.217:8080/saveprofile/"+this.state.email.toLowerCase()
+            +"/"+this.state.password+"/"+this.state.organization
+            +"/"+this.state.firstName+"/"+this.state.lastName+"/"+this.state.jobName, {
+              headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+              }
+            })
+              .then(res => {
+                const profile = res.data;
+                //alert(JSON.stringify(profile));
+                navigation.dispatch(StackActions.replace('Root'));
+              })
+              .catch((error) => {
+                alert("Erreur de connexion Bin : "+error)
+              })
       } catch(e) {
             // save error
             alert('CANNOT WRITE ASYNC')
@@ -64,6 +84,35 @@ class RegisterScreen extends Component {
         <View  style={styles.container3}>
           <Image style={styles.avatar} source={require('../assets/images/rivraLogo.png')}/>
         </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 90 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("register:organization")}</NunitoBoldText>
+                      <DropDownPicker
+                        items={[
+                          {label: "Défi Polyteck", value: "Polyteck"},
+                          {label: "Groupe Aptas", value: "Aptas"},
+                          {label: "Option Métal Recyclé du Québec", value: "Option"},
+                          {label: "Papiers Soliderr inc", value: "Coderr"},
+                          {label: "Recyclo-Centre", value: "Recyclo"}
+                        ]}
+                        defaultValue={this.state.organization}
+                        placeholder={t("register:organization")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          organization: item.value
+                        })}
+                      />
+                    </View>
+
         <View>
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}

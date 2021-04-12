@@ -18,8 +18,12 @@ export const login = {
 
 export const register = {
 	title: "Inscription",
+	organization: "Organisation",
 	email: "Adresse courriel",
 	pass: "Mot de passe",
+	firstname: "Prénom",
+	lastname: "Nom de famille",
+	jobname: "Poste de travail",
 	access: "Accéder",
 	confirm: "Confirmer l'inscription",
 }

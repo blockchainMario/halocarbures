@@ -45,7 +45,7 @@ class NewUnitScreen extends Component {
     provenance: "",
     receptionDate: "",
     transporter: "",
-    receptionEmployee: "Joel Tremblay",
+    receptionEmployee: GLOBALS.FULLNAME,
     provenanceTable: [],
     transporterTable: [],
     unitTypeTable: [],

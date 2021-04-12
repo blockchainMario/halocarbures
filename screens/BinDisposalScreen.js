@@ -35,7 +35,7 @@ class BinDisposalScreen extends Component {
     unit: null,
     disposalDate: "",
     ticketId: "",
-    disposalEmployee: "Joel Tremblay",
+    disposalEmployee: GLOBALS.FULLNAME,
     provider: "",
     providerTable: [],
   }

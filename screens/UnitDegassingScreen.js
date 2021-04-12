@@ -36,7 +36,7 @@ class UnitDegassingScreen extends Component {
     unit: null,
     haloQty: "",
     degassingDate: "",
-    degassingEmployee: "Joel Tremblay",
+    degassingEmployee: GLOBALS.FULLNAME,
     scanned: false,
     tankId: ""
   }
