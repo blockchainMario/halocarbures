@@ -38,25 +38,12 @@ class ScanScreen extends Component {
     type: "none",
     theObject: null,
     theObjectNotLocked: true,
+    qrcode: "",
   }
 
   componentDidMount() {
-
-  if (GLOBALS.USERNAME) {
-
-      Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("app:welcome"));
-
-    } else {
-
-      //alert("Need to login!");
-      const navigation = this.props.navigation;
-      navigation.dispatch(StackActions.replace('Login'));
-        
-    }
-  }
-  
-  onClickListener({navigation}) {
-    navigation.dispatch(StackActions.replace('Unit'));
+    this.setState({scanned: false});
+    this.setState({type: "none"});
   }
 
   render() {
@@ -64,73 +51,12 @@ class ScanScreen extends Component {
     const navigation = this.props.navigation;
 
     const handleBarCodeScanned = ({ type, data }) => {
+      this.setState({qrcode: data});
       this.setState({scanned: true});
       this.setState({theObjectNotLocked: true});
-      
-      //axios.get("http://18.190.29.217:8080/qrcode/"+data, {
-      axios.get("http://18.190.29.217:8080/qrcode/"+data, {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const answer = res.data;
-          //alert(JSON.stringify(answer));
-          this.setState({type: answer.type});
-          GLOBALS.TYPE = answer.type;
-          GLOBALS.UUID = data;
-          if (answer.type != "unknown") {
-            //axios.get("http://18.190.29.217:8080/"+answer.type+"/"+data, {
-            axios.get("http://18.190.29.217:8080/"+answer.type+"/"+data, {
-              headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-              }
-            })
-              .then(res => {
-                const theObject = res.data;
-                //alert(JSON.stringify(theObject));
-                this.setState({theObject: theObject});
-                if (answer.type == "unit") {
-                  //alert(JSON.stringify(theObject));
-                  if (theObject.dismantlingDate.length > 0) this.setState({theObjectNotLocked: false});
-                }
-                if (answer.type == "tank") {
-                  //alert(JSON.stringify(theObject));
-                  if (theObject.disposalDate.length > 0) this.setState({theObjectNotLocked: false});
-                }
-                if (answer.type == "bin") {
-                  //alert(JSON.stringify(theObject));
-                  if (theObject.disposalDate.length > 0) this.setState({theObjectNotLocked: false});
-                }
-              })
-              .catch((error) => {
-                alert("Erreur de connexion QR Code Object : "+error)
-              })
-          }
-        })
-        .catch((error) => {
-          alert("Erreur de connexion QR Code : "+error)
-        })
-
-/*
+      //alert(data);
       GLOBALS.UUID = data;
-      if (data == "b391f8d2-7878-4281-b377-869151ed3e4a") {
-        this.setState({type: "unit"});
-        GLOBALS.TYPE = "unit";
-      } else if (data == "7f9a293e-561a-4747-b459-034e767a5b36") {
-        this.setState({type: "tank"});
-        GLOBALS.TYPE = "tank";
-      } else if (data == "6eeca4af-1636-4124-bf43-f5c7f041af23") {
-        this.setState({type: "bin"});
-        GLOBALS.TYPE = "bin";
-      } else {
-        this.setState({type: "unknown"});
-        GLOBALS.TYPE = "unknown";
-      }
-      //alert("Bar code with type "+type+" and data "+data+" has been scanned!");
-*/
+      navigation.dispatch(StackActions.replace('Root'));
     };
 
     const reScan = () => {
@@ -146,195 +72,11 @@ class ScanScreen extends Component {
             onBarCodeScanned={this.state.scanned ? undefined : handleBarCodeScanned}
             style={styles.avatar}
           />
-            <View style={styles.body}>
-                <View style={styles.bodyContent}>
-
-        <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: (this.state.scanned ? 1 : 0.4)
-                }}
-                disabled={!this.state.scanned}
-                onPress={reScan}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:scanagain")}</NunitoBoldText>
-          </TouchableOpacity>
-
-          {this.state.type == "unit" && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('Unit')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:viewunit")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "unknown" && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('NewUnit')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:newunit")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "unknown" && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('NewTank')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:newtank")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "unknown" && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('NewBin')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:newbin")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "tank" && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('Tank')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:viewtank")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "unit" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('Degassing')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:degassing")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "unit" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('Storing')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:storing")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "unit" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('Dismantling')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:dismantling")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "tank" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('TankFull')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:tankfull")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "tank" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('TankDisposal')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:tankdisposal")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "bin" && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('Bin')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:viewbin")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "bin" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('BinFull')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:binfull")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-          {this.state.type == "bin" && this.state.theObjectNotLocked && <TouchableOpacity
-                style={{
-                  margin: 5,
-                  borderRadius: 10,
-                  borderWidth: 0,
-                  backgroundColor: '#57b0e3',
-                  opacity: 1
-                }}
-                onPress={() => navigation.navigate('BinDisposal')}
-          >
-            <NunitoBoldText style={styles.textStyle}>{t("process:bindisposal")}</NunitoBoldText>
-          </TouchableOpacity>}
-
-              </View>
-            </View>
         </View>
+          <View style={styles.body}>
+              <NunitoText style={styles.label}>{t("main:qrcode")} : </NunitoText>
+              <NunitoBoldText style={styles.info}>{this.state.qrcode}</NunitoBoldText>
+          </View>
      </ScrollView>
     </View>
     )
@@ -376,7 +118,7 @@ const styles = StyleSheet.create({
     marginTop:10
   },
   body:{
-    marginTop: 230,
+    marginTop: 260,
   },
   bodyContent: {
     padding:10,

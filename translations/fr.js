@@ -145,8 +145,11 @@ export const measure = {
 	liters: "(litres)",
 }
 
-export const scan = {
-	title: "Scanner un code QR",
+export const main = {
+	title: "Courant",
+	scantitle: "Scanner",
+	scan: "Scanner un autre code QR",
+	qrcode: "Code QR",
 }
 
 export const overview = {

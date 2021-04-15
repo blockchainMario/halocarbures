@@ -12,6 +12,7 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import ScanScreen from './screens/ScanScreen';
 import UnitScreen from './screens/UnitScreen';
 import TankScreen from './screens/TankScreen';
 import BinScreen from './screens/BinScreen';
@@ -263,7 +264,7 @@ const MyStack = ({navigation}) => {
       name="Root" 
       component={BottomTabNavigator} 
       options={{
-        title: "Scan",
+        title: "Main",
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,
@@ -279,6 +280,25 @@ const MyStack = ({navigation}) => {
           marginLeft: Platform.OS === 'ios' ? -50 : 50
         },
         headerLeft : () => <ActionBarIcon navigation={navigation}/>
+      }}
+    />
+    <Stack.Screen name='Scan' component={ScanScreen}
+      options={{
+        title: GLOBALS.T("main:scantitle"),
+        headerStyle: {
+          backgroundColor: '#a6ce39',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
       }}
     />
     <Stack.Screen name='Unit' component={UnitScreen}

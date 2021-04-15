@@ -29,7 +29,6 @@ import * as french from "../translations/fr";
 
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
 
 class UnitDegassingScreen extends Component {
   state = {
@@ -101,10 +100,9 @@ class UnitDegassingScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
-          <BarCodeScanner
-            onBarCodeScanned={this.state.scanned ? undefined : handleBarCodeScanned}
-            style={styles.avatar}
-          />
+            <Image style={styles.avatar}
+              source={require('../assets/images/newUnit.png')}
+            />
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
                     <View style={styles.line}>

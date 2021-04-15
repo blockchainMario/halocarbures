@@ -5,26 +5,21 @@ import { StyleSheet } from 'react-native';
 
 import TabBarIcon from '../components/TabBarIcon';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-//import AgendaScreen from '../screens/AgendaScreen';
-//import LoginScreen from '../screens/LoginScreen';
-import UnitScreen from '../screens/UnitScreen';
-import BrandModelScreen from '../screens/BrandModelScreen';
-import ScanScreen from '../screens/ScanScreen';
-import OverviewScreen from '../screens/OverviewScreen';
+
+import MainScreen from '../screens/MainScreen';
+
 import MoreOptionsScreen from '../screens/MoreOptionsScreen';
 import { NunitoBoldText } from '../components/StyledText';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Unit';
+const INITIAL_ROUTE_NAME = 'Main';
 
 function getHeaderTitle(route, t) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Scan':
-      return t("scan:title");
-    case 'BrandModel':
-        return t("unit:brandModel");
+    case 'Main':
+      return t("main:title");
     case 'MoreOptions':
       return t("settings:title");
   }
@@ -39,10 +34,10 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Scan"
-        component={ScanScreen}
+        name="Main"
+        component={MainScreen}
         options={{
-          title: t("scan:title"),
+          title: t("main:title"),
           tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="qrcode-scan" size={24} />,
         }}
       />
