@@ -221,7 +221,7 @@ export const process = {
 }
 
 export const error = {
-	noprovider: "Select a Provider",
-	nanquantity: "Quantity must be a number",
-	nobintype: "Select a Bin Type",
+	missing: "Fields with an asterisk* are mandatory",
+	nan: "Weight must be in kg, ex. 0.153",
+	lessthanfive: "Gas weight must be < 5 kg per Unit",
 }

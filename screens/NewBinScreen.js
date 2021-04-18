@@ -69,7 +69,7 @@ class NewBinScreen extends Component {
     var valid = true;
     if (this.state.binType.length == 0) {
       valid = false;
-      alert(t("error:nobintype"));
+      alert(t("error:missing"));
     }
     if (valid) {
     //alert("http://18.190.29.217:8080/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);

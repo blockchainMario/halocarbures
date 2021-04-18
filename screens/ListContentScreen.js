@@ -98,7 +98,7 @@ class ListContentScreen extends Component {
           <NunitoBoldText style={styles.label}>{t("settings:newitem")}</NunitoBoldText>
           <TextInput style={styles.field}
             placeholder={t("settings:newitem")}
-            placeholderTextColor = "#3e444c"
+            placeholderTextColor = "#57b0e3"
             underlineColorAndroid='transparent'
             onChangeText={(newItem) => this.setState({newItem})}
           />

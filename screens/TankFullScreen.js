@@ -44,8 +44,12 @@ class TankFullScreen extends Component {
     this.setState({fullDate: today});
   }
 
-  savetankfull = (navigation) => {
+  savetankfull = (navigation, t) => {
     var valid = true;
+    if (isNaN(this.state.haloQty)) {
+      valid = false;
+      alert(t("error:nan"));
+    }
     if (valid) {
     //alert("http://18.190.29.217:8080/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty);
     axios.get("http://18.190.29.217:8080/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty
@@ -87,10 +91,10 @@ class TankFullScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("tank:haloQty")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("tank:haloQty")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(haloQty) => this.setState({haloQty})}
                       />
@@ -104,7 +108,7 @@ class TankFullScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savetankfull(navigation)}
+                    onPress={() => this.savetankfull(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:tankfull")}</NunitoBoldText>
                   </TouchableOpacity>}

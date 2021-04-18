@@ -48,7 +48,7 @@ class BinFullScreen extends Component {
     var valid = true;
     if (isNaN(this.state.quantity)) {
       valid = false;
-      alert(t("error:nanquantity"));
+      alert(t("error:nan"));
     }
     if (valid) {
     //alert("http://18.190.29.217:8080/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity);
@@ -91,10 +91,10 @@ class BinFullScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("bin:quantity")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("bin:quantity")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(quantity) => this.setState({quantity})}
                       />

@@ -87,8 +87,12 @@ class NewTankScreen extends Component {
         })
   }
 
-  savetank = (navigation) => {
+  savetank = (navigation, t) => {
     var valid = true;
+    if (this.state.tankType.length == 0 || this.state.haloType.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
     if (valid) {
     //alert("http://18.190.29.217:8080/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
     axios.get("http://18.190.29.217:8080/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
@@ -129,7 +133,7 @@ class NewTankScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 20 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("tank:tankType")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("tank:tankType")+"*"}</NunitoBoldText>
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.tankTypeTable}
@@ -152,7 +156,7 @@ class NewTankScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("tank:haloType")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("tank:haloType")+"*"}</NunitoBoldText>
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.haloTypeTable}
@@ -193,7 +197,7 @@ class NewTankScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savetank(navigation)}
+                    onPress={() => this.savetank(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:savetank")}</NunitoBoldText>
                   </TouchableOpacity>}

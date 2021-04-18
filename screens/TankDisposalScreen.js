@@ -67,8 +67,12 @@ class TankDisposalScreen extends Component {
       })
   }
 
-  savetankdisposal = (navigation) => {
+  savetankdisposal = (navigation, t) => {
     var valid = true;
+    if (this.state.provider.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
     if (valid) {
     //alert("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
     //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
@@ -113,7 +117,7 @@ class TankDisposalScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("tank:ticketId")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("tank:ticketId")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(ticketId) => this.setState({ticketId})}
                       />
@@ -125,7 +129,7 @@ class TankDisposalScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("tank:provider")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("tank:provider")+"*"}</NunitoBoldText>
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.providerTable}
@@ -166,7 +170,7 @@ class TankDisposalScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savetankdisposal(navigation)}
+                    onPress={() => this.savetankdisposal(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:tankdisposal")}</NunitoBoldText>
                   </TouchableOpacity>}

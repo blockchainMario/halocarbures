@@ -72,7 +72,7 @@ class BinDisposalScreen extends Component {
     var valid = true;
     if (this.state.provider.length == 0) {
       valid = false;
-      alert(t("error:noprovider"));
+      alert(t("error:missing"));
     }
     if (valid) {
       //alert("http://18.190.29.217:8080/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
@@ -118,7 +118,7 @@ class BinDisposalScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("bin:ticketId")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("bin:ticketId")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(ticketId) => this.setState({ticketId})}
                       />

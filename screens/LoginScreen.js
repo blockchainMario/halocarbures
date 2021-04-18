@@ -86,7 +86,7 @@ class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>{t("login:email")}</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder={t("login:email")}
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -97,7 +97,7 @@ class LoginScreen extends Component {
           <NunitoBoldText style={styles.label}>{t("login:pass")}</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder={t("login:pass")}
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}

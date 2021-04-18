@@ -121,7 +121,7 @@ class UnitDegassingScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unit:haloQty")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unit:haloQty")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(haloQty) => this.setState({haloQty})}
                       />

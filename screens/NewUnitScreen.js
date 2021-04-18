@@ -140,8 +140,13 @@ class NewUnitScreen extends Component {
         })
   }
 
-  saveunit = (navigation) => {
+  saveunit = (navigation, t) => {
     var valid = true;
+    if (this.state.brandModel.length == 0 || this.state.year.length == 0 || this.state.serialNumber.length == 0
+      || this.state.provenance.length == 0 || this.state.transporter.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
     if (valid) {
     //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate);
     axios.get("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
@@ -210,66 +215,7 @@ class NewUnitScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 90 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:provenance")}</NunitoBoldText>
-                      <DropDownPicker
-                        dropDownMaxHeight={250}
-                        items={this.state.provenanceTable}
-                        defaultValue={this.state.provenance}
-                        placeholder={t("unit:provenance")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          provenance: item.value
-                        })}
-                      />
-                    </View>
-
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 80 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:transporter")}</NunitoBoldText>
-                      <DropDownPicker
-                        dropDownMaxHeight={250}
-                        items={this.state.transporterTable}
-                        defaultValue={this.state.transporter}
-                        placeholder={t("unit:transporter")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          transporter: item.value
-                        })}
-                      />
-                    </View>
-
-                  {this.state.brandModel.length == 0 && <TouchableOpacity
-                    style={{
-                        margin: 10,
-                        borderRadius: 10,
-                        borderWidth: 0,
-                        backgroundColor: '#57b0e3',
-                        opacity: 1
-                    }}
-                    onPress={() => navigation.navigate('NewBrandModel')}
-                    >
-                        <NunitoBoldText style={styles.textStyle}>{t("settings:addbrandmodel")}</NunitoBoldText>
-                  </TouchableOpacity>}
-
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:brandModel")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unit:brandModel")+"*"}</NunitoBoldText>
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.brandModelTable}
@@ -293,6 +239,19 @@ class NewUnitScreen extends Component {
                         onChangeItem={item => getbrandmodel(item.value)}
                       />
                     </View>
+
+                  {this.state.brandModel.length == 0 && <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => navigation.navigate('NewBrandModel')}
+                    >
+                        <NunitoBoldText style={styles.textStyle}>{t("settings:addbrandmodel")}</NunitoBoldText>
+                  </TouchableOpacity>}
 
                     {this.state.brandModel.length > 0 && <View>
                       <View style={styles.line}>
@@ -321,8 +280,8 @@ class NewUnitScreen extends Component {
                       </View>
                     </View>}
 
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 50 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:year")}</NunitoBoldText>
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 80 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:year")+"*"}</NunitoBoldText>
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.yearTable}
@@ -348,9 +307,55 @@ class NewUnitScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unit:serialNumber")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unit:serialNumber")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(serialNumber) => this.setState({serialNumber})}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 70 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:provenance")+"*"}</NunitoBoldText>
+                      <DropDownPicker
+                        dropDownMaxHeight={250}
+                        items={this.state.provenanceTable}
+                        defaultValue={this.state.provenance}
+                        placeholder={t("unit:provenance")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          provenance: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("unit:transporter")+"*"}</NunitoBoldText>
+                      <DropDownPicker
+                        dropDownMaxHeight={250}
+                        items={this.state.transporterTable}
+                        defaultValue={this.state.transporter}
+                        placeholder={t("unit:transporter")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                          transporter: item.value
+                        })}
                       />
                     </View>
 
@@ -358,13 +363,17 @@ class NewUnitScreen extends Component {
                         <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.receptionEmployee}</NunitoBoldText>
                     </View>
+
                     <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
-                  {this.state.serialNumber.length > 0 && <TouchableOpacity
+                  <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -372,10 +381,10 @@ class NewUnitScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.saveunit(navigation)}
+                    onPress={() => this.saveunit(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:saveunit")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
               </View>
             </View>
           </View>

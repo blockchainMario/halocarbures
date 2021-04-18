@@ -117,7 +117,7 @@ class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Courriel</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Adresse courriel"
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               keyboardType="email-address"
               underlineColorAndroid='transparent'
               onChangeText={(email) => this.setState({email})}
@@ -128,7 +128,7 @@ class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -139,7 +139,7 @@ class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Confirmation du mot de passe</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Mot de passe"
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}
@@ -150,7 +150,7 @@ class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Prénom</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Prénom"
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               underlineColorAndroid='transparent'
               onChangeText={(firstName) => this.setState({firstName})}
             />
@@ -160,7 +160,7 @@ class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Nom de famille</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Nom de famille"
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               underlineColorAndroid='transparent'
               onChangeText={(lastName) => this.setState({lastName})}
             />
@@ -170,7 +170,7 @@ class RegisterScreen extends Component {
           <NunitoBoldText style={styles.label}>Poste de travail</NunitoBoldText>
           <TextInput style={styles.field}
               placeholder="Poste de travail"
-              placeholderTextColor = "#3e444c"
+              placeholderTextColor = "#57b0e3"
               underlineColorAndroid='transparent'
               onChangeText={(jobName) => this.setState({jobName})}
             />

@@ -68,8 +68,13 @@ class TransferScreen extends Component {
       })
   }
 
-  savetransfer = (navigation) => {
+  savetransfer = (navigation, t) => {
     var valid = true;
+    if (this.state.provider.length == 0 || this.state.haloType.length == 0 || this.state.haloType.length == 0
+      || this.state.haloType.length == 0 || this.state.haloType.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
     if (valid) {
     //alert("http://18.190.29.217:8080/savetransfer/"+GLOBALS.UUID+"/"+this.state.transferDate);
     axios.get("http://18.190.29.217:8080/savetransfer/"+this.state.transferDate+"/"+this.state.provider
@@ -137,10 +142,9 @@ class TransferScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("transfer:fridge10less")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
                           keyboardType='numeric'
                           placeholder={t("transfer:fridge10less")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(fridge10less) => this.setState({fridge10less})}
                       />
@@ -149,10 +153,9 @@ class TransferScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("transfer:fridge10more")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
                           keyboardType='numeric'
                           placeholder={t("transfer:fridge10more")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(fridge10more) => this.setState({fridge10more})}
                       />
@@ -161,10 +164,9 @@ class TransferScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("transfer:freezer10less")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
                           keyboardType='numeric'
                           placeholder={t("transfer:freezer10less")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(freezer10less) => this.setState({freezer10less})}
                       />
@@ -173,10 +175,9 @@ class TransferScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("transfer:freezer10more")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
                           keyboardType='numeric'
                           placeholder={t("transfer:freezer10more")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(freezer10more) => this.setState({freezer10more})}
                       />
@@ -194,7 +195,7 @@ class TransferScreen extends Component {
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
-                    {this.state.freezer10more.length > 0 && <TouchableOpacity
+                    <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -202,10 +203,10 @@ class TransferScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savetransfer(navigation)}
+                    onPress={() => this.savetransfer(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:savetransfer")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
               </View>
             </View>
           </View>

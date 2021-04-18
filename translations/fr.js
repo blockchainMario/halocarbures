@@ -221,7 +221,7 @@ export const process = {
 }
 
 export const error = {
-	noprovider: "Sélectionnez un fournisseur",
-	nanquantity: "Poids final doit être un nombre",
-	nobintype: "Sélectionnez un type de bac",
+	missing: "Les champs marqués d'une étoile* sont obligatoires",
+	nan: "Les poids doivent être en kg, ex. 0.153",
+	lessthanfive: "Le poids de gaz d'une unité doit être < 5 kg",
 }

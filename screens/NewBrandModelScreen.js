@@ -37,25 +37,25 @@ class BrandModelScreen extends Component {
     fromYear: "1960",
     toYear: "2021",
     haloType: "",
-    quantity: "0",
-    weight: "0",
-    alum1: "0",
-    alum2: "0",
-    alum3: "0",
-    brass: "0",
-    card: "0",
-    comp: "0",
-    copper2: "0",
-    copper3: "0",
-    wire2: "0",
-    wire3: "0",
-    oils: "0",
-    plas1: "0",
-    plas2: "0",
-    waste: "0",
-    solids: "0",
-    thermo: "0",
-    ss304: "0",
+    quantity: "",
+    weight: "",
+    alum1: "",
+    alum2: "",
+    alum3: "",
+    brass: "",
+    card: "",
+    comp: "",
+    copper2: "",
+    copper3: "",
+    wire2: "",
+    wire3: "",
+    oils: "",
+    plas1: "",
+    plas2: "",
+    waste: "",
+    solids: "",
+    thermo: "",
+    ss304: "",
     unitTypeTable: [],
     haloTypeTable: [],
   }
@@ -103,8 +103,22 @@ class BrandModelScreen extends Component {
             })
   }
 
-  savebrandmodel = (navigation) => {
+  savebrandmodel = (navigation, t) => {
     var valid = true;
+    if (this.state.brand.length == 0 || this.state.model.length == 0 || this.state.unitType.length == 0
+      || this.state.haloType.length == 0 || this.state.quantity.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
+    if (isNaN(this.state.quantity)) {
+      valid = false;
+      alert(t("error:nan"));
+    } else {
+      if (eval(this.state.quantity) > 5) {
+        valid = false;
+        alert(t("error:lessthanfive"));
+      }
+    }
     if (valid) {
     //alert("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model);
     axios.get("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model
@@ -150,7 +164,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:brand")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unittype:brand")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(brand) => this.setState({brand})}
                       />
@@ -160,7 +174,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:model")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unittype:model")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(model) => this.setState({model})}
                       />
@@ -215,10 +229,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:quantity")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:quantity")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(quantity) => this.setState({quantity})}
                       />
@@ -227,10 +241,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:weight")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:weight")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(weight) => this.setState({weight})}
                       />
@@ -239,10 +253,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:alum1")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:alum1")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(alum1) => this.setState({alum1})}
                       />
@@ -251,10 +265,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:alum2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:alum2")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(alum2) => this.setState({alum2})}
                       />
@@ -263,10 +277,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:alum3")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:alum3")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(alum3) => this.setState({alum3})}
                       />
@@ -275,10 +289,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:brass")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:brass")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(brass) => this.setState({brass})}
                       />
@@ -287,10 +301,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:card")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:card")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(card) => this.setState({card})}
                       />
@@ -299,10 +313,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:comp")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:comp")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(comp) => this.setState({comp})}
                       />
@@ -311,10 +325,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:copper2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:copper2")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(copper2) => this.setState({copper2})}
                       />
@@ -323,10 +337,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:copper3")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:copper3")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(copper3) => this.setState({copper3})}
                       />
@@ -335,10 +349,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:wire2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:wire2")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(wire2) => this.setState({wire2})}
                       />
@@ -347,10 +361,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:wire3")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:wire3")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(wire3) => this.setState({wire3})}
                       />
@@ -359,10 +373,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:oils")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:oils")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(oils) => this.setState({oils})}
                       />
@@ -371,10 +385,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:plas1")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:plas1")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(plas1) => this.setState({plas1})}
                       />
@@ -383,10 +397,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:plas2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:plas2")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(plas2) => this.setState({plas2})}
                       />
@@ -395,10 +409,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:waste")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:waste")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(waste) => this.setState({waste})}
                       />
@@ -407,10 +421,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:solids")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:solids")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(solids) => this.setState({solids})}
                       />
@@ -419,10 +433,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:thermo")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:thermo")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(thermo) => this.setState({thermo})}
                       />
@@ -431,10 +445,10 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:ss304")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultValue={"0"}
+                          defaultvalue={""}
                           keyboardType='numeric'
                           placeholder={t("unittype:ss304")}
-                          placeholderTextColor = "#3e444c"
+                          placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
                           onChangeText={(ss304) => this.setState({ss304})}
                       />
@@ -448,7 +462,7 @@ class BrandModelScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savebrandmodel(navigation)}
+                    onPress={() => this.savebrandmodel(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("unittype:savemodel")}</NunitoBoldText>
                   </TouchableOpacity>}
