@@ -141,6 +141,8 @@ class NewUnitScreen extends Component {
   }
 
   saveunit = (navigation) => {
+    var valid = true;
+    if (valid) {
     //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate);
     axios.get("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
     +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
@@ -154,11 +156,14 @@ class NewUnitScreen extends Component {
       .then(res => {
         const unit = res.data;
         //alert(JSON.stringify(unit));
-        navigation.navigate('Root');
+        GLOBALS.UUID = "";
+        //navigation.navigate('Root');
+        navigation.dispatch(StackActions.replace('Root'));
       })
       .catch((error) => {
         alert("Erreur de connexion Unit : "+error)
       })
+    }
   }
 
   render() {
@@ -207,6 +212,7 @@ class NewUnitScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 90 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:provenance")}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.provenanceTable}
                         defaultValue={this.state.provenance}
                         placeholder={t("unit:provenance")}
@@ -229,6 +235,7 @@ class NewUnitScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 80 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:transporter")}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.transporterTable}
                         defaultValue={this.state.transporter}
                         placeholder={t("unit:transporter")}
@@ -248,9 +255,23 @@ class NewUnitScreen extends Component {
                       />
                     </View>
 
+                  {this.state.brandModel.length == 0 && <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => navigation.navigate('NewBrandModel')}
+                    >
+                        <NunitoBoldText style={styles.textStyle}>{t("settings:addbrandmodel")}</NunitoBoldText>
+                  </TouchableOpacity>}
+
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:brandModel")}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.brandModelTable}
                         searchable={true}
                         searchablePlaceholder={t("unit:searchbrandmodel")}
@@ -303,6 +324,7 @@ class NewUnitScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 50 }) }}>
                       <NunitoBoldText style={styles.label}>{t("unit:year")}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.yearTable}
                         defaultValue={this.state.year}
                         placeholder={t("unit:year")}
@@ -323,7 +345,7 @@ class NewUnitScreen extends Component {
                     </View>
 
                     <View>
-                      <NunitoBoldText style={styles.label}>{t("unit:serialNumber")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unit:serialNumber")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unit:serialNumber")}
                           placeholderTextColor = "#3e444c"
@@ -335,6 +357,11 @@ class NewUnitScreen extends Component {
                     <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:receptionEmployee")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.receptionEmployee}</NunitoBoldText>
+                    </View>
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
                   {this.state.serialNumber.length > 0 && <TouchableOpacity
@@ -359,6 +386,10 @@ class NewUnitScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

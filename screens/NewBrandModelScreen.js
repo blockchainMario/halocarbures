@@ -34,8 +34,8 @@ class BrandModelScreen extends Component {
     brand: "",
     model: "",
     unitType: "",
-    fromYear: "",
-    toYear: "",
+    fromYear: "1960",
+    toYear: "2021",
     haloType: "",
     quantity: "0",
     weight: "0",
@@ -57,7 +57,6 @@ class BrandModelScreen extends Component {
     thermo: "0",
     ss304: "0",
     unitTypeTable: [],
-    yearTable: [],
     haloTypeTable: [],
   }
 
@@ -83,26 +82,6 @@ class BrandModelScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/yearTable", {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const aList = res.data.listContent.sort().reverse();
-          var yearTable = [];
-          aList.forEach(function(entry) {
-            yearTable.push({label: entry, value: entry})
-          });
-          //alert(JSON.stringify(yearTable));
-          this.setState({yearTable: yearTable});
-        })
-        .catch((error) => {
-          alert("Erreur de connexion Lists : "+error)
-        })
-
         //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
         axios.get("http://18.190.29.217:8080/list/haloTypeTable", {
             headers: {
@@ -125,6 +104,8 @@ class BrandModelScreen extends Component {
   }
 
   savebrandmodel = (navigation) => {
+    var valid = true;
+    if (valid) {
     //alert("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model);
     axios.get("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model
     +"/"+this.state.unitType+"/"+this.state.fromYear+"/"+this.state.toYear
@@ -148,6 +129,7 @@ class BrandModelScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion New BrandModel : "+error)
       })
+    }
   }
 
   render() {
@@ -165,7 +147,7 @@ class BrandModelScreen extends Component {
                   <View style={styles.bodyContent}>
 
                     <View>
-                      <NunitoBoldText style={styles.label}>{t("unittype:brand")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unittype:brand")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unittype:brand")}
                           placeholderTextColor = "#3e444c"
@@ -175,7 +157,7 @@ class BrandModelScreen extends Component {
                     </View>
 
                     <View>
-                      <NunitoBoldText style={styles.label}>{t("unittype:model")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unittype:model")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           placeholder={t("unittype:model")}
                           placeholderTextColor = "#3e444c"
@@ -185,8 +167,9 @@ class BrandModelScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 70 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:unitType")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unit:unitType")+"*"}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.unitTypeTable}
                         defaultValue={this.state.unitType}
                         placeholder={t("unit:unitType")}
@@ -206,53 +189,10 @@ class BrandModelScreen extends Component {
                       />
                     </View>
 
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 60 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unittype:fromyear")}</NunitoBoldText>
-                      <DropDownPicker
-                        items={this.state.yearTable}
-                        defaultValue={this.state.fromYear}
-                        placeholder={t("unittype:fromyear")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          fromYear: item.value
-                        })}
-                      />
-                    </View>
-
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 50 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unittype:toyear")}</NunitoBoldText>
-                      <DropDownPicker
-                        items={this.state.yearTable}
-                        defaultValue={this.state.toYear}
-                        placeholder={t("unittype:toyear")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          toYear: item.value
-                        })}
-                      />
-                    </View>
-
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 40 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("unit:haloType")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unit:haloType")+"*"}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.haloTypeTable}
                         defaultValue={this.state.haloType}
                         placeholder={t("unit:haloType")}
@@ -273,9 +213,10 @@ class BrandModelScreen extends Component {
                     </View>
 
                     <View>
-                      <NunitoBoldText style={styles.label}>{t("unittype:quantity")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("unittype:quantity")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:quantity")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -287,6 +228,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:weight")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:weight")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -298,6 +240,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:alum1")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:alum1")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -309,6 +252,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:alum2")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:alum2")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -320,6 +264,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:alum3")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:alum3")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -331,6 +276,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:brass")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:brass")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -342,6 +288,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:card")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:card")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -353,6 +300,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:comp")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:comp")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -364,6 +312,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:copper2")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:copper2")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -375,6 +324,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:copper3")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:copper3")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -386,6 +336,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:wire2")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:wire2")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -397,6 +348,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:wire3")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:wire3")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -408,6 +360,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:oils")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:oils")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -419,6 +372,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:plas1")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:plas1")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -430,6 +384,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:plas2")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:plas2")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -441,6 +396,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:waste")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:waste")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -452,6 +408,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:solids")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:solids")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -463,6 +420,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:thermo")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:thermo")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -474,6 +432,7 @@ class BrandModelScreen extends Component {
                       <NunitoBoldText style={styles.label}>{t("unittype:ss304")}</NunitoBoldText>
                       <TextInput style={styles.field}
                           defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("unittype:ss304")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'

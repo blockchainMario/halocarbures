@@ -44,6 +44,8 @@ class UnitDismantlingScreen extends Component {
   }
 
   savedismantling = (navigation) => {
+    var valid = true;
+    if (valid) {
     //alert("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
     axios.get("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
     , {
@@ -60,6 +62,7 @@ class UnitDismantlingScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion DismantlingDate : "+error)
       })
+    }
   }
 
   render() {

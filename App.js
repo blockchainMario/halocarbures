@@ -116,6 +116,9 @@ function DrawerContent({navigation}) {
           onPress={() => closeAndReplace(navigation,'Login')}
         />
       </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{"v1.0.4"}</NunitoText>
+                      </View>
     </View>) : 
     (<View style={styles.container2}>
       <View style={{ flexDirection:"row", marginTop: 60 }}>
@@ -152,6 +155,9 @@ function DrawerContent({navigation}) {
           onPress={() => closeAndReplace(navigation,'Login')}
         />
       </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{"v1.0.4"}</NunitoText>
+                      </View>
     </View>)
   );
 }
@@ -693,6 +699,12 @@ const styles = StyleSheet.create({
   container2: {
     flex: 1,
     backgroundColor: '#a6ce39',
+  },
+  line:{
+    fontSize:16,
+    color: "black",
+    marginTop:10,
+    marginLeft:10,
   },
 	topName: {
 		fontSize: 24,

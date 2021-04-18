@@ -45,6 +45,8 @@ class TankFullScreen extends Component {
   }
 
   savetankfull = (navigation) => {
+    var valid = true;
+    if (valid) {
     //alert("http://18.190.29.217:8080/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty);
     axios.get("http://18.190.29.217:8080/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty
     , {
@@ -61,6 +63,7 @@ class TankFullScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion Storing : "+error)
       })
+    }
   }
 
   render() {
@@ -82,8 +85,10 @@ class TankFullScreen extends Component {
                     </View>
 
                     <View>
-                      <NunitoBoldText style={styles.label}>{t("tank:haloQty")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("tank:haloQty")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("tank:haloQty")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'

@@ -89,7 +89,6 @@ class ListContentScreen extends Component {
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => alert(item.title)}
             />
             ))
         }

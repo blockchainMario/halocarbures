@@ -106,6 +106,18 @@ export const bin = {
 	provider: "Fournisseur"
 }
 
+export const transfer = {
+	title: "Transfert d'unités",
+	transferDate: "Date du transfert",
+	provider: "Fournisseur",
+	fridge10less: "Réfrigérateurs 10p3 et MOINS",
+	fridge10more: "Réfrigérateurs 10p3 et PLUS",
+	freezer10less: "Congélateurs 10p3 et MOINS",
+	freezer10more: "Congélateurs 10p3 et PLUS",
+	ticketId: "Numéro de ticket",
+	transferEmployee: "Employé",
+}
+
 export const unittype = {
 	title: "Types d'unités",
 	brand: "Marque",
@@ -204,4 +216,12 @@ export const process = {
 	bindisposal: "Disposer de ces matières",
 
 	savemodel: "Sauvegarder le type d'unité",
+
+	savetransfer: "Sauvegarder le transfert",
+}
+
+export const error = {
+	noprovider: "Sélectionnez un fournisseur",
+	nanquantity: "Poids final doit être un nombre",
+	nobintype: "Sélectionnez un type de bac",
 }

@@ -7,6 +7,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import MainScreen from '../screens/MainScreen';
+import TransferScreen from '../screens/TransferScreen';
 
 import MoreOptionsScreen from '../screens/MoreOptionsScreen';
 import { NunitoBoldText } from '../components/StyledText';
@@ -20,6 +21,8 @@ function getHeaderTitle(route, t) {
   switch (routeName) {
     case 'Main':
       return t("main:title");
+    case 'Transfer':
+      return t("transfer:title");
     case 'MoreOptions':
       return t("settings:title");
   }
@@ -39,6 +42,14 @@ export default function BottomTabNavigator({ navigation, route }) {
         options={{
           title: t("main:title"),
           tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="qrcode-scan" size={24} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Transfer"
+        component={TransferScreen}
+        options={{
+          title: t("transfer:title"),
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="truck" size={24} />,
         }}
       />
       <BottomTab.Screen

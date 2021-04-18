@@ -30,82 +30,65 @@ import * as french from "../translations/fr";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform } from 'react-native';
 
-class NewTankScreen extends Component {
+class TransferScreen extends Component {
   state = {
-    tank: null,
-    creationDate: "",
-    tankType: "",
-    haloType: "",
-    tankTypeTable: [],
-    haloTypeTable: [],
+    transferDate: "",
+    provider: "",
+    fridge10less: "",
+    fridge10more: "",
+    freezer10less: "",
+    freezer10more: "",
+    transferEmployee: GLOBALS.FULLNAME,
   }
 
   componentDidMount() {
     var d = new Date();
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
-    this.setState({creationDate: today});
+    this.setState({transferDate: today});
 
     //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/tankTypeTable", {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const aList = res.data.listContent.sort();
-          var tankTypeTable = [];
-          aList.forEach(function(entry) {
-            tankTypeTable.push({label: entry, value: entry})
-          });
-          //alert(JSON.stringify(tankTypeTable));
-          this.setState({tankTypeTable: tankTypeTable});
-        })
-        .catch((error) => {
-          alert("Erreur de connexion Lists : "+error)
-        })
-
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/haloTypeTable", {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-        }
-      })
-        .then(res => {
-          const aList = res.data.listContent.sort();
-          var haloTypeTable = [];
-          aList.forEach(function(entry) {
-            haloTypeTable.push({label: entry, value: entry})
-          });
-          //alert(JSON.stringify(haloTypeTable));
-          this.setState({haloTypeTable: haloTypeTable});
-        })
-        .catch((error) => {
-          alert("Erreur de connexion Lists : "+error)
-        })
-  }
-
-  savetank = (navigation) => {
-    var valid = true;
-    if (valid) {
-    //alert("http://18.190.29.217:8080/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
-    axios.get("http://18.190.29.217:8080/savetank/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
+    axios.get("http://18.190.29.217:8080/list/providerTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const tank = res.data;
-        //alert(JSON.stringify(tank));
-        GLOBALS.UUID = "";
-        //navigation.navigate('Root');
+        const aList = res.data.listContent.sort();
+        var providerTable = [];
+        aList.forEach(function(entry) {
+          providerTable.push({label: entry, value: entry})
+        });
+        //alert(JSON.stringify(providerTable));
+        this.setState({providerTable: providerTable});
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Lists : "+error)
+      })
+  }
+
+  savetransfer = (navigation) => {
+    var valid = true;
+    if (valid) {
+    //alert("http://18.190.29.217:8080/savetransfer/"+GLOBALS.UUID+"/"+this.state.transferDate);
+    axios.get("http://18.190.29.217:8080/savetransfer/"+this.state.transferDate+"/"+this.state.provider
+    +"/"+this.state.fridge10less+"/"+this.state.fridge10more+"/"+this.state.freezer10less+"/"+this.state.freezer10more
+    +"/"+this.state.transferEmployee
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const unit = res.data;
+        //alert(JSON.stringify(unit));
+        //navigation.navigate('Main');
         navigation.dispatch(StackActions.replace('Root'));
       })
       .catch((error) => {
-        alert("Erreur de connexion Tank : "+error)
+        alert("Erreur de connexion Transfert : "+error)
       })
     }
   }
@@ -113,51 +96,28 @@ class NewTankScreen extends Component {
   render() {
     const { t } = this.props;
     const navigation = this.props.navigation;
-    
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
             <Image style={styles.avatar}
-              source={require('../assets/images/tank.jpg')}
+              source={require('../assets/images/newUnit.png')}
             />
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
                     <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("tank:creationDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.creationDate}</NunitoBoldText>
-                    </View>
-
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 20 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("tank:tankType")}</NunitoBoldText>
-                      <DropDownPicker
-                        dropDownMaxHeight={250}
-                        items={this.state.tankTypeTable}
-                        defaultValue={this.state.tankType}
-                        placeholder={t("tank:tankType")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                          tankType: item.value
-                        })}
-                      />
+                        <NunitoText style={styles.label}>{t("transfer:transferDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.transferDate}</NunitoBoldText>
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("tank:haloType")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("transfer:provider")}</NunitoBoldText>
                       <DropDownPicker
                         dropDownMaxHeight={250}
-                        items={this.state.haloTypeTable}
-                        defaultValue={this.state.haloType}
-                        placeholder={t("tank:haloType")}
+                        items={this.state.providerTable}
+                        defaultValue={this.state.provider}
+                        placeholder={t("transfer:provider")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}
                         containerStyle={{height: 40, margin:10}}
                         style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
@@ -169,33 +129,82 @@ class NewTankScreen extends Component {
                         }}
                         dropDownStyle={{backgroundColor: '#e9e9e9'}}
                         onChangeItem={item => this.setState({
-                          haloType: item.value
+                            provider: item.value
                         })}
                       />
                     </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("transfer:fridge10less")+"*"}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          keyboardType='numeric'
+                          placeholder={t("transfer:fridge10less")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(fridge10less) => this.setState({fridge10less})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("transfer:fridge10more")+"*"}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          keyboardType='numeric'
+                          placeholder={t("transfer:fridge10more")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(fridge10more) => this.setState({fridge10more})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("transfer:freezer10less")+"*"}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          keyboardType='numeric'
+                          placeholder={t("transfer:freezer10less")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(freezer10less) => this.setState({freezer10less})}
+                      />
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("transfer:freezer10more")+"*"}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          keyboardType='numeric'
+                          placeholder={t("transfer:freezer10more")}
+                          placeholderTextColor = "#3e444c"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(freezer10more) => this.setState({freezer10more})}
+                      />
+                    </View>
+
+                    <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("transfer:transferEmployee")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.transferEmployee}</NunitoBoldText>
+                    </View>
+
                     <View>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
-                  {this.state.haloType.length > 0 && <TouchableOpacity
+                    {this.state.freezer10more.length > 0 && <TouchableOpacity
                     style={{
-                        margin: 5,
+                        margin: 10,
                         borderRadius: 10,
                         borderWidth: 0,
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savetank(navigation)}
+                    onPress={() => this.savetransfer(navigation)}
                     >
-                        <NunitoBoldText style={styles.textStyle}>{t("process:savetank")}</NunitoBoldText>
+                        <NunitoBoldText style={styles.textStyle}>{t("process:savetransfer")}</NunitoBoldText>
                   </TouchableOpacity>}
               </View>
             </View>
@@ -207,10 +216,10 @@ class NewTankScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  pad:{
-    fontSize: 20,
-    color: '#e9e9e9',
-  },
+    pad:{
+      fontSize: 20,
+      color: '#e9e9e9',
+    },
   textStyle: {
     textAlign: "center",
     padding: 5,
@@ -304,5 +313,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(NewTankScreen);
+export default withTranslation()(TransferScreen);
  

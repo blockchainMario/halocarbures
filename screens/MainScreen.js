@@ -91,7 +91,7 @@ class MainScreen extends Component {
           })
 
       } else { 
-        Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("app:welcome")); 
+        //Alert.alert(GLOBALS.T("app:name"),GLOBALS.T("app:welcome")); 
       }
 
     } else {

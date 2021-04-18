@@ -68,25 +68,32 @@ class BinDisposalScreen extends Component {
 
   }
 
-  savebindisposal = (navigation) => {
-    //alert("http://18.190.29.217:8080/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
-    //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
-    axios.get("http://18.190.29.217:8080/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
-    +"/"+this.state.disposalEmployee+"/"+this.state.provider
-    , {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
-      }
-    })
-      .then(res => {
-        const unit = res.data;
-        //alert(JSON.stringify(unit));
-        navigation.navigate('Root');
+  savebindisposal = (navigation, t) => {
+    var valid = true;
+    if (this.state.provider.length == 0) {
+      valid = false;
+      alert(t("error:noprovider"));
+    }
+    if (valid) {
+      //alert("http://18.190.29.217:8080/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+      //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
+      axios.get("http://18.190.29.217:8080/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+      +"/"+this.state.disposalEmployee+"/"+this.state.provider
+      , {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+        }
       })
-      .catch((error) => {
-        alert("Erreur de connexion Bin Disposal : "+error)
-      })
+        .then(res => {
+          const unit = res.data;
+          //alert(JSON.stringify(unit));
+          navigation.navigate('Root');
+        })
+        .catch((error) => {
+          alert("Erreur de connexion Bin Disposal : "+error)
+        })
+    }
   }
 
   render() {
@@ -123,8 +130,9 @@ class BinDisposalScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("bin:provider")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("bin:provider")+"*"}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.providerTable}
                         defaultValue={this.state.provider}
                         placeholder={t("bin:provider")}
@@ -144,7 +152,19 @@ class BinDisposalScreen extends Component {
                       />
                     </View>
 
-                    {this.state.provider.length > 0 && <TouchableOpacity
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+
+                    <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -152,10 +172,10 @@ class BinDisposalScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savebindisposal(navigation)}
+                    onPress={() => this.savebindisposal(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:bindisposal")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -166,6 +186,10 @@ class BinDisposalScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

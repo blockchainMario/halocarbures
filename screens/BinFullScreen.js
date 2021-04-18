@@ -44,7 +44,13 @@ class BinFullScreen extends Component {
     this.setState({fullDate: today});
   }
 
-  savebinfull = (navigation) => {
+  savebinfull = (navigation, t) => {
+    var valid = true;
+    if (isNaN(this.state.quantity)) {
+      valid = false;
+      alert(t("error:nanquantity"));
+    }
+    if (valid) {
     //alert("http://18.190.29.217:8080/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity);
     axios.get("http://18.190.29.217:8080/savefullbin/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.quantity
     , {
@@ -61,6 +67,7 @@ class BinFullScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion Bin Full : "+error)
       })
+    }
   }
 
   render() {
@@ -82,8 +89,10 @@ class BinFullScreen extends Component {
                     </View>
 
                     <View>
-                      <NunitoBoldText style={styles.label}>{t("bin:quantity")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("bin:quantity")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
+                          defaultValue={"0"}
+                          keyboardType='numeric'
                           placeholder={t("bin:quantity")}
                           placeholderTextColor = "#3e444c"
                           underlineColorAndroid='transparent'
@@ -91,7 +100,14 @@ class BinFullScreen extends Component {
                       />
                     </View>
 
-                    {this.state.quantity.length > 0 && <TouchableOpacity
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+
+                    <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -99,10 +115,10 @@ class BinFullScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savebinfull(navigation)}
+                    onPress={() => this.savebinfull(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:binfull")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -113,6 +129,10 @@ class BinFullScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

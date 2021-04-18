@@ -68,6 +68,8 @@ class TankDisposalScreen extends Component {
   }
 
   savetankdisposal = (navigation) => {
+    var valid = true;
+    if (valid) {
     //alert("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
     //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
     axios.get("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
@@ -86,6 +88,7 @@ class TankDisposalScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion Tank Disposal : "+error)
       })
+    }
   }
 
   render() {
@@ -124,6 +127,7 @@ class TankDisposalScreen extends Component {
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
                       <NunitoBoldText style={styles.label}>{t("tank:provider")}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.providerTable}
                         defaultValue={this.state.provider}
                         placeholder={t("tank:provider")}
@@ -141,6 +145,17 @@ class TankDisposalScreen extends Component {
                             provider: item.value
                         })}
                       />
+                    </View>
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
                     {this.state.provider.length > 0 && <TouchableOpacity
@@ -165,6 +180,10 @@ class TankDisposalScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

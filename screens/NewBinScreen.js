@@ -65,7 +65,13 @@ class NewBinScreen extends Component {
         })
   }
 
-  savebin = (navigation) => {
+  savebin = (navigation, t) => {
+    var valid = true;
+    if (this.state.binType.length == 0) {
+      valid = false;
+      alert(t("error:nobintype"));
+    }
+    if (valid) {
     //alert("http://18.190.29.217:8080/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType);
     axios.get("http://18.190.29.217:8080/savebin/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.binType, {
       headers: {
@@ -76,11 +82,14 @@ class NewBinScreen extends Component {
       .then(res => {
         const bin = res.data;
         //alert(JSON.stringify(bin));
-        navigation.navigate('Root');
+        GLOBALS.UUID = "";
+        //navigation.navigate('Root');
+        navigation.dispatch(StackActions.replace('Root'));
       })
       .catch((error) => {
         alert("Erreur de connexion Bin : "+error)
       })
+    }
   }
 
   render() {
@@ -102,8 +111,9 @@ class NewBinScreen extends Component {
                     </View>
 
                     <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("bin:binType")}</NunitoBoldText>
+                      <NunitoBoldText style={styles.label}>{t("bin:binType")+"*"}</NunitoBoldText>
                       <DropDownPicker
+                        dropDownMaxHeight={250}
                         items={this.state.binTypeTable}
                         defaultValue={this.state.binType}
                         placeholder={t("bin:binType")}
@@ -122,8 +132,19 @@ class NewBinScreen extends Component {
                         })}
                       />
                     </View>
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
 
-                    {this.state.binType.length > 0 && <TouchableOpacity
+                    <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -131,10 +152,10 @@ class NewBinScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savebin(navigation)}
+                    onPress={() => this.savebin(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:savebin")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -145,6 +166,10 @@ class NewBinScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

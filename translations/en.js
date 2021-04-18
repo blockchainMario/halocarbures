@@ -106,6 +106,18 @@ export const bin = {
 	provider: "Provider"
 }
 
+export const transfer = {
+	title: "Units Transfer",
+	transferDate: "Transfert Date",
+	provider: "Provider",
+	fridge10less: "Refrigerators 10 cu. ft. or LESS",
+	fridge10more: "Refrigerators 10 cu. ft. or MORE",
+	freezer10less: "Freezers 10 cu. ft. or LESS",
+	freezer10more: "Freezers 10 cu. ft. or MORE",
+	ticketId: "Ticket Id",
+	transferEmployee: "Employee",
+}
+
 export const unittype = {
 	title: "Unit Types",
 	brand: "Brand",
@@ -204,4 +216,12 @@ export const process = {
 	bindisposal: "Dispose of this Bin",
 
 	savemodel: "Save the Unit Type",
+
+	savetransfer: "Save Transfer",
+}
+
+export const error = {
+	noprovider: "Select a Provider",
+	nanquantity: "Quantity must be a number",
+	nobintype: "Select a Bin Type",
 }

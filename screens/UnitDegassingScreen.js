@@ -48,6 +48,8 @@ class UnitDegassingScreen extends Component {
   }
 
   savedegassing = (navigation) => {
+    var valid = true;
+    if (valid) {
     //alert("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
     //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
     axios.get("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
@@ -66,6 +68,7 @@ class UnitDegassingScreen extends Component {
       .catch((error) => {
         alert("Erreur de connexion Degassing : "+error)
       })
+    }
   }
 
   render() {
