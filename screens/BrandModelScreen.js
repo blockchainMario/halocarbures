@@ -72,14 +72,6 @@ class BrandModelScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.brandModel.model}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:years")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.brandModel.fromYear}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
-                        <NunitoText style={styles.label}>{t("unittype:years")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.brandModel.toYear}</NunitoBoldText>
-                      </View>
-                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unittype:unitType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.brandModel.unitType}</NunitoBoldText>
                       </View>

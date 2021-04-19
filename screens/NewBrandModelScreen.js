@@ -103,6 +103,11 @@ class BrandModelScreen extends Component {
             })
   }
 
+  convert = () => {
+    alert(eval(this.state.quantity)*0.0283495);
+    this.setState({quantity: eval(this.state.quantity)*0.0283495});
+  }
+
   savebrandmodel = (navigation, t) => {
     var valid = true;
     if (this.state.brand.length == 0 || this.state.model.length == 0 || this.state.unitType.length == 0
@@ -120,15 +125,35 @@ class BrandModelScreen extends Component {
       }
     }
     if (valid) {
-    //alert("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model);
-    axios.get("http://18.190.29.217:8080/savebrandmodel/"+this.state.brand+"/"+this.state.model
+      const newBrand = this.state.brand.charAt(0).toUpperCase() + this.state.brand.slice(1);
+      const newModel = this.state.model.toUpperCase();
+      const newWeight = (this.state.weight.length == 0) ? "0" : this.state.weight;
+      const newAlum1 = (this.state.alum1.length == 0) ? "0" : this.state.alum1;
+      const newAlum2 = (this.state.alum2.length == 0) ? "0" : this.state.alum2;
+      const newAlum3 = (this.state.alum3.length == 0) ? "0" : this.state.alum3;
+      const newBrass = (this.state.brass.length == 0) ? "0" : this.state.brass;
+      const newCard = (this.state.card.length == 0) ? "0" : this.state.card;
+      const newComp = (this.state.comp.length == 0) ? "0" : this.state.comp;
+      const newCopper2 = (this.state.copper2.length == 0) ? "0" : this.state.copper2;
+      const newCopper3 = (this.state.copper3.length == 0) ? "0" : this.state.copper3;
+      const newWire2 = (this.state.wire2.length == 0) ? "0" : this.state.wire2;
+      const newWire3 = (this.state.wire3.length == 0) ? "0" : this.state.wire3;
+      const newOils = (this.state.oils.length == 0) ? "0" : this.state.oils;
+      const newPlas1 = (this.state.plas1.length == 0) ? "0" : this.state.plas1;
+      const newPlas2 = (this.state.plas2.length == 0) ? "0" : this.state.plas2;
+      const newWaste = (this.state.waste.length == 0) ? "0" : this.state.waste;
+      const newSolids = (this.state.solids.length == 0) ? "0" : this.state.solids;
+      const newThermo = (this.state.thermo.length == 0) ? "0" : this.state.thermo;
+      const newss304 = (this.state.ss304.length == 0) ? "0" : this.state.ss304;
+      
+    axios.get("http://18.190.29.217:8080/savebrandmodel/"+newBrand+"/"+newModel
     +"/"+this.state.unitType+"/"+this.state.fromYear+"/"+this.state.toYear
-    +"/"+this.state.haloType+"/"+this.state.quantity+"/"+this.state.weight
-    +"/"+this.state.alum1+"/"+this.state.alum2+"/"+this.state.alum3
-    +"/"+this.state.brass+"/"+this.state.card+"/"+this.state.comp
-    +"/"+this.state.copper2+"/"+this.state.copper3+"/"+this.state.wire2+"/"+this.state.wire3
-    +"/"+this.state.oils+"/"+this.state.plas1+"/"+this.state.plas2
-    +"/"+this.state.waste+"/"+this.state.solids+"/"+this.state.thermo+"/"+this.state.ss304
+    +"/"+this.state.haloType+"/"+this.state.quantity+"/"+newWeight
+    +"/"+newAlum1+"/"+newAlum2+"/"+newAlum3
+    +"/"+newBrass+"/"+newCard+"/"+newComp
+    +"/"+newCopper2+"/"+newCopper3+"/"+newWire2+"/"+newWire3
+    +"/"+newOils+"/"+newPlas1+"/"+newPlas2
+    +"/"+newWaste+"/"+newSolids+"/"+newThermo+"/"+newss304
     , {
       headers: {
         'Accept': 'application/json',
@@ -229,7 +254,7 @@ class BrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:quantity")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          value={this.state.quantity}
                           keyboardType='numeric'
                           placeholder={t("unittype:quantity")}
                           placeholderTextColor = "#57b0e3"
@@ -454,7 +479,7 @@ class BrandModelScreen extends Component {
                       />
                     </View>
 
-                  {this.state.weight.length > 0 && <TouchableOpacity
+                  <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -465,7 +490,7 @@ class BrandModelScreen extends Component {
                     onPress={() => this.savebrandmodel(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("unittype:savemodel")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
 
                     </View>
                 </View>
@@ -528,6 +553,9 @@ const styles = StyleSheet.create({
   line: {
     flexDirection:'row',
   },
+  line2: {
+    flexDirection:'column',
+  },
   label:{
     fontSize:16,
     color: "#3e444c",
@@ -541,6 +569,14 @@ const styles = StyleSheet.create({
   },
   field:{
     margin: 10,
+    height: 40,
+    padding: 10,
+    borderColor: '#3e444c',
+    borderWidth: 1
+  },
+  field2:{
+    margin: 10,
+    marginLeft: 120,
     height: 40,
     padding: 10,
     borderColor: '#3e444c',

@@ -45,16 +45,8 @@ class UnitDegassingScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({degassingDate: today});
-  }
 
-  savedegassing = (navigation) => {
-    var valid = true;
-    if (valid) {
-    //alert("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
-    //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
-    axios.get("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
-    +"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee
-    , {
+    axios.get("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -62,8 +54,35 @@ class UnitDegassingScreen extends Component {
     })
       .then(res => {
         const unit = res.data;
+        this.setState({ unit: unit });
         //alert(JSON.stringify(unit));
-        navigation.navigate('Root');
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Unit : "+error)
+      })
+  }
+
+  savedegassing = (navigation, t) => {
+    var valid = true;
+    if (valid) {
+    //alert("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
+    axios.get("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    +"/"+this.state.unit.haloType+"/"+this.state.unit.haloQty+"/"+this.state.degassingEmployee
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const tank = res.data;
+        //alert(JSON.stringify(tank));
+        if (tank.tankId == "0") {
+          alert(t("error:notank")+this.state.unit.haloType);
+        } else {
+          navigation.navigate('Root');
+        }
       })
       .catch((error) => {
         alert("Erreur de connexion Degassing : "+error)
@@ -112,27 +131,13 @@ class UnitDegassingScreen extends Component {
                         <NunitoText style={styles.label}>{t("unit:degassingDate")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.degassingDate}</NunitoBoldText>
                     </View>
-                    <View style={styles.line2}>
-                        <NunitoText style={styles.label}>{t("tank:tankId")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.tankId}</NunitoBoldText>
-                    </View>
-
-                    <View>
-                      <NunitoBoldText style={styles.label}>{t("unit:haloQty")}</NunitoBoldText>
-                      <TextInput style={styles.field}
-                          placeholder={t("unit:haloQty")}
-                          placeholderTextColor = "#57b0e3"
-                          underlineColorAndroid='transparent'
-                          onChangeText={(haloQty) => this.setState({haloQty})}
-                      />
-                    </View>
 
                     <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:degassingEmployee")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.degassingEmployee}</NunitoBoldText>
                     </View>
 
-                  {this.state.haloQty.length > 0 && this.state.tankId.length > 0 && !isNaN(this.state.haloQty) && <TouchableOpacity
+                  <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -140,10 +145,10 @@ class UnitDegassingScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savedegassing(navigation)}
+                    onPress={() => this.savedegassing(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:degassing")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
               </View>
             </View>
           </View>

@@ -51,6 +51,7 @@ export const unit = {
 	unitType: "Type d'unité",
 	location: "Dernière étape complété",
 	destination: "Destination",
+	provider: "Fournisseur",
 	brandModel: "Marque et modèle",
 	brand: "Marque",
 	model: "Modèle",
@@ -129,6 +130,7 @@ export const unittype = {
 	unitType: "Type d'unité",
 	haloType: "Halocarbure",
 	quantity: "Quantité (kg)",
+	onces: "en onces",
 	weight: "Poids (kg)",
 	alum1: "Aluminium cuivre (kg)",
 	alum2: "Aluminium domestique (kg)",
@@ -199,7 +201,8 @@ export const process = {
 	newtank: "Nouvelle bonbonne",
 	newbin: "Nouveau bac",
 
-	saveunit: "Sauvegarder l'unité",
+	saveunit: "Sauvegarder pour démantèlement",
+	savereuse: "Sauvegarder pour réemploi",
 	viewunit: "Voir la description",
 	degassing: "Enregistrer le dégazage",
 	storing: "Entreposer l'unité",
@@ -224,4 +227,5 @@ export const error = {
 	missing: "Les champs marqués d'une étoile* sont obligatoires",
 	nan: "Les poids doivent être en kg, ex. 0.153",
 	lessthanfive: "Le poids de gaz d'une unité doit être < 5 kg",
+	notank: "Aucune bonbonne de ce type : ",
 }

@@ -43,7 +43,7 @@ class UnitDismantlingScreen extends Component {
     this.setState({dismantlingDate: today});
   }
 
-  savedismantling = (navigation) => {
+  savedismantling = (navigation, t) => {
     var valid = true;
     if (valid) {
     //alert("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
@@ -91,7 +91,7 @@ class UnitDismantlingScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savedismantling(navigation)}
+                    onPress={() => this.savedismantling(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:dismantling")}</NunitoBoldText>
                   </TouchableOpacity>

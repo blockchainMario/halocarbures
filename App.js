@@ -117,7 +117,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.4"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.5"}</NunitoText>
                       </View>
     </View>) : 
     (<View style={styles.container2}>
@@ -156,7 +156,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.4"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.5"}</NunitoText>
                       </View>
     </View>)
   );

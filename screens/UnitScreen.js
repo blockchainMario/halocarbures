@@ -110,6 +110,10 @@ class UnitScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.unit.destination}</NunitoBoldText>
                       </View>
                       <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("unit:provider")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.unit.provider}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("unit:haloType")} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.unit.haloType}</NunitoBoldText>
                       </View>

@@ -70,8 +70,8 @@ class TransferScreen extends Component {
 
   savetransfer = (navigation, t) => {
     var valid = true;
-    if (this.state.provider.length == 0 || this.state.haloType.length == 0 || this.state.haloType.length == 0
-      || this.state.haloType.length == 0 || this.state.haloType.length == 0) {
+    if (this.state.provider.length == 0 || this.state.fridge10less.length == 0 || this.state.fridge10more.length == 0
+      || this.state.freezer10less.length == 0 || this.state.freezer10more.length == 0) {
       valid = false;
       alert(t("error:missing"));
     }

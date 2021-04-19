@@ -45,6 +45,8 @@ class NewUnitScreen extends Component {
     provenance: "",
     receptionDate: "",
     transporter: "",
+    destination: "",
+    provider: "",
     receptionEmployee: GLOBALS.FULLNAME,
     provenanceTable: [],
     transporterTable: [],
@@ -52,6 +54,7 @@ class NewUnitScreen extends Component {
     brandModelTable: [],
     yearTable: [],
     haloTypeTable: [],
+    providerTable: [],
   }
 
   componentDidMount() {
@@ -138,6 +141,26 @@ class NewUnitScreen extends Component {
         .catch((error) => {
           alert("Erreur de connexion Lists : "+error)
         })
+
+        //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get("http://18.190.29.217:8080/list/providerTable", {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+          }
+        })
+          .then(res => {
+            const aList = res.data.listContent.sort();
+            var providerTable = [];
+            aList.forEach(function(entry) {
+              providerTable.push({label: entry, value: entry})
+            });
+            //alert(JSON.stringify(providerTable));
+            this.setState({providerTable: providerTable});
+          })
+          .catch((error) => {
+            alert("Erreur de connexion Lists : "+error)
+          })
   }
 
   saveunit = (navigation, t) => {
@@ -148,7 +171,9 @@ class NewUnitScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-    //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate);
+      //alert("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
+      //+"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
+      //+"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee);
     axios.get("http://18.190.29.217:8080/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
     +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
     +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee
@@ -166,7 +191,38 @@ class NewUnitScreen extends Component {
         navigation.dispatch(StackActions.replace('Root'));
       })
       .catch((error) => {
-        alert("Erreur de connexion Unit : "+error)
+        alert("Erreur de connexion saveUnit : "+error)
+      })
+    }
+  }
+
+  savereuse = (navigation, t) => {
+    var valid = true;
+    if (this.state.brandModel.length == 0 || this.state.year.length == 0 || this.state.serialNumber.length == 0
+      || this.state.provenance.length == 0 || this.state.transporter.length == 0 || this.state.provider.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
+    if (valid) {
+    axios.get("http://18.190.29.217:8080/savereuse/"+GLOBALS.UUID+"/"+this.state.receptionDate
+    +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
+    +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee
+    +"/"+this.state.provider
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const unit = res.data;
+        //alert(JSON.stringify(unit));
+        GLOBALS.UUID = "";
+        //navigation.navigate('Root');
+        navigation.dispatch(StackActions.replace('Root'));
+      })
+      .catch((error) => {
+        alert("Erreur de connexion saveReuse : "+error)
       })
     }
   }
@@ -364,9 +420,48 @@ class NewUnitScreen extends Component {
                         <NunitoBoldText style={styles.info}>{this.state.receptionEmployee}</NunitoBoldText>
                     </View>
 
+                  <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => this.saveunit(navigation, t)}
+                    >
+                        <NunitoBoldText style={styles.textStyle}>{t("process:saveunit")}</NunitoBoldText>
+                  </TouchableOpacity>
+
                     <View>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+
+                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
+                      <NunitoBoldText style={styles.label}>{t("bin:provider")+"*"}</NunitoBoldText>
+                      <DropDownPicker
+                        dropDownMaxHeight={150}
+                        items={this.state.providerTable}
+                        defaultValue={this.state.provider}
+                        placeholder={t("bin:provider")}
+                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
+                        containerStyle={{height: 40, margin:10}}
+                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
+                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
+                        }}
+                        itemStyle={{
+                          justifyContent: 'flex-start', marginLeft:0
+                        }}
+                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        onChangeItem={item => this.setState({
+                            provider: item.value
+                        })}
+                      />
+                    </View>
+
+                    <View>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
@@ -381,10 +476,11 @@ class NewUnitScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.saveunit(navigation, t)}
+                    onPress={() => this.savereuse(navigation, t)}
                     >
-                        <NunitoBoldText style={styles.textStyle}>{t("process:saveunit")}</NunitoBoldText>
+                        <NunitoBoldText style={styles.textStyle}>{t("process:savereuse")}</NunitoBoldText>
                   </TouchableOpacity>
+
               </View>
             </View>
           </View>

@@ -74,9 +74,9 @@ class TankDisposalScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-    //alert("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
-    //+"/"+this.state.disposalEmployee+"/"+this.state.provider);
-    axios.get("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate+"/"+this.state.ticketId
+      const newTicketId = (this.state.ticketId.length == 0) ? " " : this.state.ticketId;
+    axios.get("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
+    +"/"+newTicketId
     +"/"+this.state.disposalEmployee+"/"+this.state.provider
     , {
       headers: {

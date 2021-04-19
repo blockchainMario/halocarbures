@@ -70,7 +70,7 @@ class MainScreen extends Component {
                   this.setState({theObject: theObject});
                   if (answer.type == "unit") {
                     //alert(JSON.stringify(theObject));
-                    if (theObject.dismantlingDate.length > 0) this.setState({theObjectNotLocked: false});
+                    if (theObject.dismantlingDate.length > 0 || theObject.destination == "Réemploi") this.setState({theObjectNotLocked: false});
                   }
                   if (answer.type == "tank") {
                     //alert(JSON.stringify(theObject));

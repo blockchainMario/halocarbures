@@ -43,7 +43,7 @@ class UnitStoringScreen extends Component {
     this.setState({storingDate: today});
   }
 
-  savestoring = (navigation) => {
+  savestoring = (navigation, t) => {
     var valid = true;
     if (valid) {
     //alert("http://18.190.29.217:8080/savestoring/"+GLOBALS.UUID+"/"+this.state.storingDate);
@@ -91,7 +91,7 @@ class UnitStoringScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savestoring(navigation)}
+                    onPress={() => this.savestoring(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:storing")}</NunitoBoldText>
                   </TouchableOpacity>

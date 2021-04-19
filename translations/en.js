@@ -51,6 +51,7 @@ export const unit = {
 	unitType: "Unit Type",
 	location: "Last Completed Step",
 	destination: "Destination",
+	provider: "Provider",
 	brandModel: "Brand & Model",
 	brand: "Brand",
 	model: "Model",
@@ -129,6 +130,7 @@ export const unittype = {
 	unitType: "Unit Type",
 	haloType: "Halocarbon",
 	quantity: "Quantity (kg)",
+	onces: "In Onces",
 	weight: "Weight (kg)",
 	alum1: "Aluminium Copper (kg)",
 	alum2: "Aluminium Domestic (kg)",
@@ -199,7 +201,8 @@ export const process = {
 	newtank: "New Tank",
 	newbin: "New Bin",
 
-	saveunit: "Save the Unit",
+	saveunit: "Save the Unit for Dismantling",
+	savereuse: "Save the Unit for Reuse",
 	viewunit: "View Description",
 	degassing: "Record Degassing",
 	storing: "Store the Unit",
@@ -224,4 +227,5 @@ export const error = {
 	missing: "Fields with an asterisk* are mandatory",
 	nan: "Weight must be in kg, ex. 0.153",
 	lessthanfive: "Gas weight must be < 5 kg per Unit",
+	notank: "No Tank of this Type : ",
 }
