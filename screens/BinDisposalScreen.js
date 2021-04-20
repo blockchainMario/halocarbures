@@ -176,6 +176,7 @@ class BinDisposalScreen extends Component {
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:bindisposal")}</NunitoBoldText>
                   </TouchableOpacity>
+                  
               </View>
             </View>
           </View>

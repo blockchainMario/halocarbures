@@ -28,7 +28,7 @@ import * as french from "../translations/fr";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform } from 'react-native';
 
-class NewBrandModelScreen extends Component {
+class UpdateBrandModelScreen extends Component {
   state = {
     brandModel: null,
     brand: "",
@@ -61,6 +61,21 @@ class NewBrandModelScreen extends Component {
   }
 
   componentDidMount() {
+    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/brandModel/"+GLOBALS.BRANDMODEL, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const brandModel = res.data;
+        this.setState({ brandModel: brandModel });
+        //alert(JSON.stringify(brandModel));
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Unit : "+error)
+      })
 
     //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
     axios.get("http://18.190.29.217:8080/list/unitTypeTable", {
@@ -108,13 +123,8 @@ class NewBrandModelScreen extends Component {
     this.setState({quantity: eval(this.state.quantity)*0.0283495});
   }
 
-  savebrandmodel = (navigation, t) => {
+  updatebrandmodel = (navigation, t) => {
     var valid = true;
-    if (this.state.brand.length == 0 || this.state.model.length == 0 || this.state.unitType.length == 0
-      || this.state.haloType.length == 0 || this.state.quantity.length == 0) {
-      valid = false;
-      alert(t("error:missing"));
-    }
     if (isNaN(this.state.quantity)) {
       valid = false;
       alert(t("error:nan"));
@@ -125,30 +135,37 @@ class NewBrandModelScreen extends Component {
       }
     }
     if (valid) {
-      const newBrand = this.state.brand.charAt(0).toUpperCase() + this.state.brand.slice(1);
-      const newModel = this.state.model.toUpperCase();
-      const newWeight = (this.state.weight.length == 0) ? "0" : this.state.weight;
-      const newAlum1 = (this.state.alum1.length == 0) ? "0" : this.state.alum1;
-      const newAlum2 = (this.state.alum2.length == 0) ? "0" : this.state.alum2;
-      const newAlum3 = (this.state.alum3.length == 0) ? "0" : this.state.alum3;
-      const newBrass = (this.state.brass.length == 0) ? "0" : this.state.brass;
-      const newCard = (this.state.card.length == 0) ? "0" : this.state.card;
-      const newComp = (this.state.comp.length == 0) ? "0" : this.state.comp;
-      const newCopper2 = (this.state.copper2.length == 0) ? "0" : this.state.copper2;
-      const newCopper3 = (this.state.copper3.length == 0) ? "0" : this.state.copper3;
-      const newWire2 = (this.state.wire2.length == 0) ? "0" : this.state.wire2;
-      const newWire3 = (this.state.wire3.length == 0) ? "0" : this.state.wire3;
-      const newOils = (this.state.oils.length == 0) ? "0" : this.state.oils;
-      const newPlas1 = (this.state.plas1.length == 0) ? "0" : this.state.plas1;
-      const newPlas2 = (this.state.plas2.length == 0) ? "0" : this.state.plas2;
-      const newWaste = (this.state.waste.length == 0) ? "0" : this.state.waste;
-      const newSolids = (this.state.solids.length == 0) ? "0" : this.state.solids;
-      const newThermo = (this.state.thermo.length == 0) ? "0" : this.state.thermo;
-      const newss304 = (this.state.ss304.length == 0) ? "0" : this.state.ss304;
+      //Adjust for empty fields
+      var newBrand = (this.state.brand.length == 0) ? this.state.brandModel.brand : this.state.brand;
+      var newModel = (this.state.model.length == 0) ? this.state.brandModel.model : this.state.model;
+      newBrand = newBrand.charAt(0).toUpperCase() + newBrand.slice(1);
+      newModel = newModel.toUpperCase();
+      const newUnitType = (this.state.unitType.length == 0) ? this.state.brandModel.unitType : this.state.unitType;
+      const newHaloType = (this.state.haloType.length == 0) ? this.state.brandModel.haloType : this.state.haloType;
+      const newQuantity = (this.state.quantity.length == 0) ? this.state.brandModel.quantity : this.state.quantity;
+      const newWeight = (this.state.weight.length == 0) ? this.state.brandModel.weight : this.state.weight;
+      const newAlum1 = (this.state.alum1.length == 0) ? this.state.brandModel.alum1 : this.state.alum1;
+      const newAlum2 = (this.state.alum2.length == 0) ? this.state.brandModel.alum2 : this.state.alum2;
+      const newAlum3 = (this.state.alum3.length == 0) ? this.state.brandModel.alum3 : this.state.alum3;
+      const newBrass = (this.state.brass.length == 0) ? this.state.brandModel.brass : this.state.brass;
+      const newCard = (this.state.card.length == 0) ? this.state.brandModel.card : this.state.card;
+      const newComp = (this.state.comp.length == 0) ? this.state.brandModel.comp : this.state.comp;
+      const newCopper2 = (this.state.copper2.length == 0) ? this.state.brandModel.copper2 : this.state.copper2;
+      const newCopper3 = (this.state.copper3.length == 0) ? this.state.brandModel.copper3 : this.state.copper3;
+      const newWire2 = (this.state.wire2.length == 0) ? this.state.brandModel.wire2 : this.state.wire2;
+      const newWire3 = (this.state.wire3.length == 0) ? this.state.brandModel.wire3 : this.state.wire3;
+      const newOils = (this.state.oils.length == 0) ? this.state.brandModel.oils : this.state.oils;
+      const newPlas1 = (this.state.plas1.length == 0) ? this.state.brandModel.plas1 : this.state.plas1;
+      const newPlas2 = (this.state.plas2.length == 0) ? this.state.brandModel.plas2 : this.state.plas2;
+      const newWaste = (this.state.waste.length == 0) ? this.state.brandModel.waste : this.state.waste;
+      const newSolids = (this.state.solids.length == 0) ? this.state.brandModel.solids : this.state.solids;
+      const newThermo = (this.state.thermo.length == 0) ? this.state.brandModel.thermo : this.state.thermo;
+      const newss304 = (this.state.ss304.length == 0) ? this.state.brandModel.ss304 : this.state.ss304;
       
-    axios.get("http://18.190.29.217:8080/savebrandmodel/"+newBrand+"/"+newModel
-    +"/"+this.state.unitType+"/"+this.state.fromYear+"/"+this.state.toYear
-    +"/"+this.state.haloType+"/"+this.state.quantity+"/"+newWeight
+    axios.get("http://18.190.29.217:8080/updatebrandmodel/"+this.state.brandModel.brandModelId
+    +"/"+newBrand+"/"+newModel
+    +"/"+newUnitType+"/"+this.state.brandModel.fromYear+"/"+this.state.brandModel.toYear
+    +"/"+newHaloType+"/"+newQuantity+"/"+newWeight
     +"/"+newAlum1+"/"+newAlum2+"/"+newAlum3
     +"/"+newBrass+"/"+newCard+"/"+newComp
     +"/"+newCopper2+"/"+newCopper3+"/"+newWire2+"/"+newWire3
@@ -176,6 +193,11 @@ class NewBrandModelScreen extends Component {
     const navigation = this.props.navigation;
 
     return (
+      (this.state.brandModel == null  || this.state.haloTypeTable.length == 0 || this.state.unitTypeTable.length == 0) ? (
+        <View style={styles.container}>
+          <NunitoText style={styles.info}>Loading...</NunitoText>
+        </View>
+      ) : (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
@@ -188,6 +210,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:brand")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
+                          defaultValue={this.state.brandModel.brand}
                           placeholder={t("unittype:brand")}
                           placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
@@ -198,6 +221,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:model")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
+                          defaultValue={this.state.brandModel.model}
                           placeholder={t("unittype:model")}
                           placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'
@@ -210,7 +234,6 @@ class NewBrandModelScreen extends Component {
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.unitTypeTable}
-                        defaultValue={this.state.unitType}
                         placeholder={t("unit:unitType")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}
                         containerStyle={{height: 40, margin:10}}
@@ -222,6 +245,7 @@ class NewBrandModelScreen extends Component {
                           justifyContent: 'flex-start', marginLeft:0
                         }}
                         dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        defaultValue={this.state.brandModel.unitType}
                         onChangeItem={item => this.setState({
                           unitType: item.value
                         })}
@@ -233,7 +257,6 @@ class NewBrandModelScreen extends Component {
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.haloTypeTable}
-                        defaultValue={this.state.haloType}
                         placeholder={t("unit:haloType")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}
                         containerStyle={{height: 40, margin:10}}
@@ -245,6 +268,7 @@ class NewBrandModelScreen extends Component {
                           justifyContent: 'flex-start', marginLeft:0
                         }}
                         dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        defaultValue={this.state.brandModel.haloType}
                         onChangeItem={item => this.setState({
                           haloType: item.value
                         })}
@@ -254,7 +278,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:quantity")+"*"}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          value={this.state.quantity}
+                          defaultValue={this.state.brandModel.quantity}
                           keyboardType='numeric'
                           placeholder={t("unittype:quantity")}
                           placeholderTextColor = "#57b0e3"
@@ -266,7 +290,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:weight")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.weight}
                           keyboardType='numeric'
                           placeholder={t("unittype:weight")}
                           placeholderTextColor = "#57b0e3"
@@ -278,7 +302,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:alum1")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.alum1}
                           keyboardType='numeric'
                           placeholder={t("unittype:alum1")}
                           placeholderTextColor = "#57b0e3"
@@ -290,7 +314,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:alum2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.alum2}
                           keyboardType='numeric'
                           placeholder={t("unittype:alum2")}
                           placeholderTextColor = "#57b0e3"
@@ -302,7 +326,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:alum3")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.alum3}
                           keyboardType='numeric'
                           placeholder={t("unittype:alum3")}
                           placeholderTextColor = "#57b0e3"
@@ -314,7 +338,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:brass")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.brass}
                           keyboardType='numeric'
                           placeholder={t("unittype:brass")}
                           placeholderTextColor = "#57b0e3"
@@ -326,7 +350,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:card")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.card}
                           keyboardType='numeric'
                           placeholder={t("unittype:card")}
                           placeholderTextColor = "#57b0e3"
@@ -338,7 +362,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:comp")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.comp}
                           keyboardType='numeric'
                           placeholder={t("unittype:comp")}
                           placeholderTextColor = "#57b0e3"
@@ -350,7 +374,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:copper2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.copper2}
                           keyboardType='numeric'
                           placeholder={t("unittype:copper2")}
                           placeholderTextColor = "#57b0e3"
@@ -362,7 +386,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:copper3")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.copper3}
                           keyboardType='numeric'
                           placeholder={t("unittype:copper3")}
                           placeholderTextColor = "#57b0e3"
@@ -374,7 +398,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:wire2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.wire2}
                           keyboardType='numeric'
                           placeholder={t("unittype:wire2")}
                           placeholderTextColor = "#57b0e3"
@@ -386,7 +410,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:wire3")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.wire3}
                           keyboardType='numeric'
                           placeholder={t("unittype:wire3")}
                           placeholderTextColor = "#57b0e3"
@@ -398,7 +422,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:oils")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.oils}
                           keyboardType='numeric'
                           placeholder={t("unittype:oils")}
                           placeholderTextColor = "#57b0e3"
@@ -410,7 +434,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:plas1")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.plas1}
                           keyboardType='numeric'
                           placeholder={t("unittype:plas1")}
                           placeholderTextColor = "#57b0e3"
@@ -422,7 +446,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:plas2")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.plas2}
                           keyboardType='numeric'
                           placeholder={t("unittype:plas2")}
                           placeholderTextColor = "#57b0e3"
@@ -434,7 +458,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:waste")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.waste}
                           keyboardType='numeric'
                           placeholder={t("unittype:waste")}
                           placeholderTextColor = "#57b0e3"
@@ -446,7 +470,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:solids")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.solids}
                           keyboardType='numeric'
                           placeholder={t("unittype:solids")}
                           placeholderTextColor = "#57b0e3"
@@ -458,7 +482,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:thermo")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.thermo}
                           keyboardType='numeric'
                           placeholder={t("unittype:thermo")}
                           placeholderTextColor = "#57b0e3"
@@ -470,7 +494,7 @@ class NewBrandModelScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("unittype:ss304")}</NunitoBoldText>
                       <TextInput style={styles.field}
-                          defaultvalue={""}
+                          defaultValue={this.state.brandModel.ss304}
                           keyboardType='numeric'
                           placeholder={t("unittype:ss304")}
                           placeholderTextColor = "#57b0e3"
@@ -487,21 +511,37 @@ class NewBrandModelScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savebrandmodel(navigation, t)}
+                    onPress={() => this.updatebrandmodel(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("unittype:savemodel")}</NunitoBoldText>
                   </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
 
                     </View>
                 </View>
               </View>
        </ScrollView>
-      </View>
+      </View>)
     );
   }
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
     textStyle: {
       textAlign: "center",
       padding: 5,
@@ -601,4 +641,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(NewBrandModelScreen);
+export default withTranslation()(UpdateBrandModelScreen);

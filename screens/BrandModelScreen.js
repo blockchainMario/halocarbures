@@ -49,6 +49,8 @@ class BrandModelScreen extends Component {
 
   render() {
     const { t } = this.props;
+    const navigation = this.props.navigation;
+
     return (
       (this.state.brandModel == null) ? (
         <View style={styles.container}>
@@ -155,6 +157,32 @@ class BrandModelScreen extends Component {
                         <NunitoText style={styles.label}>{"s-s 304"} : </NunitoText>
                         <NunitoBoldText style={styles.info}>{this.state.brandModel.ss304}</NunitoBoldText>
                       </View>
+
+                      <TouchableOpacity
+                        style={{
+                          margin: 10,
+                          borderRadius: 10,
+                          borderWidth: 0,
+                          backgroundColor: '#57b0e3',
+                          opacity: 1
+                        }}
+                        onPress={() => navigation.navigate('UpdateBrandModel')}
+                      >
+                      <NunitoBoldText style={styles.textStyle}>{t("settings:editbrandmodel")}</NunitoBoldText>
+                      </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+
                 </View>
               </View>
           </View>
@@ -165,6 +193,16 @@ class BrandModelScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
+  textStyle: {
+    textAlign: "center",
+    padding: 5,
+    fontSize: 20,
+    color: "white"
+  },
   container: {
     flex: 1,
     backgroundColor: '#e9e9e9',

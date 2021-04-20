@@ -30,6 +30,7 @@ import ListContentScreen from './screens/ListContentScreen';
 import BrandModelsScreen from './screens/BrandModelsScreen';
 import BrandModelScreen from './screens/BrandModelScreen';
 import NewBrandModelScreen from './screens/NewBrandModelScreen';
+import UpdateBrandModelScreen from './screens/UpdateBrandModelScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -117,7 +118,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.5"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.6"}</NunitoText>
                       </View>
     </View>) : 
     (<View style={styles.container2}>
@@ -156,7 +157,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.5"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.6"}</NunitoText>
                       </View>
     </View>)
   );
@@ -612,6 +613,25 @@ const MyStack = ({navigation}) => {
       }}
     />
     <Stack.Screen name='NewBrandModel' component={NewBrandModelScreen}
+      options={{
+        title: GLOBALS.T("settings:brandModel"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='UpdateBrandModel' component={UpdateBrandModelScreen}
       options={{
         title: GLOBALS.T("settings:brandModel"),
         headerStyle: {

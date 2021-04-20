@@ -192,6 +192,7 @@ export const settings = {
 	newitem: "New Item",
 	additem: "Add the item above",
 	addbrandmodel: "Add a New Model",
+	editbrandmodel: "Modify this Model",
 }
 
 export const process = {
