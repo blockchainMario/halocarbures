@@ -95,6 +95,18 @@ class UnitDismantlingScreen extends Component {
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:dismantling")}</NunitoBoldText>
                   </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
               </View>
             </View>
           </View>
@@ -105,6 +117,10 @@ class UnitDismantlingScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

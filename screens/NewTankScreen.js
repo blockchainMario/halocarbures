@@ -189,7 +189,7 @@ class NewTankScreen extends Component {
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
-                  {this.state.haloType.length > 0 && <TouchableOpacity
+                  <TouchableOpacity
                     style={{
                         margin: 5,
                         borderRadius: 10,
@@ -200,7 +200,19 @@ class NewTankScreen extends Component {
                     onPress={() => this.savetank(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:savetank")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
               </View>
             </View>
           </View>

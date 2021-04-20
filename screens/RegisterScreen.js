@@ -187,6 +187,19 @@ class RegisterScreen extends Component {
           >
             <NunitoBoldText style={styles.textStyle}>{t("register:confirm")}</NunitoBoldText>
           </TouchableHighlight>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+
       </ScrollView>
       </View>
     );
@@ -194,6 +207,10 @@ class RegisterScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

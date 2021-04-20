@@ -46,6 +46,10 @@ class TankFullScreen extends Component {
 
   savetankfull = (navigation, t) => {
     var valid = true;
+    if (this.state.haloQty.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
     if (isNaN(this.state.haloQty)) {
       valid = false;
       alert(t("error:nan"));
@@ -100,7 +104,7 @@ class TankFullScreen extends Component {
                       />
                     </View>
 
-                    {this.state.haloQty.length > 0 && <TouchableOpacity
+                    <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -111,7 +115,19 @@ class TankFullScreen extends Component {
                     onPress={() => this.savetankfull(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:tankfull")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
               </View>
             </View>
           </View>
@@ -122,6 +138,10 @@ class TankFullScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  pad:{
+    fontSize: 20,
+    color: '#e9e9e9',
+  },
   textStyle: {
     textAlign: "center",
     padding: 5,

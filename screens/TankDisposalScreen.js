@@ -162,7 +162,7 @@ class TankDisposalScreen extends Component {
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
 
-                    {this.state.provider.length > 0 && <TouchableOpacity
+                    <TouchableOpacity
                     style={{
                         margin: 10,
                         borderRadius: 10,
@@ -173,7 +173,19 @@ class TankDisposalScreen extends Component {
                     onPress={() => this.savetankdisposal(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:tankdisposal")}</NunitoBoldText>
-                  </TouchableOpacity>}
+                  </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
               </View>
             </View>
           </View>

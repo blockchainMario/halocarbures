@@ -46,6 +46,10 @@ class BinFullScreen extends Component {
 
   savebinfull = (navigation, t) => {
     var valid = true;
+    if (this.state.quantity.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
     if (isNaN(this.state.quantity)) {
       valid = false;
       alert(t("error:nan"));
@@ -119,6 +123,19 @@ class BinFullScreen extends Component {
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:binfull")}</NunitoBoldText>
                   </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+                  
               </View>
             </View>
           </View>
