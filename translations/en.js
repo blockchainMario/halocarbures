@@ -57,8 +57,8 @@ export const unit = {
 	model: "Model",
 	year: "Year",
 	haloType: "Halocarbon",
-	haloQty: "Quantity (kg)",
-	weight: "Weight (kg)",
+	haloQty: "Quantity of Gas (kg)",
+	weight: "Unit Weight (kg)",
 	serialNumber: "Serial Number",
 	provenance: "Provenance",
 	mrc: "MRC",
@@ -129,9 +129,9 @@ export const unittype = {
 	serial: "Serial Number",
 	unitType: "Unit Type",
 	haloType: "Halocarbon",
-	quantity: "Quantity (kg)",
+	quantity: "Quantity of Gas (kg)",
 	onces: "In Onces",
-	weight: "Weight (kg)",
+	weight: "Unit Weight (kg)",
 	alum1: "Aluminium Copper (kg)",
 	alum2: "Aluminium Domestic (kg)",
 	alum3: "Aluminium Mix (kg)",
@@ -226,7 +226,7 @@ export const process = {
 
 export const error = {
 	missing: "Fields with an asterisk* are mandatory",
-	nan: "Weight must be in kg, ex. 0.153",
-	lessthanfive: "Gas weight must be < 5 kg per Unit",
+	nan: "Unit Weight must be in kg, ex. 0.153",
+	lessthanfive: "Gas quantity must be < 5 kg per Unit",
 	notank: "No Tank of this Type : ",
 }

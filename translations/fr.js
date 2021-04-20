@@ -57,7 +57,7 @@ export const unit = {
 	model: "Modèle",
 	year: "Année",
 	haloType: "Halocarbure",
-	haloQty: "Quantité (kg)",
+	haloQty: "Quantité de gaz (kg)",
 	weight: "Poids de l'unité (kg)",
 	serialNumber: "Numéro de série",
 	provenance: "Provenance",
@@ -129,9 +129,9 @@ export const unittype = {
 	serial: "Numéro de série",
 	unitType: "Type d'unité",
 	haloType: "Halocarbure",
-	quantity: "Quantité (kg)",
+	quantity: "Quantité de gaz (kg)",
 	onces: "en onces",
-	weight: "Poids (kg)",
+	weight: "Poids de l'unité (kg)",
 	alum1: "Aluminium cuivre (kg)",
 	alum2: "Aluminium domestique (kg)",
 	alum3: "Aluminium mixte (kg)",
@@ -226,7 +226,7 @@ export const process = {
 
 export const error = {
 	missing: "Les champs marqués d'une étoile* sont obligatoires",
-	nan: "Les poids doivent être en kg, ex. 0.153",
-	lessthanfive: "Le poids de gaz d'une unité doit être < 5 kg",
+	nan: "Le poids des unités doivent être en kg, ex. 0.153",
+	lessthanfive: "La quantité de gaz d'une unité doit être < 5 kg",
 	notank: "Aucune bonbonne de ce type : ",
 }
