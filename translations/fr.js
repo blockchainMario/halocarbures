@@ -90,6 +90,8 @@ export const tank = {
 	disposalEmployee: "Employé",
 	provider: "Fournisseur",
 	error: "Ceci n'est pas une bonbonne",
+	force: "Fermeture forcée",
+	exist: "Vous avez déjà une bonbonne de ",
 }
 
 export const bin = {
@@ -188,11 +190,13 @@ export const settings = {
 	mrc: "MRC",
 	section3: "MESURES",
 	scale: "Balances",
+	section4: "BONBONNES",
 	listcontent: "Table",
 	newitem: "Nouvel item",
 	additem: "Ajouter l'item ci-dessus",
 	addbrandmodel: "Ajouter un nouveau modèle",
 	editbrandmodel: "Modifier ce modèle",
+	opentanks: "Bonbonnes ouvertes",
 }
 
 export const process = {

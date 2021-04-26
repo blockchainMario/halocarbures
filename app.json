@@ -7,7 +7,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/images/haloIcon.png",
     "scheme": "myapp",
@@ -24,7 +24,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.semiosis.rivrav1",
-      "buildNumber": "1.0.6",
+      "buildNumber": "1.0.7",
       "supportsTablet": true
     },
     "android": {

@@ -104,8 +104,12 @@ class NewTankScreen extends Component {
       .then(res => {
         const tank = res.data;
         //alert(JSON.stringify(tank));
+        if (tank.type == "tankexist") {
+          alert(t("tank:exist")+this.state.haloType);
+        } else {
+          //alert("tank created!!");
+        }
         GLOBALS.UUID = "";
-        //navigation.navigate('Root');
         navigation.dispatch(StackActions.replace('Root'));
       })
       .catch((error) => {

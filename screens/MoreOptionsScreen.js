@@ -36,6 +36,14 @@ class MoreOptionsScreen extends Component {
           screen: 'BrandModels'
         },
     ]
+    
+    const list4 = [
+      {
+        title: t("settings:opentanks"),
+        icon: 'grid-on',
+        screen: 'OpenTanks'
+      },
+    ]
 
     const list2 = [
         {
@@ -99,7 +107,24 @@ class MoreOptionsScreen extends Component {
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => navigation.navigate('BrandModels')}
+                onPress={() => navigation.navigate(item.screen)}
+            />
+            ))
+        }
+        </View>
+
+        <NunitoText style={styles.subSection}>{t("settings:section4")}</NunitoText>
+
+        <View>
+        {
+            list4.map((item, i) => (
+            <ListItem
+                key={i}
+                title={item.title}
+                leftIcon={{ name: item.icon }}
+                bottomDivider
+                chevron
+                onPress={() => navigation.navigate(item.screen)}
             />
             ))
         }

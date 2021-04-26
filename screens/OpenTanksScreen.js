@@ -16,37 +16,43 @@ import { withTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator()
 
-class BrandModelsScreen extends Component {
+class OpenTanksScreen extends Component {
   state = {
-    brandModels: []
+    openTanks: []
   }
 
   componentDidMount() {
 
     //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/brandmodels/", {
+    axios.get("http://18.190.29.217:8080/opentanks/Coderr", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const aList = res.data.listContent.sort();
-        var brandModels = [];
-        aList.forEach(function(entry) {
-          brandModels.push({title: entry, icon: "", screen: "EditBrandModel"})
-        });
+        const openTanks = res.data;
+		openTanks.sort((a, b) => {
+			let fa = a.haloType+" - "+a.tankType+" - "+a.creationDate,
+				fb = b.haloType+" - "+b.tankType+" - "+b.creationDate;
+			if (fa < fb) {
+				return -1;
+			}
+			if (fa > fb) {
+				return 1;
+			}
+			return 0;
+		  });
         //alert(JSON.stringify(providerTable));
-        this.setState({brandModels: brandModels});
+        this.setState({openTanks: openTanks});
       })
       .catch((error) => {
-        alert("Erreur de connexion BrandModels : "+error)
+        alert("Erreur de connexion openTanks : "+error)
       })
   }
 
   render() {
     const { t } = this.props;
-
     const navigation = this.props.navigation;
     
   return (
@@ -54,31 +60,18 @@ class BrandModelsScreen extends Component {
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <NunitoText style={styles.subSection}>{t("settings:brandModel").toUpperCase()}</NunitoText>
-
-        <TouchableOpacity
-                    style={{
-                        margin: 10,
-                        borderRadius: 10,
-                        borderWidth: 0,
-                        backgroundColor: '#57b0e3',
-                        opacity: 1
-                    }}
-                    onPress={() => navigation.navigate('NewBrandModel')}
-                    >
-          <NunitoBoldText style={styles.textStyle}>{t("settings:addbrandmodel")}</NunitoBoldText>
-        </TouchableOpacity>
+        <NunitoText style={styles.subSection}>{t("settings:opentanks").toUpperCase()}</NunitoText>
 
         <View>
         {
-            this.state.brandModels.map((item, i) => (
+            this.state.openTanks.map((item, i) => (
             <ListItem
                 key={i}
-                title={item.title}
+                title={item.haloType+" - "+item.tankType+" - "+item.creationDate}
                 leftIcon={{ name: item.icon }}
                 bottomDivider
                 chevron
-                onPress={() => {GLOBALS.BRANDMODEL = item.title; navigation.navigate('BrandModel')}}
+                onPress={() => {GLOBALS.TYPE = "tank"; GLOBALS.UUID = item.tankId; navigation.navigate('ForceTank')}}
             />
             ))
         }
@@ -102,7 +95,7 @@ class BrandModelsScreen extends Component {
 }
 }
 
-BrandModelsScreen.navigationOptions = {
+OpenTanksScreen.navigationOptions = {
   header: null,
 };
 
@@ -214,4 +207,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(BrandModelsScreen);
+export default withTranslation()(OpenTanksScreen);

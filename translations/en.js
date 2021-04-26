@@ -90,6 +90,8 @@ export const tank = {
 	disposalEmployee: "Employee",
 	provider: "Provider",
 	error: "This is not a Tank",
+	force: "Force Closing",
+	exist: "A Tank is already open with ",
 }
 
 export const bin = {
@@ -188,11 +190,13 @@ export const settings = {
 	mrc: "MRC",
 	section3: "MESURES",
 	scale: "Weight Scales",
+	section4: "TANKS",
 	listcontent: "Table Content",
 	newitem: "New Item",
 	additem: "Add the item above",
 	addbrandmodel: "Add a New Model",
 	editbrandmodel: "Modify this Model",
+	opentanks: "Open Tanks",
 }
 
 export const process = {

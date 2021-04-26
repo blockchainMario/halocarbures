@@ -24,6 +24,8 @@ import UnitStoringScreen from './screens/UnitStoringScreen';
 import UnitDismantlingScreen from './screens/UnitDismantlingScreen';
 import TankFullScreen from './screens/TankFullScreen';
 import TankDisposalScreen from './screens/TankDisposalScreen';
+import OpenTanksScreen from './screens/OpenTanksScreen';
+import ForceTankScreen from './screens/ForceTankScreen';
 import BinFullScreen from './screens/BinFullScreen';
 import BinDisposalScreen from './screens/BinDisposalScreen';
 import ListContentScreen from './screens/ListContentScreen';
@@ -118,7 +120,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.6"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.7"}</NunitoText>
                       </View>
     </View>) : 
     (<View style={styles.container2}>
@@ -157,7 +159,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.6"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.7"}</NunitoText>
                       </View>
     </View>)
   );
@@ -346,6 +348,25 @@ const MyStack = ({navigation}) => {
         }
       }}
     />
+    <Stack.Screen name='ForceTank' component={ForceTankScreen}
+      options={{
+        title: GLOBALS.T("tank:force"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
     <Stack.Screen name='Bin' component={BinScreen}
       options={{
         title: GLOBALS.T("bin:title"),
@@ -501,6 +522,25 @@ const MyStack = ({navigation}) => {
     <Stack.Screen name='TankDisposal' component={TankDisposalScreen}
       options={{
         title: GLOBALS.T("tank:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='OpenTanks' component={OpenTanksScreen}
+      options={{
+        title: GLOBALS.T("settings:opentanks"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,
