@@ -12,7 +12,7 @@ export default class TaskList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://18.190.29.217:8080/tasks/'+this.props.date)
+    axios.get('http://18.190.29.217:8080/api/v1/tasks/'+this.props.date)
       .then(res => {
         const tasks = res.data;
         this.setState({ tasks: tasks });

@@ -1,5 +1,5 @@
 export default {
-    ENDPOINT : 'http://18.190.29.217:8080/',
+    ENDPOINT : 'http://18.190.29.217:8080/api/v1/',
     ORGANIZATION : 'Coderr',
     USERNAME : '',
     FULLNAME : '',

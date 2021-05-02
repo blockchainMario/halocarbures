@@ -22,7 +22,7 @@ export default class ProfessionalCard extends React.Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/comments/0')
+    //axios.get('http://18.190.29.217:8080/api/v1/comments/0')
     //alert(this.props.id);
     axios.get("https://v504.livia-parcoursdevie.fr/api/v1"+this.props.id, {
       headers: {

@@ -24,8 +24,8 @@ class ListContentScreen extends Component {
 
   componentDidMount() {
 
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/"+GLOBALS.TABLE, {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE,);
+    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -46,8 +46,8 @@ class ListContentScreen extends Component {
   }
 
   saveitem = (navigation) => {
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TABLE+"/"+this.state.newItem);
-    axios.get("http://18.190.29.217:8080/newitem/"+GLOBALS.TABLE+"/"+this.state.newItem
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE+"/"+this.state.newItem);
+    axios.get("http://18.190.29.217:8080/api/v1/newitem/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE+"/"+this.state.newItem
     , {
       headers: {
         'Accept': 'application/json',

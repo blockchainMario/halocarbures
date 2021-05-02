@@ -23,8 +23,8 @@ class OpenTanksScreen extends Component {
 
   componentDidMount() {
 
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/opentanks/Coderr", {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/opentanks/"+GLOBALS.ORGANIZATION, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

@@ -13,7 +13,7 @@ export default class ActivityList extends React.Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/comments/0')
+    //axios.get('http://18.190.29.217:8080/api/v1/comments/0')
     axios.get(GLOBALS.ENDPOINT+"/careplan/"+GLOBALS.RESIDENCYID+"/"+GLOBALS.RESIDENTID, {
       headers: {
         'Accept': 'application/json',

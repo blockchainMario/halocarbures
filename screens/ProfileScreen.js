@@ -30,8 +30,8 @@ export default class ProfileScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/profile/"+GLOBALS.USERNAME, {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/profile/"+GLOBALS.USERNAME, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -64,6 +64,7 @@ export default class ProfileScreen extends Component {
                         <NunitoText style={styles.name}>{this.state.profile.firstName+" "+this.state.profile.lastName}</NunitoText>
                         <NunitoText style={styles.info}>{this.state.profile.userName}</NunitoText>
                         <NunitoText style={styles.description}>{this.state.profile.jobName}</NunitoText>
+                        <NunitoText style={styles.info}>{this.state.profile.organization}</NunitoText>
                         <NunitoText style={styles.description}>{this.state.profile.userId}</NunitoText>
                     </View>
                 </View>

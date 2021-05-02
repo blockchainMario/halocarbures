@@ -18,7 +18,7 @@ export default class ProfessionalsScreen extends Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/comments/0')
+    //axios.get('http://18.190.29.217:8080/api/v1/comments/0')
     //axios.get("https://v504.livia-parcoursdevie.fr/api/v1/"+GLOBALS.DOCTOR
         const professionals = [ ];
         professionals.push(GLOBALS.DOCTOR);

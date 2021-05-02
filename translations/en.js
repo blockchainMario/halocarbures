@@ -64,7 +64,7 @@ export const unit = {
 	mrc: "MRC",
 	receptionDate: "Reception Date",
 	transporter: "Transport",
-	destinataire: "Organization",
+	destinataire: "Destination",
 	receptionEmployee: "Reception Employee",
 	degassingDate : "Degassing Date",
 	degassingEmployee: "Degassing Employee",

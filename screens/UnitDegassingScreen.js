@@ -46,7 +46,7 @@ class UnitDegassingScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({degassingDate: today});
 
-    axios.get("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    axios.get("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -65,9 +65,9 @@ class UnitDegassingScreen extends Component {
   savedegassing = (navigation, t) => {
     var valid = true;
     if (valid) {
-    //alert("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    //alert("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
     //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
-    axios.get("http://18.190.29.217:8080/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    axios.get("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
     +"/"+this.state.unit.haloType+"/"+this.state.unit.haloQty+"/"+this.state.degassingEmployee
     , {
       headers: {
@@ -97,7 +97,7 @@ class UnitDegassingScreen extends Component {
     const handleBarCodeScanned = ({ type, data }) => {
       this.setState({scanned: true});
 
-      axios.get("http://18.190.29.217:8080/qrcode/"+data, {
+      axios.get("http://18.190.29.217:8080/api/v1/qrcode/"+data, {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

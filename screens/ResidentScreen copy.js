@@ -24,7 +24,7 @@ export default class UnitScreen extends Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/resident/0')
+    //axios.get('http://18.190.29.217:8080/api/v1/resident/0')
     //alert("Bienvenue dans proximité");
 
   if (GLOBALS.BEARERTOKEN) {

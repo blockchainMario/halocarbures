@@ -61,8 +61,8 @@ class UpdateBrandModelScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/brandModel/"+GLOBALS.BRANDMODEL, {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/brandModel/"+GLOBALS.BRANDMODEL, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -77,8 +77,8 @@ class UpdateBrandModelScreen extends Component {
         alert("Erreur de connexion Unit : "+error)
       })
 
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/unitTypeTable", {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/unitTypeTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -97,8 +97,8 @@ class UpdateBrandModelScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-        //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-        axios.get("http://18.190.29.217:8080/list/haloTypeTable", {
+        //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/haloTypeTable", {
             headers: {
               'Accept': 'application/json',
               'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -162,7 +162,8 @@ class UpdateBrandModelScreen extends Component {
       const newThermo = (this.state.thermo.length == 0) ? this.state.brandModel.thermo : this.state.thermo;
       const newss304 = (this.state.ss304.length == 0) ? this.state.brandModel.ss304 : this.state.ss304;
       
-    axios.get("http://18.190.29.217:8080/updatebrandmodel/"+this.state.brandModel.brandModelId
+    axios.get("http://18.190.29.217:8080/api/v1/updatebrandmodel/"+GLOBALS.ORGANIZATION
+    +"/"+this.state.brandModel.brandModelId
     +"/"+newBrand+"/"+newModel
     +"/"+newUnitType+"/"+this.state.brandModel.fromYear+"/"+this.state.brandModel.toYear
     +"/"+newHaloType+"/"+newQuantity+"/"+newWeight

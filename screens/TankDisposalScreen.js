@@ -46,8 +46,8 @@ class TankDisposalScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({disposalDate: today});
 
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/list/providerTable", {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/providerTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -75,7 +75,7 @@ class TankDisposalScreen extends Component {
     }
     if (valid) {
       const newTicketId = (this.state.ticketId.length == 0) ? " " : this.state.ticketId;
-    axios.get("http://18.190.29.217:8080/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
+    axios.get("http://18.190.29.217:8080/api/v1/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
     +"/"+newTicketId
     +"/"+this.state.disposalEmployee+"/"+this.state.provider
     , {

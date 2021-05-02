@@ -46,8 +46,8 @@ class UnitStoringScreen extends Component {
   savestoring = (navigation, t) => {
     var valid = true;
     if (valid) {
-    //alert("http://18.190.29.217:8080/savestoring/"+GLOBALS.UUID+"/"+this.state.storingDate);
-    axios.get("http://18.190.29.217:8080/savestoring/"+GLOBALS.UUID+"/"+this.state.storingDate
+    //alert("http://18.190.29.217:8080/api/v1/savestoring/"+GLOBALS.UUID+"/"+this.state.storingDate);
+    axios.get("http://18.190.29.217:8080/api/v1/savestoring/"+GLOBALS.UUID+"/"+this.state.storingDate
     , {
       headers: {
         'Accept': 'application/json',

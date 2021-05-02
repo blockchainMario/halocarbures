@@ -30,8 +30,8 @@ class BrandModelScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/brandModel/"+GLOBALS.BRANDMODEL, {
+    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/brandModel/"+GLOBALS.BRANDMODEL, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

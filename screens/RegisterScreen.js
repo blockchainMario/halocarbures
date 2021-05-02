@@ -47,7 +47,7 @@ class RegisterScreen extends Component {
             //alert(this.state.organization+"/"+this.state.email+"/"+this.state.password
             //+"/"+this.state.firstName+"/"+this.state.lastName+"/"+this.state.jobName);
             //alert('SUCCESSFULLY WRITTEN');
-            axios.get("http://18.190.29.217:8080/saveprofile/"+this.state.email.toLowerCase()
+            axios.get("http://18.190.29.217:8080/api/v1/saveprofile/"+this.state.email.toLowerCase()
             +"/"+this.state.password+"/"+this.state.organization
             +"/"+this.state.firstName+"/"+this.state.lastName+"/"+this.state.jobName, {
               headers: {

@@ -46,8 +46,8 @@ class UnitDismantlingScreen extends Component {
   savedismantling = (navigation, t) => {
     var valid = true;
     if (valid) {
-    //alert("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
-    axios.get("http://18.190.29.217:8080/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
+    //alert("http://18.190.29.217:8080/api/v1/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate);
+    axios.get("http://18.190.29.217:8080/api/v1/savedismantling/"+GLOBALS.UUID+"/"+this.state.dismantlingDate
     , {
       headers: {
         'Accept': 'application/json',

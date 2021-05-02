@@ -31,8 +31,8 @@ class LoginScreen extends Component {
 
   onClickListener = (navigation) => {
     
-        //alert("http://18.190.29.217:8080/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-        axios.get("http://18.190.29.217:8080/profile/"+this.state.email.toLowerCase(), {
+        //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get("http://18.190.29.217:8080/api/v1/profile/"+this.state.email.toLowerCase(), {
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -48,6 +48,7 @@ class LoginScreen extends Component {
               if (this.state.profile.password == this.state.password) {
               GLOBALS.USERNAME = this.state.profile.userName;
               GLOBALS.FULLNAME = this.state.profile.firstName+" "+this.state.profile.lastName;
+              GLOBALS.ORGANIZATION = this.state.profile.organization;
               navigation.navigate('Root');
               } else {
                 alert(GLOBALS.T("login:unknown"));

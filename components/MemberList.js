@@ -13,7 +13,7 @@ export default class MemberList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://18.190.29.217:8080/members/'+GLOBALS.USERNAME)
+    axios.get('http://18.190.29.217:8080/api/v1/members/'+GLOBALS.USERNAME)
       .then(res => {
         const members = res.data;
         this.setState({ members: members });

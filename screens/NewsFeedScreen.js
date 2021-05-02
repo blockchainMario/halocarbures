@@ -18,7 +18,7 @@ export default class NewsFeedScreen extends Component {
   }
 
   componentDidMount() {
-    //axios.get('http://18.190.29.217:8080/comments/0')
+    //axios.get('http://18.190.29.217:8080/api/v1/comments/0')
     axios.get(GLOBALS.ENDPOINT+"/newsfeeds", {
       params: {
         'residencyId': GLOBALS.RESIDENCYID
