@@ -25,7 +25,7 @@ class ListContentScreen extends Component {
   componentDidMount() {
 
     //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE,);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE, {
+    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.TABLE, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

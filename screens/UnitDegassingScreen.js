@@ -67,7 +67,8 @@ class UnitDegassingScreen extends Component {
     if (valid) {
     //alert("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
     //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
-    axios.get("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    axios.get("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.ORGANIZATION
+    +"/"+GLOBALS.UUID+"/"+this.state.degassingDate
     +"/"+this.state.unit.haloType+"/"+this.state.unit.haloQty+"/"+this.state.degassingEmployee
     , {
       headers: {
