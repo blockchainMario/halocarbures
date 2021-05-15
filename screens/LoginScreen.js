@@ -49,7 +49,8 @@ class LoginScreen extends Component {
               GLOBALS.USERNAME = this.state.profile.userName;
               GLOBALS.FULLNAME = this.state.profile.firstName+" "+this.state.profile.lastName;
               GLOBALS.ORGANIZATION = this.state.profile.organization;
-              navigation.navigate('Root');
+              //navigation.navigate('Root');
+              navigation.dispatch(StackActions.replace('Root'));
               } else {
                 alert(GLOBALS.T("login:unknown"));
               }

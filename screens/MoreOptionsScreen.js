@@ -43,6 +43,11 @@ class MoreOptionsScreen extends Component {
         icon: 'grid-on',
         screen: 'OpenTanks'
       },
+      {
+        title: t("settings:fulltanks"),
+        icon: 'grid-on',
+        screen: 'FullTanks'
+      },
     ]
 
     const list2 = [

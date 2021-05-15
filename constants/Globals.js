@@ -10,5 +10,7 @@ export default {
     TYPE : '',
     TABLE : '',
     TABLENAME : '',
-    BRANDMODEL : ''
+    BRANDMODEL : '',
+    LASTBINTICKET : '',
+    LASTTANKTICKET : ''
 }

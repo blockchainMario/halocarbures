@@ -25,7 +25,9 @@ import UnitDismantlingScreen from './screens/UnitDismantlingScreen';
 import TankFullScreen from './screens/TankFullScreen';
 import TankDisposalScreen from './screens/TankDisposalScreen';
 import OpenTanksScreen from './screens/OpenTanksScreen';
+import FullTanksScreen from './screens/FullTanksScreen';
 import ForceTankScreen from './screens/ForceTankScreen';
+import ReopenTankScreen from './screens/ReopenTankScreen';
 import BinFullScreen from './screens/BinFullScreen';
 import BinDisposalScreen from './screens/BinDisposalScreen';
 import ListContentScreen from './screens/ListContentScreen';
@@ -104,11 +106,6 @@ function DrawerContent({navigation}) {
           onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
         />
         <ListItem 
-          title={GLOBALS.T("menu:howto")} 
-          chevron
-          onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
-        />
-        <ListItem 
           title={GLOBALS.T("menu:language")}
           chevron
           onPress={() => switchLanguage(navigation,'Login','en')}
@@ -120,7 +117,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.8"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.9"}</NunitoText>
                       </View>
     </View>) : 
     (<View style={styles.container2}>
@@ -143,11 +140,6 @@ function DrawerContent({navigation}) {
           onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
         />
         <ListItem 
-          title={GLOBALS.T("menu:howto")} 
-          chevron
-          onPress={()=>{ Linking.openURL('http://www.rivra.ca/')}}
-        />
-        <ListItem 
           title={GLOBALS.T("menu:language")}
           chevron
           onPress={() => switchLanguage(navigation,'Login','fr')}
@@ -159,7 +151,7 @@ function DrawerContent({navigation}) {
         />
       </View>
                       <View style={styles.line}>
-                        <NunitoText style={styles.label}>{"v1.0.8"}</NunitoText>
+                        <NunitoText style={styles.label}>{"v1.0.9"}</NunitoText>
                       </View>
     </View>)
   );
@@ -367,6 +359,25 @@ const MyStack = ({navigation}) => {
         }
       }}
     />
+    <Stack.Screen name='ReopenTank' component={ReopenTankScreen}
+      options={{
+        title: GLOBALS.T("tank:reopen"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
     <Stack.Screen name='Bin' component={BinScreen}
       options={{
         title: GLOBALS.T("bin:title"),
@@ -522,6 +533,25 @@ const MyStack = ({navigation}) => {
     <Stack.Screen name='TankDisposal' component={TankDisposalScreen}
       options={{
         title: GLOBALS.T("tank:title"),
+        headerStyle: {
+          backgroundColor: '#57b0e3',
+          height: 90,
+        },
+        headerTintColor: '#fff',
+        headerTitleContainerStyle: {
+          left: 0,
+          right: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18,
+          marginTop: -2,
+          marginLeft: headerShift
+        }
+      }}
+    />
+    <Stack.Screen name='FullTanks' component={FullTanksScreen}
+      options={{
+        title: GLOBALS.T("settings:fulltankstitle"),
         headerStyle: {
           backgroundColor: '#57b0e3',
           height: 90,

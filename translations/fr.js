@@ -44,6 +44,10 @@ export const infos = {
 	title: "Scan",
 }
 
+export const forms = {
+	title: "Formulaires",
+}
+
 export const unit = {
 	title: "Unité",
 	newunit: "Nouvelle unité",
@@ -83,6 +87,7 @@ export const tank = {
 	creationDate: "Date de création",
 	haloType: "Halocarbure",
 	haloQty: "Poids final (kg)",
+	missinggas: "Poids du gas restant (kg)",
 	partialQty: "Niveau actuel (kg)",
 	fullDate: "Plein en date du",
 	disposalDate: "Date de disposition",
@@ -91,6 +96,7 @@ export const tank = {
 	provider: "Fournisseur",
 	error: "Ceci n'est pas une bonbonne",
 	force: "Fermeture forcée",
+	reopen: "Réouverture forcée",
 	exist: "Vous avez déjà une bonbonne de ",
 }
 
@@ -152,6 +158,7 @@ export const unittype = {
 	thermo: "Thermomètres (kg)",
 	ss304: "s-s 304 (kg)",
 	savemodel: "Sauvegarder le modèle",
+	search: "Rechercher",
 }
 
 export const measure = {
@@ -162,10 +169,11 @@ export const measure = {
 }
 
 export const main = {
-	title: "Courant",
+	title: "Scan",
 	scantitle: "Scanner",
 	scan: "Scanner un autre code QR",
 	qrcode: "Code QR",
+	abort: "Annuler",
 }
 
 export const overview = {
@@ -197,6 +205,8 @@ export const settings = {
 	addbrandmodel: "Ajouter un nouveau modèle",
 	editbrandmodel: "Modifier ce modèle",
 	opentanks: "Bonbonnes ouvertes",
+	fulltanks: "Bonbonnes pleines mais non disposées",
+	fulltankstitle: "Bonbonnes pleines",
 }
 
 export const process = {
@@ -210,6 +220,7 @@ export const process = {
 	savereuse: "Sauvegarder pour réemploi",
 	viewunit: "Voir la description",
 	degassing: "Enregistrer le dégazage",
+	missinggas: "Enregistrer le dégazage partiel",
 	storing: "Entreposer l'unité",
 	dismantling: "Débuter le démantèlement",
 

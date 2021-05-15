@@ -77,6 +77,19 @@ class ScanScreen extends Component {
               <NunitoText style={styles.label}>{t("main:qrcode")} : </NunitoText>
               <NunitoBoldText style={styles.info}>{this.state.qrcode}</NunitoBoldText>
           </View>
+
+        <TouchableOpacity
+                style={{
+                  margin: 5,
+                  borderRadius: 10,
+                  borderWidth: 0,
+                  backgroundColor: '#a6ce39',
+                  opacity: 1
+                }}
+                onPress={() => {GLOBALS.UUID = ""; navigation.dispatch(StackActions.replace('Root'))}}
+          >
+            <NunitoBoldText style={styles.textStyle}>{t("main:abort")}</NunitoBoldText>
+          </TouchableOpacity>
      </ScrollView>
     </View>
     )

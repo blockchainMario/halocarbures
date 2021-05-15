@@ -76,6 +76,7 @@ class BinDisposalScreen extends Component {
     }
     if (valid) {
       const newTicketId = (this.state.ticketId.length == 0) ? " " : this.state.ticketId;
+      GLOBALS.LASTBINTICKET = newTicketId;
       axios.get("http://18.190.29.217:8080/api/v1/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
       +"/"+newTicketId
       +"/"+this.state.disposalEmployee+"/"+this.state.provider
@@ -117,6 +118,7 @@ class BinDisposalScreen extends Component {
                     <View>
                       <NunitoBoldText style={styles.label}>{t("bin:ticketId")}</NunitoBoldText>
                       <TextInput style={styles.field}
+                          defaultValue={GLOBALS.LASTBINTICKET}
                           placeholder={t("bin:ticketId")}
                           placeholderTextColor = "#57b0e3"
                           underlineColorAndroid='transparent'

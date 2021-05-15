@@ -44,6 +44,10 @@ export const infos = {
 	title: "Scan",
 }
 
+export const forms = {
+	title: "Forms",
+}
+
 export const unit = {
 	title: "Unit",
 	newunit: "New Unit",
@@ -83,6 +87,7 @@ export const tank = {
 	creationDate: "Creation Date",
 	haloType: "Halocarbon",
 	haloQty: "Final Weight (kg)",
+	missinggas: "Remaining Gas Weight (kg)",
 	partialQty: "Current Level (kg)",
 	fullDate: "Fill Date",
 	disposalDate: "Disposal Date",
@@ -91,6 +96,7 @@ export const tank = {
 	provider: "Provider",
 	error: "This is not a Tank",
 	force: "Force Closing",
+	reopen: "Force Reopening",
 	exist: "A Tank is already open with ",
 }
 
@@ -152,6 +158,7 @@ export const unittype = {
 	thermo: "Thermometers (kg)",
 	ss304: "s-s 304 (kg)",
 	savemodel: "Save the Model",
+	search: "Search",
 }
 
 export const measure = {
@@ -162,10 +169,11 @@ export const measure = {
 }
 
 export const main = {
-	title: "Current",
+	title: "Scan",
 	scantitle: "Scanner",
 	scan: "Scan another QR Code",
 	qrcode: "QR Code",
+	abort: "Cancel",
 }
 
 export const overview = {
@@ -197,6 +205,8 @@ export const settings = {
 	addbrandmodel: "Add a New Model",
 	editbrandmodel: "Modify this Model",
 	opentanks: "Open Tanks",
+	fulltanks: "Full Tanks (not disposed of)",
+	fulltankstitle: "Full Tanks",
 }
 
 export const process = {
@@ -210,6 +220,7 @@ export const process = {
 	savereuse: "Save the Unit for Reuse",
 	viewunit: "View Description",
 	degassing: "Record Degassing",
+	missinggas: "Unit received with less gaz",
 	storing: "Store the Unit",
 	dismantling: "Start Dismantling",
 

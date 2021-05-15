@@ -62,6 +62,48 @@ class UnitDegassingScreen extends Component {
       })
   }
 
+  savemissing = (navigation, t) => {
+    var valid = true;
+    if (this.state.haloQty.length == 0) {
+      valid = false;
+      alert(t("error:missing"));
+    }
+    if (isNaN(this.state.haloQty)) {
+      valid = false;
+      alert(t("error:nan"));
+    } else {
+      if (eval(this.state.haloQty) > 5) {
+        valid = false;
+        alert(t("error:lessthanfive"));
+      }
+    }
+    if (valid) {
+    //alert("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    //+"/"+this.state.haloQty+"/"+this.state.tankId+"/"+this.state.degassingEmployee);
+    axios.get("http://18.190.29.217:8080/api/v1/savedegassing/"+GLOBALS.ORGANIZATION
+    +"/"+GLOBALS.UUID+"/"+this.state.degassingDate
+    +"/"+this.state.unit.haloType+"/"+this.state.haloQty+"/"+this.state.degassingEmployee
+    , {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
+      }
+    })
+      .then(res => {
+        const tank = res.data;
+        //alert(JSON.stringify(tank));
+        if (tank.tankId == "0") {
+          alert(t("error:notank")+this.state.unit.haloType);
+        } else {
+          navigation.navigate('Root');
+        }
+      })
+      .catch((error) => {
+        alert("Erreur de connexion Degassing : "+error)
+      })
+    }
+  }
+
   savedegassing = (navigation, t) => {
     var valid = true;
     if (valid) {
@@ -149,6 +191,38 @@ class UnitDegassingScreen extends Component {
                     onPress={() => this.savedegassing(navigation, t)}
                     >
                         <NunitoBoldText style={styles.textStyle}>{t("process:degassing")}</NunitoBoldText>
+                  </TouchableOpacity>
+
+                    <View>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
+                    </View>
+
+                    <View>
+                      <NunitoBoldText style={styles.label}>{t("tank:missinggas")+"*"}</NunitoBoldText>
+                      <TextInput style={styles.field}
+                          defaultvalue={""}
+                          keyboardType='numeric'
+                          placeholder={t("tank:haloQty")}
+                          placeholderTextColor = "#57b0e3"
+                          underlineColorAndroid='transparent'
+                          onChangeText={(haloQty) => this.setState({haloQty})}
+                      />
+                    </View>
+
+                  <TouchableOpacity
+                    style={{
+                        margin: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        backgroundColor: '#57b0e3',
+                        opacity: 1
+                    }}
+                    onPress={() => this.savemissing(navigation, t)}
+                    >
+                        <NunitoBoldText style={styles.textStyle}>{t("process:missinggas")}</NunitoBoldText>
                   </TouchableOpacity>
 
                     <View>

@@ -5,10 +5,7 @@ import {
   Text,
   View,
   ScrollView,
-  TextInput,
   Image,
-  UIManager,
-  findNodeHandle,
   TouchableOpacity
 } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
@@ -27,58 +24,51 @@ import { withTranslation } from 'react-i18next';
 import * as english from "../translations/en";
 import * as french from "../translations/fr";
 
-import DropDownPicker from 'react-native-dropdown-picker';
-import { Platform } from 'react-native';
-
-class TankDisposalScreen extends Component {
+class ReopenTankScreen extends Component {
   state = {
-    unit: null,
-    disposalDate: "",
-    ticketId: "",
-    disposalEmployee: GLOBALS.FULLNAME,
-    provider: "",
-    providerTable: [],
+    tank: null,
+    fullDate: "",
+    /*
+		"tankId" : "7f9a293e-561a-4747-b459-034e767a5b36",
+		"tankType" : "Small",
+		"location" : "Degassing",
+		"haloType" : "R22",
+		"haloQty" : "12.3",
+		"fullDate" : "2020-05-01 13:15",
+		"departureDate" : "2020-05-14 8:15",
+		"ticketId" : "PS-1001",
+		"departureEmployee" : "99f642b1-7e9e-4165-9829-89f6876f6dd9",
+		"provider" : "PureSphéra"
+    */
   }
 
   componentDidMount() {
     var d = new Date();
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
-    this.setState({disposalDate: today});
-
+    this.setState({fullDate: today});
     //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/providerTable", {
+    axios.get("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
       }
     })
       .then(res => {
-        const aList = res.data.listContent.sort();
-        var providerTable = [];
-        aList.forEach(function(entry) {
-          providerTable.push({label: entry, value: entry})
-        });
-        //alert(JSON.stringify(providerTable));
-        this.setState({providerTable: providerTable});
+        const tank = res.data;
+        this.setState({ tank: tank });
+        //alert(JSON.stringify(unit));
       })
       .catch((error) => {
-        alert("Erreur de connexion Lists : "+error)
+        alert("Erreur de connexion Tank : "+error)
       })
   }
 
-  savetankdisposal = (navigation, t) => {
+  savetankfull = (navigation, t) => {
     var valid = true;
-    if (this.state.provider.length == 0) {
-      valid = false;
-      alert(t("error:missing"));
-    }
     if (valid) {
-      const newTicketId = (this.state.ticketId.length == 0) ? " " : this.state.ticketId;
-      GLOBALS.LASTTANKTICKET = newTicketId;
-    axios.get("http://18.190.29.217:8080/api/v1/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
-    +"/"+newTicketId
-    +"/"+this.state.disposalEmployee+"/"+this.state.provider
+    //alert("http://18.190.29.217:8080/api/v1/savefulltank/"+GLOBALS.UUID);
+    axios.get("http://18.190.29.217:8080/api/v1/reopentank/"+GLOBALS.UUID
     , {
       headers: {
         'Accept': 'application/json',
@@ -88,10 +78,10 @@ class TankDisposalScreen extends Component {
       .then(res => {
         const unit = res.data;
         //alert(JSON.stringify(unit));
-        navigation.navigate('Root');
+        navigation.dispatch(StackActions.replace('OpenTanks'));
       })
       .catch((error) => {
-        alert("Erreur de connexion Tank Disposal : "+error)
+        alert("Erreur de connexion Reopen : "+error)
       })
     }
   }
@@ -101,68 +91,67 @@ class TankDisposalScreen extends Component {
     const navigation = this.props.navigation;
 
     return (
+      (this.state.tank == null) ? (
+        <View style={styles.container}>
+          <NunitoText style={styles.info}>Loading...</NunitoText>
+        </View>
+      ) : (
       <View style={styles.container}>
         <ScrollView style={styles.container2} contentContainerStyle={styles.contentContainer2}>
           <View style={styles.container}>
             <Image style={styles.avatar}
               source={require('../assets/images/tank.jpg')}
             />
-            <View style={styles.body}>
-                <View style={styles.bodyContent}>
-                    <View style={styles.line}>
+              <View style={styles.body}>
+                  <View style={styles.bodyContent}>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:tankType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.tankType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:haloType")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.haloType}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:location")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.processLoc}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:creationDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.creationDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:partialQty")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.partialQty}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:fullDate")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.fullDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:haloQty")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.haloQty}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:disposalDate")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.disposalDate}</NunitoBoldText>
-                    </View>
-
-                    <View>
-                      <NunitoBoldText style={styles.label}>{t("tank:ticketId")}</NunitoBoldText>
-                      <TextInput style={styles.field}
-                          defaultValue={GLOBALS.LASTTANKTICKET}
-                          placeholder={t("tank:ticketId")}
-                          placeholderTextColor = "#57b0e3"
-                          underlineColorAndroid='transparent'
-                          onChangeText={(ticketId) => this.setState({ticketId})}
-                      />
-                    </View>
-
-                    <View style={styles.line}>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.disposalDate}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:ticketId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.ticketId}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
                         <NunitoText style={styles.label}>{t("tank:disposalEmployee")} : </NunitoText>
-                        <NunitoBoldText style={styles.info}>{this.state.disposalEmployee}</NunitoBoldText>
-                    </View>
-
-                    <View style={{ ...(Platform.OS !== 'android' && { zIndex: 10 }) }}>
-                      <NunitoBoldText style={styles.label}>{t("tank:provider")+"*"}</NunitoBoldText>
-                      <DropDownPicker
-                        dropDownMaxHeight={250}
-                        items={this.state.providerTable}
-                        defaultValue={this.state.provider}
-                        placeholder={t("tank:provider")}
-                        placeholderStyle={{color: '#57b0e3', marginLeft:0}}
-                        containerStyle={{height: 40, margin:10}}
-                        style={{backgroundColor: '#e9e9e9', borderColor: '#8B4B9D',
-                          borderTopLeftRadius: 0, borderTopRightRadius: 0,
-                          borderBottomLeftRadius: 0, borderBottomRightRadius: 0
-                        }}
-                        itemStyle={{
-                          justifyContent: 'flex-start', marginLeft:0
-                        }}
-                        dropDownStyle={{backgroundColor: '#e9e9e9'}}
-                        onChangeItem={item => this.setState({
-                            provider: item.value
-                        })}
-                      />
-                    </View>
-                    <View>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                      <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
-                    </View>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.disposalEmployee}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line}>
+                        <NunitoText style={styles.label}>{t("tank:provider")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.provider}</NunitoBoldText>
+                      </View>
+                      <View style={styles.line2}>
+                        <NunitoText style={styles.label}>{t("tank:tankId")} : </NunitoText>
+                        <NunitoBoldText style={styles.info}>{this.state.tank.tankId}</NunitoBoldText>
+                      </View>
 
                     <TouchableOpacity
                     style={{
@@ -172,9 +161,9 @@ class TankDisposalScreen extends Component {
                         backgroundColor: '#57b0e3',
                         opacity: 1
                     }}
-                    onPress={() => this.savetankdisposal(navigation, t)}
+                    onPress={() => this.savetankfull(navigation, t)}
                     >
-                        <NunitoBoldText style={styles.textStyle}>{t("process:tankdisposal")}</NunitoBoldText>
+                        <NunitoBoldText style={styles.textStyle}>{t("tank:reopen")}</NunitoBoldText>
                   </TouchableOpacity>
 
                     <View>
@@ -188,26 +177,27 @@ class TankDisposalScreen extends Component {
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                       <NunitoBoldText style={styles.pad}>{"pad"}</NunitoBoldText>
                     </View>
+                  </View>
               </View>
-            </View>
           </View>
        </ScrollView>
       </View>
-    );
+    )
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  pad:{
-    fontSize: 20,
-    color: '#e9e9e9',
-  },
-  textStyle: {
-    textAlign: "center",
-    padding: 5,
-    fontSize: 20,
-    color: "white"
-  },
+    pad:{
+      fontSize: 20,
+      color: '#e9e9e9',
+    },
+    textStyle: {
+      textAlign: "center",
+      padding: 5,
+      fontSize: 20,
+      color: "white"
+    },
   container: {
     flex: 1,
     backgroundColor: '#e9e9e9',
@@ -233,7 +223,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:10
+    marginTop:0
   },
   body:{
     marginTop: 140,
@@ -253,6 +243,9 @@ const styles = StyleSheet.create({
   line: {
     flexDirection:'row',
   },
+  line2: {
+    flexDirection:'column',
+  },
   label:{
     fontSize:16,
     color: "#3e444c",
@@ -263,13 +256,6 @@ const styles = StyleSheet.create({
     color: "black",
     marginTop:5,
     marginLeft:15
-  },
-  field:{
-    margin: 10,
-    height: 40,
-    padding: 10,
-    borderColor: '#3e444c',
-    borderWidth: 1
   },
   info:{
     fontSize:16,
@@ -295,5 +281,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(TankDisposalScreen);
+export default withTranslation()(ReopenTankScreen);
  

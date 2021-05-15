@@ -21,8 +21,8 @@ function getHeaderTitle(route, t) {
   switch (routeName) {
     case 'Main':
       return t("main:title");
-    case 'Transfer':
-      return t("transfer:title");
+    case 'Forms':
+      return t("forms:title");
     case 'MoreOptions':
       return t("settings:title");
   }
@@ -45,10 +45,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Transfer"
+        name="Forms"
         component={TransferScreen}
         options={{
-          title: t("transfer:title"),
+          title: t("forms:title"),
           tabBarIcon: ({ focused }) => <MaterialCommunityIcons focused={focused} name="truck" size={24} />,
         }}
       />
