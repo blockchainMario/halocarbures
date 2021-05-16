@@ -30,8 +30,8 @@ export default class ProfileScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/profile/"+GLOBALS.USERNAME, {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"profile/"+GLOBALS.USERNAME, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

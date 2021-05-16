@@ -42,8 +42,8 @@ class TankScreen extends Component {
   }
 
   componentDidMount() {
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

@@ -47,8 +47,8 @@ class TransferScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({transferDate: today});
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/providerTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/providerTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -76,8 +76,8 @@ class TransferScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-    //alert("http://18.190.29.217:8080/api/v1/savetransfer/"+GLOBALS.UUID+"/"+this.state.transferDate);
-    axios.get("http://18.190.29.217:8080/api/v1/savetransfer/"+GLOBALS.ORGANIZATION+"/"+this.state.transferDate+"/"+this.state.provider
+    //alert(GLOBALS.ENDPOINT+"savetransfer/"+GLOBALS.UUID+"/"+this.state.transferDate);
+    axios.get(GLOBALS.ENDPOINT+"savetransfer/"+GLOBALS.ORGANIZATION+"/"+this.state.transferDate+"/"+this.state.provider
     +"/"+this.state.fridge10less+"/"+this.state.fridge10more+"/"+this.state.freezer10less+"/"+this.state.freezer10more
     +"/"+this.state.transferEmployee
     , {

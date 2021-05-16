@@ -46,8 +46,8 @@ class BinDisposalScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({disposalDate: today});
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/providerTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/providerTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -61,6 +61,8 @@ class BinDisposalScreen extends Component {
         });
         //alert(JSON.stringify(providerTable));
         this.setState({providerTable: providerTable});
+        //alert(GLOBALS.LASTBINTICKET+'/'+GLOBALS.LASTBINPROVIDER);
+        this.setState({provider: GLOBALS.LASTBINPROVIDER});
       })
       .catch((error) => {
         alert("Erreur de connexion Lists : "+error)
@@ -75,11 +77,13 @@ class BinDisposalScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-      const newTicketId = (this.state.ticketId.length == 0) ? " " : this.state.ticketId;
+      const newTicketId = (this.state.ticketId.length == 0) ? GLOBALS.LASTBINTICKET : this.state.ticketId;
+      const newProvider = (this.state.provider.length == 0) ? GLOBALS.LASTBINPROVIDER : this.state.provider;
       GLOBALS.LASTBINTICKET = newTicketId;
-      axios.get("http://18.190.29.217:8080/api/v1/savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
+      GLOBALS.LASTBINPROVIDER = newProvider;
+      axios.get(GLOBALS.ENDPOINT+"savebindisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
       +"/"+newTicketId
-      +"/"+this.state.disposalEmployee+"/"+this.state.provider
+      +"/"+this.state.disposalEmployee+"/"+newProvider
       , {
         headers: {
           'Accept': 'application/json',
@@ -136,7 +140,6 @@ class BinDisposalScreen extends Component {
                       <DropDownPicker
                         dropDownMaxHeight={250}
                         items={this.state.providerTable}
-                        defaultValue={this.state.provider}
                         placeholder={t("bin:provider")}
                         placeholderStyle={{color: '#57b0e3', marginLeft:0}}
                         containerStyle={{height: 40, margin:10}}
@@ -148,6 +151,7 @@ class BinDisposalScreen extends Component {
                           justifyContent: 'flex-start', marginLeft:0
                         }}
                         dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        defaultValue={this.state.provider}
                         onChangeItem={item => this.setState({
                             provider: item.value
                         })}

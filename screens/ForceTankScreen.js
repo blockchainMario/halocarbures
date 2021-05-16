@@ -47,8 +47,8 @@ class ForceTankScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({fullDate: today});
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -67,8 +67,8 @@ class ForceTankScreen extends Component {
   savetankfull = (navigation, t) => {
     var valid = true;
     if (valid) {
-    //alert("http://18.190.29.217:8080/api/v1/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.tank.partialQty);
-    axios.get("http://18.190.29.217:8080/api/v1/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.tank.partialQty
+    //alert(GLOBALS.ENDPOINT+"savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.tank.partialQty);
+    axios.get(GLOBALS.ENDPOINT+"savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.tank.partialQty
     , {
       headers: {
         'Accept': 'application/json',

@@ -53,11 +53,11 @@ class NursingHomeScreen extends Component {
       if (this.state.message.length < 1) {
         Alert.alert(t("app:name"),t("residency:warning"));
       } else {
-        //alert("http://18.190.29.217:8080/api/v1/sendMsg/"+GLOBALS.LANGUAGE+"/"+GLOBALS.USERNAME+"/"+GLOBALS.FULLNAME+"/"+GLOBALS.RESIDENTNAME+"/"+GLOBALS.RESIDENTUNIT+"/"+this.state.message);
+        //alert(GLOBALS.ENDPOINT+"sendMsg/"+GLOBALS.LANGUAGE+"/"+GLOBALS.USERNAME+"/"+GLOBALS.FULLNAME+"/"+GLOBALS.RESIDENTNAME+"/"+GLOBALS.RESIDENTUNIT+"/"+this.state.message);
         axios({
           method: 'get',
           //app.get('/sendMsg/:lang/:user/:from/:about/:unit/:text', (req, res) => {
-          url: "http://18.190.29.217:8080/api/v1/sendMsg/"+GLOBALS.LANGUAGE+"/"+GLOBALS.USERNAME+"/"+GLOBALS.FULLNAME+"/"+GLOBALS.RESIDENTNAME+"/"+GLOBALS.RESIDENTUNIT+"/"+this.state.message
+          url: GLOBALS.ENDPOINT+"sendMsg/"+GLOBALS.LANGUAGE+"/"+GLOBALS.USERNAME+"/"+GLOBALS.FULLNAME+"/"+GLOBALS.RESIDENTNAME+"/"+GLOBALS.RESIDENTUNIT+"/"+this.state.message
         }).then(res => {
           this.setState({ message: ""});
           Alert.alert("proximité",aText);

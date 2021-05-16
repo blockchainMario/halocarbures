@@ -46,8 +46,8 @@ class NewTankScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({creationDate: today});
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/tankTypeTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/tankTypeTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -66,8 +66,8 @@ class NewTankScreen extends Component {
           alert("Erreur de connexion Lists : "+error)
         })
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/haloTypeTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/haloTypeTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -94,8 +94,8 @@ class NewTankScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-    //alert("http://18.190.29.217:8080/api/v1/savetank/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
-    axios.get("http://18.190.29.217:8080/api/v1/savetank/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
+    //alert(GLOBALS.ENDPOINT+"savetank/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType);
+    axios.get(GLOBALS.ENDPOINT+"savetank/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID+"/"+this.state.creationDate+"/"+this.state.tankType+"/"+this.state.haloType, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

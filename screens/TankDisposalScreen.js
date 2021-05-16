@@ -46,8 +46,8 @@ class TankDisposalScreen extends Component {
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({disposalDate: today});
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/providerTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/providerTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -61,6 +61,7 @@ class TankDisposalScreen extends Component {
         });
         //alert(JSON.stringify(providerTable));
         this.setState({providerTable: providerTable});
+        this.setState({provider: GLOBALS.LASTTANKPROVIDER});
       })
       .catch((error) => {
         alert("Erreur de connexion Lists : "+error)
@@ -74,11 +75,13 @@ class TankDisposalScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-      const newTicketId = (this.state.ticketId.length == 0) ? " " : this.state.ticketId;
+      const newTicketId = (this.state.ticketId.length == 0) ? GLOBALS.LASTTANKTICKET : this.state.ticketId;
+      const newProvider = (this.state.provider.length == 0) ? GLOBALS.LASTTANKPROVIDER : this.state.provider;
       GLOBALS.LASTTANKTICKET = newTicketId;
-    axios.get("http://18.190.29.217:8080/api/v1/savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
+      GLOBALS.LASTTANKPROVIDER = newProvider;
+    axios.get(GLOBALS.ENDPOINT+"savetankdisposal/"+GLOBALS.UUID+"/"+this.state.disposalDate
     +"/"+newTicketId
-    +"/"+this.state.disposalEmployee+"/"+this.state.provider
+    +"/"+this.state.disposalEmployee+"/"+newProvider
     , {
       headers: {
         'Accept': 'application/json',
@@ -147,6 +150,7 @@ class TankDisposalScreen extends Component {
                           justifyContent: 'flex-start', marginLeft:0
                         }}
                         dropDownStyle={{backgroundColor: '#e9e9e9'}}
+                        defaultValue={this.state.provider}
                         onChangeItem={item => this.setState({
                             provider: item.value
                         })}

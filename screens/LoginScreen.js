@@ -31,8 +31,8 @@ class LoginScreen extends Component {
 
   onClickListener = (navigation) => {
     
-        //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-        axios.get("http://18.190.29.217:8080/api/v1/profile/"+this.state.email.toLowerCase(), {
+        //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get(GLOBALS.ENDPOINT+"profile/"+this.state.email.toLowerCase(), {
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

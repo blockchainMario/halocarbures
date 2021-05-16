@@ -44,8 +44,8 @@ class MainScreen extends Component {
 
       if (GLOBALS.UUID.length > 0) {
       
-        //alert("http://18.190.29.217:8080/api/v1/qrcode/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID);
-        axios.get("http://18.190.29.217:8080/api/v1/qrcode/"+GLOBALS.UUID, {
+        //alert(GLOBALS.ENDPOINT+"qrcode/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID);
+        axios.get(GLOBALS.ENDPOINT+"qrcode/"+GLOBALS.UUID, {
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -57,8 +57,8 @@ class MainScreen extends Component {
             this.setState({type: answer.type});
             GLOBALS.TYPE = answer.type;
             if (answer.type != "unknown") {
-              //axios.get("http://18.190.29.217:8080/api/v1/"+GLOBALS.ORGANIZATION+"/"+answer.type+"/"+GLOBALS.UUID, {
-              axios.get("http://18.190.29.217:8080/api/v1/"+answer.type+"/"+GLOBALS.UUID, {
+              //axios.get(GLOBALS.ENDPOINT+GLOBALS.ORGANIZATION+"/"+answer.type+"/"+GLOBALS.UUID, {
+              axios.get(GLOBALS.ENDPOINT+answer.type+"/"+GLOBALS.UUID, {
                 headers: {
                   'Accept': 'application/json',
                   'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

@@ -23,8 +23,8 @@ class FullTanksScreen extends Component {
 
   componentDidMount() {
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/fulltanks/"+GLOBALS.ORGANIZATION, {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"fulltanks/"+GLOBALS.ORGANIZATION, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

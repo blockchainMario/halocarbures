@@ -62,8 +62,8 @@ class NewUnitScreen extends Component {
     //today = today.toISOString().split('T')[0]+" "+today.toISOString().split('T')[1].slice(0,5);
     var today = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
     this.setState({receptionDate: today});
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/provenanceTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/provenanceTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -82,8 +82,8 @@ class NewUnitScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/transporterTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/transporterTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -102,8 +102,8 @@ class NewUnitScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/brandModels", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"brandModels", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -122,8 +122,8 @@ class NewUnitScreen extends Component {
           alert("Erreur de connexion brandModelTable : "+error)
         })
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/yearTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/yearTable", {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -142,8 +142,8 @@ class NewUnitScreen extends Component {
           alert("Erreur de connexion Lists : "+error)
         })
 
-        //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-        axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/providerTable", {
+        //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/providerTable", {
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -171,10 +171,10 @@ class NewUnitScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-      //alert("http://18.190.29.217:8080/api/v1/saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
+      //alert(GLOBALS.ENDPOINT+"saveunit/"+GLOBALS.UUID+"/"+this.state.receptionDate
       //+"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
       //+"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee);
-    axios.get("http://18.190.29.217:8080/api/v1/saveunit/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID+"/"+this.state.receptionDate
+    axios.get(GLOBALS.ENDPOINT+"saveunit/"+GLOBALS.ORGANIZATION+"/"+GLOBALS.UUID+"/"+this.state.receptionDate
     +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
     +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee
     , {
@@ -204,7 +204,7 @@ class NewUnitScreen extends Component {
       alert(t("error:missing"));
     }
     if (valid) {
-    axios.get("http://18.190.29.217:8080/api/v1/savereuse/"+GLOBALS.UUID+"/"+this.state.receptionDate
+    axios.get(GLOBALS.ENDPOINT+"savereuse/"+GLOBALS.UUID+"/"+this.state.receptionDate
     +"/"+this.state.brandModel+"/"+this.state.year+"/"+this.state.serialNumber
     +"/"+this.state.provenance+"/"+this.state.transporter+"/"+this.state.receptionEmployee
     +"/"+this.state.provider
@@ -233,8 +233,8 @@ class NewUnitScreen extends Component {
 
     const getbrandmodel = (selection) => {
       this.setState({ brandModel: selection });
-      //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-      axios.get("http://18.190.29.217:8080/api/v1/brandModel/"+selection, {
+      //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+      axios.get(GLOBALS.ENDPOINT+"brandModel/"+selection, {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN

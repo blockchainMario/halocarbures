@@ -55,8 +55,8 @@ class TankFullScreen extends Component {
       alert(t("error:nan"));
     }
     if (valid) {
-    //alert("http://18.190.29.217:8080/api/v1/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty);
-    axios.get("http://18.190.29.217:8080/api/v1/savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty
+    //alert(GLOBALS.ENDPOINT+"savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty);
+    axios.get(GLOBALS.ENDPOINT+"savefulltank/"+GLOBALS.UUID+"/"+this.state.fullDate+"/"+this.state.haloQty
     , {
       headers: {
         'Accept': 'application/json',

@@ -62,8 +62,8 @@ class NewBrandModelScreen extends Component {
 
   componentDidMount() {
 
-    //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-    axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/unitTypeTable", {
+    //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+    axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/unitTypeTable", {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -82,8 +82,8 @@ class NewBrandModelScreen extends Component {
         alert("Erreur de connexion Lists : "+error)
       })
 
-        //alert("http://18.190.29.217:8080/api/v1/"+GLOBALS.TYPE+"/"+GLOBALS.UUID);
-        axios.get("http://18.190.29.217:8080/api/v1/list/"+GLOBALS.ORGANIZATION+"/haloTypeTable", {
+        //alert(GLOBALS.ENDPOINT+GLOBALS.TYPE+"/"+GLOBALS.UUID);
+        axios.get(GLOBALS.ENDPOINT+"list/"+GLOBALS.ORGANIZATION+"/haloTypeTable", {
             headers: {
               'Accept': 'application/json',
               'Authorization': 'Bearer '+GLOBALS.BEARERTOKEN
@@ -146,7 +146,7 @@ class NewBrandModelScreen extends Component {
       const newThermo = (this.state.thermo.length == 0) ? "0" : this.state.thermo;
       const newss304 = (this.state.ss304.length == 0) ? "0" : this.state.ss304;
       
-    axios.get("http://18.190.29.217:8080/api/v1/savebrandmodel/"+GLOBALS.ORGANIZATION
+    axios.get(GLOBALS.ENDPOINT+"savebrandmodel/"+GLOBALS.ORGANIZATION
     +"/"+newBrand+"/"+newModel
     +"/"+this.state.unitType+"/"+this.state.fromYear+"/"+this.state.toYear
     +"/"+this.state.haloType+"/"+this.state.quantity+"/"+newWeight

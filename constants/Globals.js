@@ -12,5 +12,7 @@ export default {
     TABLENAME : '',
     BRANDMODEL : '',
     LASTBINTICKET : '',
-    LASTTANKTICKET : ''
+    LASTBINPROVIDER : '',
+    LASTTANKTICKET : '',
+    LASTTANKPROVIDER : ''
 }
